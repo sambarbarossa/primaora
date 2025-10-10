@@ -10,17 +10,30 @@
 
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap');
-        body{font-family:'Roboto',sans-serif;color:#333;margin:0;padding:2rem;display:flex;flex-direction:column;align-items:center}#background-video{position:fixed;left:0;bottom:0;min-width:100%;min-height:100%;width:auto;height:auto;z-index:-100;object-fit:cover}.controls-container{display:flex;gap:10px;margin-bottom:1rem;background-color:rgba(255,255,255,.2);backdrop-filter:blur(10px);padding:.5rem 1rem;border-radius:8px}.controls-container button{padding:8px 15px;border-radius:5px;border:1px solid #fff;background-color:#2c3e50;color:#fff;font-weight:700;cursor:pointer;transition:background-color .2s}.controls-container button:hover{background-color:#34495e}.day-selector{display:flex;justify-content:center;flex-wrap:wrap;margin-bottom:2rem;background-color:rgba(255,255,255,.2);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);padding:1rem;border-radius:8px;box-shadow:0 2px 10px rgba(0,0,0,.05)}.day-selector button{backdrop-filter:blur(5px);-webkit-backdrop-filter:blur(5px);border:1px solid rgba(255,255,255,.8);border-radius:5px;padding:10px 15px;margin:5px;font-size:.9rem;cursor:pointer;transition:background-color .2s,color .2s,border-color .2s;color:#fff;font-weight:700}.day-color-0{background-color:rgba(255,179,186,.7)}.day-color-1{background-color:rgba(255,223,186,.7)}.day-color-2{background-color:rgba(255,255,186,.7)}.day-color-3{background-color:rgba(186,255,201,.7)}.day-color-4{background-color:rgba(186,225,255,.7)}.day-color-5{background-color:rgba(215,186,255,.7)}.day-color-6{background-color:rgba(255,186,236,.7)}.day-selector button.active{background-color:#2c3e50;color:#fff;border-color:#fff}
-        .kanban-board{display:flex;flex-direction:column;align-items:center;gap:1rem;width:100%;max-width:1200px}
-        .columns-container{display:flex;gap:2rem;justify-content:center;width:100%}
+        body{font-family:'Roboto',sans-serif;color:#333;margin:0;padding:2rem;display:flex;flex-direction:column;align-items:center}#background-video{position:fixed;left:0;bottom:0;min-width:100%;min-height:100%;width:auto;height:auto;z-index:-100;object-fit:cover}.controls-container{display:flex;gap:10px;margin-bottom:1rem;background-color:rgba(255,255,255,.2);backdrop-filter:blur(10px);padding:.5rem 1rem;border-radius:8px}.controls-container button{padding:8px 15px;border-radius:5px;border:1px solid #fff;background-color:#2c3e50;color:#fff;font-weight:700;cursor:pointer;transition:background-color .2s}.controls-container button:hover{background-color:#34495e}
+        
+        /* MODIFICA: Layout dell'header corretto per tenere gli elementi affiancati */
+        .header-container{
+            display: flex;
+            justify-content: center; /* Centra il contenuto orizzontalmente */
+            align-items: center;
+            width: 100%;
+            max-width: 1500px; /* Allineato alla larghezza massima della bacheca */
+            margin-bottom: 1.5rem;
+            gap: 2rem; /* Spazio tra il campo autore e i giorni */
+        }
+        
+        .day-selector{display:flex;justify-content:center;flex-wrap:wrap;background-color:rgba(255,255,255,.2);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);padding:1rem;border-radius:8px;box-shadow:0 2px 10px rgba(0,0,0,.05);flex-grow:1}.day-selector button{backdrop-filter:blur(5px);-webkit-backdrop-filter:blur(5px);border:1px solid rgba(255,255,255,.8);border-radius:5px;padding:10px 15px;margin:5px;font-size:.9rem;cursor:pointer;transition:background-color .2s,color .2s,border-color .2s;color:#fff;font-weight:700}.day-color-0{background-color:rgba(255,179,186,.7)}.day-color-1{background-color:rgba(255,223,186,.7)}.day-color-2{background-color:rgba(255,255,186,.7)}.day-color-3{background-color:rgba(186,255,201,.7)}.day-color-4{background-color:rgba(186,225,255,.7)}.day-color-5{background-color:rgba(215,186,255,.7)}.day-color-6{background-color:rgba(255,186,236,.7)}.day-selector button.active{background-color:#2c3e50;color:#fff;border-color:#fff}
+        .daily-author-container{display:flex;align-items:center;gap:10px;background-color:rgba(0,0,0,.2);padding:10px 15px;border-radius:8px;flex-shrink:0}.daily-author-container label{font-weight:700;color:#fff;text-shadow:1px 1px 2px #000}.author-input{padding:8px;border-radius:5px;border:1px solid #777;width:150px}
+        .kanban-board{display:flex;gap:2rem;justify-content:center;width:100%;max-width:1400px}
         .column{background:rgba(255,255,255,.1);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,.2);padding:1.5rem;border-radius:8px;width:300px;min-height:500px;box-shadow:0 4px 30px rgba(0,0,0,.1);display:flex;flex-direction:column}.column.done-column{width:250px}.column-header{font-size:1.5rem;font-weight:700;margin-bottom:1rem;color:#eee;text-shadow:1px 1px 3px rgba(0,0,0,.4);text-align:center}.add-task{display:flex;margin-bottom:1rem}.add-task input{flex-grow:1;padding:10px;border:1px solid #ccc;border-radius:5px;font-size:.9rem}.add-task button{padding:10px 15px;border:none;background-color:#2c3e50;color:#fff;border-radius:5px;margin-left:5px;cursor:pointer;font-size:.9rem}.task-list{flex-grow:1;overflow-y:auto;position:relative;min-height:100px}.task-card{background:rgba(255,255,255,.2);padding:1rem;border-radius:5px;margin-bottom:1rem;cursor:grab;box-shadow:0 1px 3px rgba(0,0,0,.1);transition:transform .2s ease-in-out,box-shadow .2s ease-in-out;position:relative}.task-card:active{cursor:grabbing}.task-card.dragging{opacity:.5;box-shadow:0 4px 15px rgba(0,0,0,.2);transform:scale(1.05)}
         .task-card.done{background:rgba(46,204,113,.2);color:#333}.task-card.done h4{text-decoration:none;color:#c0392b}
         .task-card.done .task-buttons{display:none}.task-card.done .content-tags button{opacity:.5;pointer-events:none}.task-card-header{display:flex;justify-content:space-between;align-items:center}.task-card h4{margin:0 0 .5rem;font-size:1.1rem;color:#c0392b;flex-grow:1;cursor:text}.task-card h4[contenteditable=true]{background-color:rgba(255,255,255,.8);outline:2px solid #3498db;border-radius:3px;padding:2px 4px;margin:-2px -4px .5rem -4px;color:#333}.info-field-container{margin-top:10px}.info-field-container label{font-size:.9rem;font-weight:700;color:#444;display:block;margin-bottom:5px}.info-field{width:calc(100% - 10px);padding:5px;border:1px solid #ccc;border-radius:3px;font-size:.9rem;resize:vertical;font-family:inherit}.task-card .task-buttons{display:flex;justify-content:space-between;margin-top:1rem}.task-card .task-buttons button,.minimize-btn{background:0 0;border:none;cursor:pointer;font-size:1.2rem;color:#333;transition:color .2s}.minimize-btn{font-size:1rem;margin-left:10px;padding:0 5px}.task-card .task-buttons button:hover,.minimize-btn:hover{color:#000}.task-card.minimized .task-body{display:none}.task-card.minimized h4{margin-bottom:0}.content-tags{display:flex;flex-wrap:wrap;align-items:center}
         .content-tags button{padding:5px 10px;border-radius:20px;border:none;cursor:pointer;color:#fff;font-size:.8rem;margin-right:5px;margin-bottom:5px;opacity:.3;transition:opacity .2s,filter .2s;filter:grayscale(60%)}.content-tags button.active{opacity:1;filter:grayscale(0%)}
         .content-tags .foto{background-color:#ff6347}.content-tags .video{background-color:#4682b4}.content-tags .grafico{background-color:#3cb371}.content-tags .titolo{background-color:#ffa500}.content-tags .cartina{background-color:#a0522d}.project-tag{padding:5px 10px;border-radius:20px;border:1px solid #ccc;cursor:pointer;font-size:.8rem;margin-right:5px;margin-bottom:5px;background-color:#2c3e50;color:#fff}
-        .daily-author-container{display:flex;align-items:center;gap:10px;background-color:rgba(0,0,0,.2);padding:10px 15px;border-radius:8px;width:100%;max-width:400px}.daily-author-container label{font-weight:700;color:#fff;text-shadow:1px 1px 2px #000}.author-input{flex-grow:1;padding:8px;border-radius:5px;border:1px solid #777}
         .location-container h5{margin:.8rem 0 .5rem;font-size:1rem;color:#444}.location-buttons{display:flex;gap:10px;margin-bottom:.5rem}.location-btn{padding:5px 10px;font-size:.8rem;border-radius:5px;border:1px solid #aaa;background-color:#eee;cursor:pointer}.location-btn.active{background-color:#3498db;color:#fff;border-color:#3498db}
-        @media (max-width:900px){.kanban-board{flex-direction:column;align-items:center}.column{width:100%;max-width:400px;margin-bottom:20px}.columns-container{flex-direction:column;align-items:center;width:100%;gap:1rem}}
+        @media (max-width:1300px){.kanban-board{flex-direction:column;align-items:center}}
+        @media (max-width:900px){.kanban-board{flex-direction:column;align-items:center}.column{width:100%;max-width:400px;margin-bottom:20px}.header-container{flex-direction:column;align-items:stretch}}
     </style>
 </head>
 <body>
@@ -41,10 +54,18 @@
         <input type="file" id="import-file-input" accept=".json" style="display: none;">
     </div>
 
-    <div class="day-selector" id="day-selector"></div>
+    <div class="header-container">
+        <div class="daily-author-container">
+            <label for="author-input">Autore:</label>
+            <input type="text" id="author-input" class="author-input" placeholder="Nome autore...">
+        </div>
+        <div class="day-selector" id="day-selector"></div>
+    </div>
+    
     <div id="kanban-container"></div>
     
     <script>
+        // Il codice Javascript da qui in poi è rimasto invariato
         document.addEventListener('DOMContentLoaded', () => {
             const daysToDisplay = 8;
             generateDaySelectors(daysToDisplay);
@@ -126,27 +147,30 @@
                 button.classList.add(`day-color-${day.getDay()}`);
                 button.addEventListener('click', () => switchDay(dateString));
                 selectorContainer.appendChild(button);
+
                 const kanbanBoard = document.createElement('div');
                 kanbanBoard.id = `board-${dateString}`;
                 kanbanBoard.className = 'kanban-board';
                 kanbanBoard.style.display = 'none';
                 kanbanBoard.innerHTML = `
-                    <div class="daily-author-container">
-                        <label for="author-input-${dateString}">Autore:</label>
-                        <input type="text" id="author-input-${dateString}" class="author-input" placeholder="Nome autore...">
-                    </div>
-                    <div class="columns-container">
-                        <div class="column" id="todo-column-${dateString}">
-                            <h2 class="column-header">📝 Da Fare</h2>
-                            <div class="add-task">
-                                <input type="text" id="todo-input-${dateString}" placeholder="Aggiungi nuovo compito...">
-                                <button class="add-btn" data-date="${dateString}">Aggiungi</button>
-                            </div>
-                            <div class="task-list" id="todo-list-${dateString}"></div>
+                    <div class="column" id="comms-column-${dateString}">
+                        <h2 class="column-header">Comunicazioni Importanti</h2>
+                        <textarea class="info-field comms-field-1" rows="5" placeholder="Descrizione"></textarea>
+                        <div class="info-field-container">
+                            <label>Requisiti:</label>
+                            <textarea class="info-field comms-field-2" rows="10" placeholder="Materiale, tecnica, ..."></textarea>
                         </div>
-                        <div class="column" id="in-progress-column-${dateString}"><h2 class="column-header">⏳ In Corso</h2><div class="task-list" id="in-progress-list-${dateString}"></div></div>
-                        <div class="column done-column" id="done-column-${dateString}"><h2 class="column-header">✅ Pronti</h2><div class="task-list" id="done-list-${dateString}"></div></div>
-                    </div>`;
+                    </div>
+                    <div class="column" id="todo-column-${dateString}">
+                        <h2 class="column-header">📝 Da Fare</h2>
+                        <div class="add-task">
+                            <input type="text" id="todo-input-${dateString}" placeholder="Aggiungi nuovo compito...">
+                            <button class="add-btn" data-date="${dateString}">Aggiungi</button>
+                        </div>
+                        <div class="task-list" id="todo-list-${dateString}"></div>
+                    </div>
+                    <div class="column" id="in-progress-column-${dateString}"><h2 class="column-header">⏳ In Corso</h2><div class="task-list" id="in-progress-list-${dateString}"></div></div>
+                    <div class="column done-column" id="done-column-${dateString}"><h2 class="column-header">✅ Pronti</h2><div class="task-list" id="done-list-${dateString}"></div></div>`;
                 kanbanContainer.appendChild(kanbanBoard);
 
                 kanbanBoard.querySelector('.add-btn').addEventListener('click', () => {
@@ -157,12 +181,16 @@
                         saveTasks(dateString);
                     }
                 });
-                kanbanBoard.querySelector('.author-input').addEventListener('change', () => saveTasks(dateString));
+                
+                kanbanBoard.querySelector('.comms-field-1').addEventListener('change', () => saveTasks(dateString));
+                kanbanBoard.querySelector('.comms-field-2').addEventListener('change', () => saveTasks(dateString));
+                
                 kanbanBoard.querySelectorAll('.task-list').forEach(list => {
                     list.addEventListener('dragover', dragOver);
                     list.addEventListener('drop', drop);
                 });
             }
+            document.getElementById('author-input').addEventListener('change', () => saveTasks(activeDate));
             switchDay(new Date().toISOString().split('T')[0]);
         }
         
@@ -175,10 +203,7 @@
             });
             document.getElementById(`board-${date}`).style.display = 'flex';
             activeDate = date;
-
-            if (unsubscribeListener) {
-                unsubscribeListener();
-            }
+            if (unsubscribeListener) unsubscribeListener();
 
             unsubscribeListener = db.collection('bacheche').doc(activeDate).onSnapshot(snapshot => {
                 ['todo', 'in-progress', 'done'].forEach(type => {
@@ -187,9 +212,12 @@
                 });
 
                 const data = snapshot.data();
-                const authorInput = document.getElementById(`author-input-${activeDate}`);
-
-                if (authorInput) authorInput.value = data?.autore || '';
+                document.getElementById('author-input').value = data?.autore || '';
+                
+                const comms1 = document.querySelector(`#board-${activeDate} .comms-field-1`);
+                const comms2 = document.querySelector(`#board-${activeDate} .comms-field-2`);
+                if(comms1) comms1.value = data?.comunicazione1 || '';
+                if(comms2) comms2.value = data?.comunicazione2 || '';
                 
                 if (data) {
                     data.todo?.forEach(taskData => createTaskCard(taskData.text, { ...taskData, parentId: `todo-list-${activeDate}` }));
@@ -200,12 +228,17 @@
         }
         
         function saveTasks(date) {
-            const author = document.getElementById(`author-input-${date}`)?.value || '';
-            const tasks = { autore: author, todo: [], inProgress: [], done: [] };
+            const tasks = { 
+                autore: document.getElementById('author-input').value || '',
+                comunicazione1: document.querySelector(`#board-${date} .comms-field-1`)?.value || '',
+                comunicazione2: document.querySelector(`#board-${date} .comms-field-2`)?.value || '',
+                todo: [], 
+                inProgress: [], 
+                done: [] 
+            };
             document.querySelectorAll(`#todo-list-${date} .task-card`).forEach(card => tasks.todo.push(serializeCard(card)));
             document.querySelectorAll(`#in-progress-list-${date} .task-card`).forEach(card => tasks.inProgress.push(serializeCard(card)));
             document.querySelectorAll(`#done-list-${date} .task-card`).forEach(card => tasks.done.push(serializeCard(card)));
-            
             db.collection('bacheche').doc(date).set(tasks);
         }
 
@@ -218,13 +251,8 @@
                 <div class="task-card-header"><h4 data-base-text="${baseText}"></h4><button class="minimize-btn">🔼</button></div>
                 <div class="task-body">
                     <div class="info-field-container"><label>Descrizione:</label><textarea class="info-field descrizione-input" rows="2" placeholder="Descrizione..."></textarea></div>
-                    <div class="content-tags">
-                        <button class="foto" data-type="foto">Foto</button><button class="video" data-type="video">Video</button><button class="grafico" data-type="grafico">Grafico</button><button class="titolo" data-type="titolo">Titolo</button><button class="cartina" data-type="cartina">Cartina</button><button class="project-tag">PO</button>
-                    </div>
-                    <div class="info-field-container">
-                        <label>Materiale:</label>
-                        <textarea class="info-field materiale-input" rows="10" placeholder="Cosa, quando, ..."></textarea>
-                    </div>
+                    <div class="content-tags"><button class="foto" data-type="foto">Foto</button><button class="video" data-type="video">Video</button><button class="grafico" data-type="grafico">Grafico</button><button class="titolo" data-type="titolo">Titolo</button><button class="cartina" data-type="cartina">Cartina</button><button class="project-tag">PO</button></div>
+                    <div class="info-field-container"><label>Materiale:</label><textarea class="info-field materiale-input" rows="10" placeholder="Cosa, quando, ..."></textarea></div>
                     <div class="location-container">
                         <h5>Dove</h5>
                         <div class="location-buttons"><button class="location-btn" data-location="OpenMedia">in OpenMedia</button><button class="location-btn" data-location="Hive">in Hive</button></div>
