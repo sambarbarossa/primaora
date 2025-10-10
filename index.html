@@ -11,7 +11,17 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap');
         body{font-family:'Roboto',sans-serif;color:#333;margin:0;padding:2rem;display:flex;flex-direction:column;align-items:center}#background-video{position:fixed;left:0;bottom:0;min-width:100%;min-height:100%;width:auto;height:auto;z-index:-100;object-fit:cover}.controls-container{display:flex;gap:10px;margin-bottom:1rem;background-color:rgba(255,255,255,.2);backdrop-filter:blur(10px);padding:.5rem 1rem;border-radius:8px}.controls-container button{padding:8px 15px;border-radius:5px;border:1px solid #fff;background-color:#2c3e50;color:#fff;font-weight:700;cursor:pointer;transition:background-color .2s}.controls-container button:hover{background-color:#34495e}
-        .header-container{display:flex;justify-content:center;align-items:center;width:100%;max-width:1400px;margin-bottom:1.5rem;gap:2rem}
+        
+        .header-container{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            max-width: 1500px;
+            margin-bottom: 1.5rem;
+            gap: 2rem;
+        }
+        
         .day-selector{display:flex;justify-content:center;flex-wrap:wrap;background-color:rgba(255,255,255,.2);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);padding:1rem;border-radius:8px;box-shadow:0 2px 10px rgba(0,0,0,.05);flex-grow:1}.day-selector button{backdrop-filter:blur(5px);-webkit-backdrop-filter:blur(5px);border:1px solid rgba(255,255,255,.8);border-radius:5px;padding:10px 15px;margin:5px;font-size:.9rem;cursor:pointer;transition:background-color .2s,color .2s,border-color .2s;color:#fff;font-weight:700}.day-color-0{background-color:rgba(255,179,186,.7)}.day-color-1{background-color:rgba(255,223,186,.7)}.day-color-2{background-color:rgba(255,255,186,.7)}.day-color-3{background-color:rgba(186,255,201,.7)}.day-color-4{background-color:rgba(186,225,255,.7)}.day-color-5{background-color:rgba(215,186,255,.7)}.day-color-6{background-color:rgba(255,186,236,.7)}.day-selector button.active{background-color:#2c3e50;color:#fff;border-color:#fff}
         .daily-author-container{display:flex;align-items:center;gap:10px;background-color:rgba(0,0,0,.2);padding:10px 15px;border-radius:8px;flex-shrink:0}.daily-author-container label{font-weight:700;color:#fff;text-shadow:1px 1px 2px #000}.author-input{padding:8px;border-radius:5px;border:1px solid #777;width:150px}
         .kanban-board{display:flex;gap:2rem;justify-content:center;width:100%;max-width:1400px}
@@ -140,6 +150,7 @@
                 button.classList.add(`day-color-${day.getDay()}`);
                 button.addEventListener('click', () => switchDay(dateString));
                 selectorContainer.appendChild(button);
+
                 const kanbanBoard = document.createElement('div');
                 kanbanBoard.id = `board-${dateString}`;
                 kanbanBoard.className = 'kanban-board';
@@ -164,6 +175,7 @@
                     <div class="column" id="in-progress-column-${dateString}"><h2 class="column-header">⏳ In Corso</h2><div class="task-list" id="in-progress-list-${dateString}"></div></div>
                     <div class="column done-column" id="done-column-${dateString}"><h2 class="column-header">✅ Pronti</h2><div class="task-list" id="done-list-${dateString}"></div></div>`;
                 kanbanContainer.appendChild(kanbanBoard);
+
                 kanbanBoard.querySelector('.add-btn').addEventListener('click', () => {
                     const input = document.getElementById(`todo-input-${dateString}`);
                     if (input.value.trim() !== '') {
@@ -172,8 +184,10 @@
                         saveTasks(dateString);
                     }
                 });
+                
                 kanbanBoard.querySelector('.comms-field-1').addEventListener('change', () => saveTasks(dateString));
                 kanbanBoard.querySelector('.comms-field-2').addEventListener('change', () => saveTasks(dateString));
+                
                 kanbanBoard.querySelectorAll('.task-list').forEach(list => {
                     list.addEventListener('dragover', dragOver);
                     list.addEventListener('drop', drop);
@@ -193,17 +207,21 @@
             document.getElementById(`board-${date}`).style.display = 'flex';
             activeDate = date;
             if (unsubscribeListener) unsubscribeListener();
+
             unsubscribeListener = db.collection('bacheche').doc(activeDate).onSnapshot(snapshot => {
                 ['todo', 'in-progress', 'done'].forEach(type => {
                     const list = document.getElementById(`${type}-list-${activeDate}`);
                     if (list) list.innerHTML = '';
                 });
+
                 const data = snapshot.data();
                 document.getElementById('author-input').value = data?.autore || '';
+                
                 const comms1 = document.querySelector(`#board-${activeDate} .comms-field-1`);
                 const comms2 = document.querySelector(`#board-${activeDate} .comms-field-2`);
                 if(comms1) comms1.value = data?.comunicazione1 || '';
                 if(comms2) comms2.value = data?.comunicazione2 || '';
+                
                 if (data) {
                     data.todo?.forEach(taskData => createTaskCard(taskData.text, { ...taskData, parentId: `todo-list-${activeDate}` }));
                     data.inProgress?.forEach(taskData => createTaskCard(taskData.text, { ...taskData, parentId: `in-progress-list-${activeDate}` }));
