@@ -29,6 +29,8 @@
         .request-activation-btn{padding:5px 10px;font-size:.9rem;border-radius:5px;border:1px solid #aaa;background-color:#eee;cursor:pointer;transition:all .2s}.request-activation-btn.active{background-color:#3498db;color:#fff;border-color:#3498db}
         .status-toggle-btn{padding:4px 8px;font-size:.8rem;border-radius:5px;border:1px solid;cursor:pointer;transition:background-color .2s,color .2s,border-color .2s;flex-shrink:0}.status-toggle-btn[data-status=no]{background-color:rgba(231,76,60,.1);color:#c0392b;border-color:#e74c3c}.status-toggle-btn[data-status=yes]{background-color:rgba(46,204,113,.2);color:#27ae60;border-color:#2ecc71}
         .hidden{display:none !important}
+        .link-row{display:flex;align-items:center;gap:5px;margin-bottom:5px}.link-row input{flex-grow:1}.remove-link-btn{background:0 0;border:none;cursor:pointer;font-size:1.2rem;color:#888;padding:0 5px}.remove-link-btn:hover{color:#000}
+        .add-link-btn{width:30px;height:30px;margin-top:5px;padding:0;font-size:1.2rem;font-weight:700;color:#3498db;background-color:rgba(255,255,255,.4);border:1px dashed #3498db;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center}
         @media (max-width:1300px){.kanban-board{flex-direction:column;align-items:center}}
         @media (max-width:900px){.kanban-board{flex-direction:column;align-items:center}.column{width:100%;max-width:400px;margin-bottom:20px}.header-container{flex-direction:column;align-items:stretch}}
     </style>
@@ -69,8 +71,6 @@
             const importFileInput = document.getElementById('import-file-input');
             document.getElementById('import-btn').addEventListener('click', () => importFileInput.click());
             importFileInput.addEventListener('change', importData);
-            
-            // MODIFICA: Avvia l'animazione dell'icona
             animateFavicon();
         });
 
@@ -79,11 +79,9 @@
         let activeDate = '';
         let unsubscribeListener = null;
 
-        /**
-         * MODIFICA: Nuova funzione per animare l'icona della scheda
-         */
         function animateFavicon() {
             const favicon = document.getElementById('favicon');
+            if (!favicon) return;
             const icons = ['🕕', '📡'];
             let counter = 0;
             setInterval(() => {
@@ -91,7 +89,7 @@
                 const newHref = `data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>${emoji}</text></svg>`;
                 favicon.setAttribute('href', newHref);
                 counter++;
-            }, 1500); // Cambia icona ogni 1.5 secondi
+            }, 1500);
         }
 
         function sanitizeHTML(str) {
@@ -243,42 +241,45 @@
                         <div class="location-text-container hidden"><input type="text" class="info-field location-text" placeholder="X Chi"></div>
                     </div>
                     <div class="request-status-container">
-                        <div class="request-row">
-                            <button class="request-activation-btn" data-type="grafica">Richiesto in grafica</button>
-                            <div class="request-status-indicator hidden">
-                                <span>Arrivato:</span>
-                                <button class="status-toggle-btn" data-type="grafica" data-status="no">❌ No</button>
-                            </div>
-                        </div>
-                        <div class="request-row">
-                            <button class="request-activation-btn" data-type="ospite">Richiesto all'ospite</button>
-                            <div class="request-status-indicator hidden">
-                                <span>Arrivato:</span>
-                                <button class="status-toggle-btn" data-type="ospite" data-status="no">❌ No</button>
-                                <input type="text" class="info-field ospite-contact-input" placeholder="Ev. contatto">
-                            </div>
-                        </div>
+                        <div class="request-row"><button class="request-activation-btn" data-type="grafica">Richiesto in grafica</button><div class="request-status-indicator hidden"><span>Arrivato:</span><button class="status-toggle-btn" data-type="grafica" data-status="no">❌ No</button></div></div>
+                        <div class="request-row"><button class="request-activation-btn" data-type="ospite">Richiesto all'ospite</button><div class="request-status-indicator hidden"><span>Arrivato:</span><button class="status-toggle-btn" data-type="ospite" data-status="no">❌ No</button><input type="text" class="info-field ospite-contact-input" placeholder="Ev. contatto"></div></div>
                     </div>
-                    <div class="info-field-container"><label>Link 1:</label><input type="text" class="info-field link-input-1" placeholder="Link, ..."></div>
-                    <div class="info-field-container"><label>Link 2:</label><input type="text" class="info-field link-input-2" placeholder="Link, ..."></div>
-                    <div class="info-field-container"><label>Link 3:</label><input type="text" class="info-field link-input-3" placeholder="Link, ..."></div>
+                    <div class="info-field-container"><label>Links:</label><div class="links-container"></div></div>
+                    <button class="add-link-btn">+</button>
                     <div class="task-buttons"><button class="edit-btn">✏️</button><button class="delete-btn">🗑️</button><button class="done-btn">✔️</button></div>
                 </div>`;
             
+            const linksContainer = card.querySelector('.links-container');
+            const addLinkRow = (linkValue = '') => {
+                const linkRow = document.createElement('div');
+                linkRow.className = 'link-row';
+                linkRow.innerHTML = `
+                    <input type="text" class="info-field link-input" placeholder="Link..." value="${sanitizeHTML(linkValue)}">
+                    <button class="remove-link-btn">🗑️</button>
+                `;
+                linksContainer.appendChild(linkRow);
+                linkRow.querySelector('.remove-link-btn').addEventListener('click', () => {
+                    linkRow.remove();
+                    saveTasks(activeDate);
+                });
+                linkRow.querySelector('.link-input').addEventListener('change', () => saveTasks(activeDate));
+            };
+
+            if (initialData.links && initialData.links.length > 0) {
+                initialData.links.forEach(link => addLinkRow(link));
+            } else {
+                addLinkRow();
+            }
+            card.querySelector('.add-link-btn').addEventListener('click', () => addLinkRow());
+
             if (initialData.isDone) card.classList.add('done');
             if (initialData.minimized) { card.classList.add('minimized'); card.querySelector('.minimize-btn').textContent = '🔽'; }
             if (initialData.projectTag) card.querySelector('.project-tag').textContent = initialData.projectTag;
             if (initialData.descrizione) card.querySelector('.descrizione-input').value = initialData.descrizione;
             if (initialData.materiale) card.querySelector('.materiale-input').value = initialData.materiale;
-            if (initialData.link1) card.querySelector('.link-input-1').value = initialData.link1;
-            if (initialData.link2) card.querySelector('.link-input-2').value = initialData.link2;
-            if (initialData.link3) card.querySelector('.link-input-3').value = initialData.link3;
             if (initialData.location) {
                 const locBtn = card.querySelector(`.location-btn[data-location="${initialData.location}"]`);
-                if(locBtn) {
-                    locBtn.classList.add('active');
-                    if(initialData.location === 'Hive') card.querySelector('.location-text-container').classList.remove('hidden');
-                }
+                if(locBtn) { locBtn.classList.add('active'); if(initialData.location === 'Hive') card.querySelector('.location-text-container').classList.remove('hidden'); }
             }
             if (initialData.locationText) card.querySelector('.location-text').value = initialData.locationText;
             if (initialData.activeTags) {
@@ -287,7 +288,6 @@
                     if (tagBtn) tagBtn.classList.add('active');
                 });
             }
-
             if (initialData.grafica_active) {
                 const activationBtn = card.querySelector('.request-activation-btn[data-type="grafica"]');
                 activationBtn.classList.add('active');
@@ -459,6 +459,8 @@
         function serializeCard(card) {
             const graficaBtn = card.querySelector('.request-activation-btn[data-type="grafica"]');
             const ospiteBtn = card.querySelector('.request-activation-btn[data-type="ospite"]');
+            const linkInputs = card.querySelectorAll('.links-container .link-input');
+            const links = Array.from(linkInputs).map(input => input.value).filter(value => value.trim() !== '');
 
             return {
                 id: card.id,
@@ -466,9 +468,7 @@
                 descrizione: card.querySelector('.descrizione-input').value,
                 projectTag: card.querySelector('.project-tag').textContent,
                 materiale: card.querySelector('.materiale-input').value,
-                link1: card.querySelector('.link-input-1').value,
-                link2: card.querySelector('.link-input-2').value,
-                link3: card.querySelector('.link-input-3').value,
+                links: links,
                 location: card.querySelector('.location-btn.active')?.dataset.location || '',
                 locationText: card.querySelector('.location-text').value,
                 grafica_active: graficaBtn.classList.contains('active'),
