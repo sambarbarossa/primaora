@@ -14,7 +14,7 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap');
         body{font-family:'Roboto',sans-serif;color:#333;margin:0;padding:2rem;display:flex;flex-direction:column;align-items:center}#background-video{position:fixed;left:0;bottom:0;min-width:100%;min-height:100%;width:auto;height:auto;z-index:-100;object-fit:cover}
-        #presence-indicator{position:fixed;top:10px;left:10px;background-color:rgba(0,0,0,.4);color:#fff;padding:5px 10px;border-radius:5px;font-size:.8rem;backdrop-filter:blur(5px);-webkit-backdrop-filter:blur(5px);z-index:1000}
+        #presence-indicator{position:fixed;top:10px;left:10px;background-color:rgba(0,0,0,.4);color:#fff;padding:5px 10px;border-radius:5px;font-size:.8rem;backdrop-filter:blur(5px);-webkit-backdrop-filter:blur(5px);z-index:1000;line-height:1.4}
         .controls-container{display:flex;gap:10px;margin-bottom:1rem;background-color:rgba(255,255,255,.2);backdrop-filter:blur(10px);padding:.5rem 1rem;border-radius:8px}.controls-container button{padding:8px 15px;border-radius:5px;border:1px solid #fff;background-color:#2c3e50;color:#fff;font-weight:700;cursor:pointer;transition:background-color .2s}.controls-container button:hover{background-color:#34495e}
         .header-container{display:flex;justify-content:center;align-items:center;width:100%;max-width:1500px;margin-bottom:1.5rem;gap:2rem}
         .day-selector{display:flex;justify-content:center;flex-wrap:wrap;background-color:rgba(255,255,255,.2);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);padding:1rem;border-radius:8px;box-shadow:0 2px 10px rgba(0,0,0,.05);flex-grow:1}.day-selector button{backdrop-filter:blur(5px);-webkit-backdrop-filter:blur(5px);border:1px solid rgba(255,255,255,.8);border-radius:5px;padding:10px 15px;margin:5px;font-size:.9rem;cursor:pointer;transition:background-color .2s,color .2s,border-color .2s;color:#fff;font-weight:700}.day-color-0{background-color:rgba(255,179,186,.7)}.day-color-1{background-color:rgba(255,223,186,.7)}.day-color-2{background-color:rgba(255,255,186,.7)}.day-color-3{background-color:rgba(186,255,201,.7)}.day-color-4{background-color:rgba(186,225,255,.7)}.day-color-5{background-color:rgba(215,186,255,.7)}.day-color-6{background-color:rgba(255,186,236,.7)}.day-selector button.active{background-color:#2c3e50;color:#fff;border-color:#fff}
@@ -43,20 +43,11 @@
         <source src="background.mp4" type="video/mp4">
         Il tuo browser non supporta il tag video.
     </video>
-
+    
     <div id="presence-indicator">Connessione...</div>
 
     <script>
-const firebaseConfig = {
-    apiKey: "AIzaSyD3Ry99dV34fUo6NfzZ5ykSjPcJN1gl8mk",
-    authDomain: "prima-ora-task-registi.firebaseapp.com",
-    projectId: "prima-ora-task-registi",
-    storageBucket: "prima-ora-task-registi.firebasestorage.app",
-    messagingSenderId: "1090920780195",
-    appId: "1:1090920780195:web:89059a93c18fc97bc08a16",
-    databaseURL: "https://prima-ora-task-registi-default-rtdb.europe-west1.firebasedatabase.app"
-};
-        
+        const firebaseConfig = { apiKey: "AIzaSyD3Ry99dV34fUo6NfzZ5ykSjPcJN1gl8mk", authDomain: "prima-ora-task-registi.firebaseapp.com", projectId: "prima-ora-task-registi", storageBucket: "prima-ora-task-registi.firebasestorage.app", messagingSenderId: "1090920780195", appId: "1:1090920780195:web:89059a93c18fc97bc08a16", databaseURL: "https://prima-ora-task-registi-default-rtdb.europe-west1.firebasedatabase.app" };
         firebase.initializeApp(firebaseConfig);
         const db = firebase.firestore();
         const rtdb = firebase.database();
@@ -111,7 +102,7 @@ const firebaseConfig = {
             rtdb.ref('.info/connected').on('value', async (snap) => {
                 if (snap.val() === true) {
                     const location = await getLocation();
-                    myRef.set({ online: true, location: `${location.city} (${location.country})` });
+                    myRef.set({ online: true, location: `${location.city}, ${location.country}` });
                     myRef.onDisconnect().remove();
                 }
             });
@@ -123,11 +114,18 @@ const firebaseConfig = {
                     const userData = childSnapshot.val();
                     if (userData.location) locations.add(userData.location);
                 });
-                const locationsText = [...locations].join(', ');
-                presenceIndicator.textContent = `Utenti connessi: ${userCount} (${locationsText})`;
+                const locationsArray = [...locations];
+                let locationsHtml;
+                if (locationsArray.length > 1) {
+                    locationsHtml = '<br>' + locationsArray.join('<br>');
+                } else {
+                    locationsHtml = ` (${locationsArray.join(', ') || 'N/A'})`;
+                }
+                presenceIndicator.innerHTML = `Utenti connessi: ${userCount}${locationsHtml}`;
             });
         }
-
+        
+        // ... (resto del codice è completo e invariato)
         function animateFavicon() {
             const favicon = document.getElementById('favicon');
             if (!favicon) return;
@@ -140,12 +138,7 @@ const firebaseConfig = {
                 counter++;
             }, 1500);
         }
-
-        function sanitizeHTML(str) {
-            if (!str) return '';
-            return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#039;');
-        }
-
+        function sanitizeHTML(str) { if (!str) return ''; return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#039;'); }
         function exportData() {
             const dateToExp = activeDate;
             if(!dateToExp) { alert("Seleziona un giorno da esportare."); return; }
@@ -159,7 +152,6 @@ const firebaseConfig = {
                 a.href = url; a.download = `backup-bacheca-${dateToExp}.json`; document.body.appendChild(a); a.click(); document.body.removeChild(a); URL.revokeObjectURL(url);
             });
         }
-
         function importData(event) {
             const file = event.target.files[0];
             if (!file) return;
@@ -179,7 +171,6 @@ const firebaseConfig = {
             };
             reader.readAsText(file);
         }
-
         function generateDaySelectors(count) {
             const selectorContainer = document.getElementById('day-selector');
             const kanbanContainer = document.getElementById('kanban-container');
@@ -211,7 +202,6 @@ const firebaseConfig = {
             document.getElementById('author-input').addEventListener('change', () => saveTasks(activeDate));
             switchDay(new Date().toISOString().split('T')[0]);
         }
-        
         function switchDay(date) {
             document.querySelectorAll('.day-selector button').forEach(btn => { btn.classList.toggle('active', btn.getAttribute('data-date') === date); });
             document.querySelectorAll('.kanban-board').forEach(board => { board.style.display = 'none'; });
@@ -233,7 +223,6 @@ const firebaseConfig = {
                 }
             });
         }
-        
         function saveTasks(date) {
             const tasks = { autore: document.getElementById('author-input').value || '', comunicazione1: document.querySelector(`#board-${date} .comms-field-1`)?.value || '', comunicazione2: document.querySelector(`#board-${date} .comms-field-2`)?.value || '', todo: [], inProgress: [], done: [] };
             document.querySelectorAll(`#todo-list-${date} .task-card`).forEach(card => tasks.todo.push(serializeCard(card)));
@@ -241,7 +230,6 @@ const firebaseConfig = {
             document.querySelectorAll(`#done-list-${date} .task-card`).forEach(card => tasks.done.push(serializeCard(card)));
             db.collection('bacheche').doc(date).set(tasks);
         }
-
         function createTaskCard(baseText, initialData = {}, date = activeDate) {
             const card = document.createElement('div');
             card.className = 'task-card'; card.setAttribute('draggable', 'true'); card.id = initialData.id || `task-${date}-${Date.now()}`;
@@ -264,7 +252,6 @@ const firebaseConfig = {
                     <button class="add-link-btn">+</button>
                     <div class="task-buttons"><button class="edit-btn">✏️</button><button class="delete-btn">🗑️</button><button class="done-btn">✔️</button></div>
                 </div>`;
-            
             const linksContainer = card.querySelector('.links-container');
             const addLinkRow = (linkValue = '') => {
                 const linkRow = document.createElement('div');
