@@ -47,7 +47,16 @@
     <div id="presence-indicator">Connessione...</div>
 
     <script>
-        const firebaseConfig = { apiKey: "AIzaSyD3Ry99dV34fUo6NfzZ5ykSjPcJN1gl8mk", authDomain: "prima-ora-task-registi.firebaseapp.com", projectId: "prima-ora-task-registi", storageBucket: "prima-ora-task-registi.firebasestorage.app", messagingSenderId: "1090920780195", appId: "1:1090920780195:web:89059a93c18fc97bc08a16" };
+const firebaseConfig = {
+    apiKey: "AIzaSyD3Ry99dV34fUo6NfzZ5ykSjPcJN1gl8mk",
+    authDomain: "prima-ora-task-registi.firebaseapp.com",
+    projectId: "prima-ora-task-registi",
+    storageBucket: "prima-ora-task-registi.firebasestorage.app",
+    messagingSenderId: "1090920780195",
+    appId: "1:1090920780195:web:89059a93c18fc97bc08a16",
+    databaseURL: "https://prima-ora-task-registi-default-rtdb.europe-west1.firebasedatabase.app"
+};
+        
         firebase.initializeApp(firebaseConfig);
         const db = firebase.firestore();
         const rtdb = firebase.database();
