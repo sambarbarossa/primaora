@@ -21,10 +21,10 @@
         .daily-author-container{display:flex;align-items:center;gap:10px;background-color:rgba(0,0,0,.2);padding:10px 15px;border-radius:8px;flex-shrink:0}.daily-author-container label{font-weight:700;color:#fff;text-shadow:1px 1px 2px #000}.author-input{padding:8px;border-radius:5px;border:1px solid #777;width:150px}
         .kanban-board{display:flex;gap:2rem;justify-content:center;width:100%;max-width:1400px}
         .column{background:rgba(255,255,255,.1);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,.2);padding:1.5rem;border-radius:8px;width:300px;min-height:500px;box-shadow:0 4px 30px rgba(0,0,0,.1);display:flex;flex-direction:column}.column.done-column{width:250px}.column-header{font-size:1.5rem;font-weight:700;margin-bottom:1rem;color:#eee;text-shadow:1px 1px 3px rgba(0,0,0,.4);text-align:center}.add-task{display:flex;margin-bottom:1rem}.add-task input{flex-grow:1;padding:10px;border:1px solid #ccc;border-radius:5px;font-size:.9rem}.add-task button{padding:10px 15px;border:none;background-color:#2c3e50;color:#fff;border-radius:5px;margin-left:5px;cursor:pointer;font-size:.9rem}.task-list{flex-grow:1;overflow-y:auto;position:relative;min-height:100px}.task-card{background:rgba(255,255,255,.2);padding:1rem;border-radius:5px;margin-bottom:1rem;cursor:grab;box-shadow:0 1px 3px rgba(0,0,0,.1);transition:transform .2s ease-in-out,box-shadow .2s ease-in-out;position:relative}.task-card:active{cursor:grabbing}.task-card.dragging{opacity:.5;box-shadow:0 4px 15px rgba(0,0,0,.2);transform:scale(1.05)}
-        .task-card.done{background:rgba(46,204,113,.2);color:#333}.task-card.done h4{text-decoration:none;color:#c0392b}
-        .task-card.done .task-buttons{display:none}.task-card-header{display:flex;justify-content:space-between;align-items:center}.task-card h4{margin:0 0 .5rem;font-size:1.1rem;flex-grow:1;cursor:text; transition: color 0.2s ease-in-out;}.task-card h4[contenteditable=true]{background-color:rgba(255,255,255,.8);outline:2px solid #3498db;border-radius:3px;padding:2px 4px;margin:-2px -4px .5rem -4px;color:#333}.info-field-container{margin-top:10px}.info-field-container label{font-size:.9rem;font-weight:700;color:#444;display:block;margin-bottom:5px}.info-field{width:calc(100% - 10px);padding:5px;border:1px solid #ccc;border-radius:3px;font-size:.9rem;resize:vertical;font-family:inherit}.task-card .task-buttons{display:flex;justify-content:space-between;margin-top:1rem}.task-card .task-buttons button,.minimize-btn{background:0 0;border:none;cursor:pointer;font-size:1.2rem;color:#333;transition:color .2s}.minimize-btn{font-size:1rem;margin-left:10px;padding:0 5px}.task-card .task-buttons button:hover,.minimize-btn:hover{color:#000}.task-card.minimized .task-body{display:none}.task-card.minimized h4{margin-bottom:0}.content-tags{display:flex;flex-wrap:wrap;align-items:center}
+        .task-card.done{background:rgba(46,204,113,.2)}.task-card.done h4{text-decoration:line-through;background-color:transparent !important;color:#aaa !important;padding:4px 10px;display:inline-block}
+        .task-card.done .task-buttons{display:none}.task-card-header{display:flex;justify-content:space-between;align-items:center}.task-card h4{margin:0 0 .5rem;font-size:1.1rem;flex-grow:1;cursor:text;transition:background-color .2s ease-in-out;color:#fff;padding:4px 10px;border-radius:15px;display:inline-block;width:auto}.task-card h4[contenteditable=true]{background-color:rgba(255,255,255,.8) !important;outline:2px solid #3498db;color:#333 !important}.info-field-container{margin-top:10px}.info-field-container label{font-size:.9rem;font-weight:700;color:#444;display:block;margin-bottom:5px}.info-field{width:calc(100% - 10px);padding:5px;border:1px solid #ccc;border-radius:3px;font-size:.9rem;resize:vertical;font-family:inherit}.task-card .task-buttons{display:flex;justify-content:space-between;margin-top:1rem}.task-card .task-buttons button,.minimize-btn{background:0 0;border:none;cursor:pointer;font-size:1.2rem;color:#333;transition:color .2s}.minimize-btn{font-size:1rem;margin-left:10px;padding:0 5px}.task-card .task-buttons button:hover,.minimize-btn:hover{color:#000}.task-card.minimized .task-body{display:none}.task-card.minimized h4{margin-bottom:0}.content-tags{display:flex;flex-wrap:wrap;align-items:center}
         .content-tags button{padding:5px 10px;border-radius:20px;border:none;cursor:pointer;color:#fff;font-size:.8rem;margin-right:5px;margin-bottom:5px;opacity:.3;transition:opacity .2s,filter .2s;filter:grayscale(60%)}.content-tags button.active{opacity:1;filter:grayscale(0%)}
-        .content-tags .foto{background-color:#ff6347}.content-tags .clip{background-color:#4682b4}.content-tags .copertura{background-color:#8e44ad}.content-tags .grafico{background-color:#3cb371}.content-tags .titolo{background-color:#ffa500}.content-tags .cartina{background-color:#a0522d}.project-tag{padding:5px 10px;border-radius:20px;border:1px solid #ccc;cursor:pointer;font-size:.8rem;margin-right:5px;margin-bottom:5px;background-color:#2c3e50;color:#fff}
+        .content-tags .foto{background-color:#FF7F50}.content-tags .clip{background-color:#337AB7}.content-tags .copertura{background-color:#6A5ACD}.content-tags .grafico{background-color:#28A745}.content-tags .titolo{background-color:#FFC107}.content-tags .cartina{background-color:#8B4513}.project-tag{padding:5px 10px;border-radius:20px;border:1px solid #ccc;cursor:pointer;font-size:.8rem;margin-right:5px;margin-bottom:5px;background-color:#2c3e50;color:#fff}
         .location-container h5{margin:.8rem 0 .5rem;font-size:1rem;color:#444}.location-buttons{display:flex;gap:10px;margin-bottom:.5rem}.location-btn{padding:5px 10px;font-size:.8rem;border-radius:5px;border:1px solid #aaa;background-color:#eee;cursor:pointer}.location-btn.active{background-color:#3498db;color:#fff;border-color:#3498db}
         .request-status-container{margin-top:15px;border-top:1px solid rgba(0,0,0,.1);padding-top:15px;display:flex;flex-direction:column;gap:15px}
         .request-row{display:block}.request-activation-btn{margin-bottom:8px}
@@ -262,7 +262,7 @@
                         <div class="location-text-container hidden"><input type="text" class="info-field location-text" placeholder="X Chi"></div>
                     </div>
                     <div class="request-status-container">
-                        <div class="request-row"><button class="request-activation-btn" data-type="grafica">Richiesto in grafica</button><div class="request-status-indicator hidden"><span>Arrivato:</span><button class="status-toggle-btn" data-type="grafica" data-status="no">❌ No</button></div></div>
+                        <div class="request-row"><button class="request-activation-btn" data-type="grafica">Richiesto in grafica</button><div class="request-status-indicator hidden"><span>Arrivato:</span><button class="status-toggle-btn" data-type="grafica" data-status="no">❌ No</button><input type="text" class="info-field grafica-contact-input" placeholder="Ev. contatto"></div></div>
                         <div class="request-row"><button class="request-activation-btn" data-type="ospite">Richiesto all'ospite</button><div class="request-status-indicator hidden"><span>Arrivato:</span><button class="status-toggle-btn" data-type="ospite" data-status="no">❌ No</button><input type="text" class="info-field ospite-contact-input" placeholder="Ev. contatto"></div></div>
                     </div>
                     <div class="info-field-container"><label>Links:</label><div class="links-container"></div></div>
@@ -293,6 +293,7 @@
                 const activationBtn = card.querySelector('.request-activation-btn[data-type="grafica"]');
                 activationBtn.classList.add('active'); activationBtn.nextElementSibling.classList.remove('hidden');
                 if (initialData.grafica_status === 'yes') { const statusBtn = activationBtn.nextElementSibling.querySelector('.status-toggle-btn'); statusBtn.dataset.status = 'yes'; statusBtn.textContent = '✅ Sì'; }
+                if(initialData.grafica_contatto) card.querySelector('.grafica-contact-input').value = initialData.grafica_contatto;
             }
             if (initialData.ospite_active) {
                 const activationBtn = card.querySelector('.request-activation-btn[data-type="ospite"]');
@@ -300,7 +301,7 @@
                  if (initialData.ospite_status === 'yes') { const statusBtn = activationBtn.nextElementSibling.querySelector('.status-toggle-btn'); statusBtn.dataset.status = 'yes'; statusBtn.textContent = '✅ Sì'; }
                 if(initialData.ospite_contatto) card.querySelector('.ospite-contact-input').value = initialData.ospite_contatto;
             }
-            updateTitleWithPrefixAndColor(card); // Modificato qui per includere il colore
+            updateTitleWithPrefixAndColor(card);
             card.querySelector('h4').addEventListener('click', () => editTask(card));
             card.querySelector('.edit-btn').addEventListener('click', () => editTask(card));
             card.querySelector('.delete-btn').addEventListener('click', () => deleteTask(card));
@@ -360,36 +361,33 @@
                 else return closest;
             }, { offset: Number.NEGATIVE_INFINITY }).element;
         }
-
-        // Funzione aggiornata per modificare titolo e colore
         function updateTitleWithPrefixAndColor(card) {
             const titleElement = card.querySelector('h4');
             const baseText = titleElement.dataset.baseText || '';
             const prefix = card.querySelector('.project-tag').textContent;
             const activeContentTagBtn = card.querySelector('.content-tags button:not(.project-tag).active');
             let contentTagText = '';
-            let titleColor = '#c0392b'; // Colore predefinito se nessun tag è attivo
+            let titleBackgroundColor = 'transparent';
 
             const titleMap = {
-                foto: { text: 'FOTO', color: '#ff6347' },
-                clip: { text: 'CLIP', color: '#4682b4' },
-                copertura: { text: 'COP', color: '#8e44ad' }, // Colore per Copertura
-                grafico: { text: 'GRAFICO', color: '#3cb371' },
-                titolo: { text: 'TITOLO', color: '#ffa500' },
-                cartina: { text: 'CARTINA', color: '#a0522d' }
+                foto: { text: 'FOTO', color: '#FF7F50' },
+                clip: { text: 'CLIP', color: '#337AB7' },
+                copertura: { text: 'COP', color: '#6A5ACD' }, 
+                grafico: { text: 'GRAFICO', color: '#28A745' },
+                titolo: { text: 'TITOLO', color: '#FFC107' },
+                cartina: { text: 'CARTINA', color: '#8B4513' }
             };
 
             if (activeContentTagBtn) {
                 const type = activeContentTagBtn.dataset.type;
                 if (titleMap[type]) {
                     contentTagText = `${titleMap[type].text} `;
-                    titleColor = titleMap[type].color;
+                    titleBackgroundColor = titleMap[type].color;
                 }
             }
             titleElement.textContent = `${prefix}-${contentTagText}${sanitizeHTML(baseText)}`;
-            titleElement.style.color = titleColor;
+            titleElement.style.backgroundColor = titleBackgroundColor;
         }
-
         function toggleMinimize(card) {
             const isMinimized = card.classList.toggle('minimized');
             card.querySelector('.minimize-btn').textContent = isMinimized ? '🔽' : '🔼';
@@ -411,7 +409,7 @@
                 card.setAttribute('draggable', 'true');
                 const newBaseText = titleElement.textContent.trim() || 'Nuovo task';
                 titleElement.dataset.baseText = newBaseText;
-                updateTitleWithPrefixAndColor(card); // Aggiornato qui
+                updateTitleWithPrefixAndColor(card);
                 titleElement.removeEventListener('blur', finishEditing);
                 titleElement.removeEventListener('keydown', handleKeyDown);
                 saveTasks(activeDate);
@@ -438,21 +436,18 @@
         function toggleProjectTag(tagElement) {
             const card = tagElement.closest('.task-card');
             tagElement.textContent = tagElement.textContent === 'PO' ? 'QUOT' : 'PO';
-            updateTitleWithPrefixAndColor(card); // Aggiornato qui
+            updateTitleWithPrefixAndColor(card);
             saveTasks(activeDate);
         }
-
-        // Funzione aggiornata per gestire l'attivazione dei tag e il colore del titolo
         function toggleTag(clickedButton, card) {
             const wasActive = clickedButton.classList.contains('active');
             card.querySelectorAll('.content-tags button:not(.project-tag)').forEach(btn => { btn.classList.remove('active'); });
             if (!wasActive) {
                 clickedButton.classList.add('active');
             }
-            updateTitleWithPrefixAndColor(card); // Aggiornato qui
+            updateTitleWithPrefixAndColor(card);
             saveTasks(activeDate);
         }
-
         function serializeCard(card) {
             const graficaBtn = card.querySelector('.request-activation-btn[data-type="grafica"]');
             const ospiteBtn = card.querySelector('.request-activation-btn[data-type="ospite"]');
