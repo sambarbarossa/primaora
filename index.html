@@ -16,15 +16,15 @@
         body{font-family:'Roboto',sans-serif;color:#333;margin:0;padding:2rem;display:flex;flex-direction:column;align-items:center}#background-video{position:fixed;left:0;bottom:0;min-width:100%;min-height:100%;width:auto;height:auto;z-index:-100;object-fit:cover}
         #presence-indicator{position:fixed;top:10px;left:10px;background-color:rgba(0,0,0,.4);color:#fff;padding:5px 10px;border-radius:5px;font-size:.8rem;backdrop-filter:blur(5px);-webkit-backdrop-filter:blur(5px);z-index:1000;line-height:1.4}
         .controls-container{display:flex;gap:10px;margin-bottom:1rem;background-color:rgba(255,255,255,.2);backdrop-filter:blur(10px);padding:.5rem 1rem;border-radius:8px}.controls-container button{padding:8px 15px;border-radius:5px;border:1px solid #fff;background-color:#2c3e50;color:#fff;font-weight:700;cursor:pointer;transition:background-color .2s}.controls-container button:hover{background-color:#34495e}
-        .header-container{display:flex;justify-content:center;align-items:center;width:100%;max-width:1550px;margin-bottom:1.5rem;gap:2rem}
+        .header-container{display:flex;justify-content:center;align-items:center;width:100%;max-width:1500px;margin-bottom:1.5rem;gap:2rem}
         .day-selector{display:flex;justify-content:center;flex-wrap:wrap;background-color:rgba(255,255,255,.2);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);padding:1rem;border-radius:8px;box-shadow:0 2px 10px rgba(0,0,0,.05);flex-grow:1}.day-selector button{backdrop-filter:blur(5px);-webkit-backdrop-filter:blur(5px);border:1px solid rgba(255,255,255,.8);border-radius:5px;padding:10px 15px;margin:5px;font-size:.9rem;cursor:pointer;transition:background-color .2s,color .2s,border-color .2s;color:#fff;font-weight:700}.day-color-0{background-color:rgba(255,179,186,.7)}.day-color-1{background-color:rgba(255,223,186,.7)}.day-color-2{background-color:rgba(255,255,186,.7)}.day-color-3{background-color:rgba(186,255,201,.7)}.day-color-4{background-color:rgba(186,225,255,.7)}.day-color-5{background-color:rgba(215,186,255,.7)}.day-color-6{background-color:rgba(255,186,236,.7)}.day-selector button.active{background-color:#2c3e50;color:#fff;border-color:#fff}
         .daily-author-container{display:flex;align-items:center;gap:10px;background-color:rgba(0,0,0,.2);padding:10px 15px;border-radius:8px;flex-shrink:0}.daily-author-container label{font-weight:700;color:#fff;text-shadow:1px 1px 2px #000}.author-input{padding:8px;border-radius:5px;border:1px solid #777;width:150px}
         .kanban-board{display:flex;gap:2rem;justify-content:center;width:100%;max-width:1400px}
         .column{background:rgba(255,255,255,.1);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,.2);padding:1.5rem;border-radius:8px;width:300px;min-height:500px;box-shadow:0 4px 30px rgba(0,0,0,.1);display:flex;flex-direction:column}.column.done-column{width:250px}.column-header{font-size:1.5rem;font-weight:700;margin-bottom:1rem;color:#eee;text-shadow:1px 1px 3px rgba(0,0,0,.4);text-align:center}.add-task{display:flex;margin-bottom:1rem}.add-task input{flex-grow:1;padding:10px;border:1px solid #ccc;border-radius:5px;font-size:.9rem}.add-task button{padding:10px 15px;border:none;background-color:#2c3e50;color:#fff;border-radius:5px;margin-left:5px;cursor:pointer;font-size:.9rem}.task-list{flex-grow:1;overflow-y:auto;position:relative;min-height:100px}.task-card{background:rgba(255,255,255,.2);padding:1rem;border-radius:5px;margin-bottom:1rem;cursor:grab;box-shadow:0 1px 3px rgba(0,0,0,.1);transition:transform .2s ease-in-out,box-shadow .2s ease-in-out;position:relative}.task-card:active{cursor:grabbing}.task-card.dragging{opacity:.5;box-shadow:0 4px 15px rgba(0,0,0,.2);transform:scale(1.05)}
         .task-card.done{background:rgba(46,204,113,.2);color:#333}.task-card.done h4{text-decoration:none;color:#c0392b}
-        .task-card.done .task-buttons{display:none}.task-card.done .content-tags button{opacity:.5;pointer-events:none}.task-card-header{display:flex;justify-content:space-between;align-items:center}.task-card h4{margin:0 0 .5rem;font-size:1.1rem;color:#c0392b;flex-grow:1;cursor:text}.task-card h4[contenteditable=true]{background-color:rgba(255,255,255,.8);outline:2px solid #3498db;border-radius:3px;padding:2px 4px;margin:-2px -4px .5rem -4px;color:#333}.info-field-container{margin-top:10px}.info-field-container label{font-size:.9rem;font-weight:700;color:#444;display:block;margin-bottom:5px}.info-field{width:calc(100% - 10px);padding:5px;border:1px solid #ccc;border-radius:3px;font-size:.9rem;resize:vertical;font-family:inherit}.task-card .task-buttons{display:flex;justify-content:space-between;margin-top:1rem}.task-card .task-buttons button,.minimize-btn{background:0 0;border:none;cursor:pointer;font-size:1.2rem;color:#333;transition:color .2s}.minimize-btn{font-size:1rem;margin-left:10px;padding:0 5px}.task-card .task-buttons button:hover,.minimize-btn:hover{color:#000}.task-card.minimized .task-body{display:none}.task-card.minimized h4{margin-bottom:0}.content-tags{display:flex;flex-wrap:wrap;align-items:center}
+        .task-card.done .task-buttons{display:none}.task-card-header{display:flex;justify-content:space-between;align-items:center}.task-card h4{margin:0 0 .5rem;font-size:1.1rem;flex-grow:1;cursor:text; transition: color 0.2s ease-in-out;}.task-card h4[contenteditable=true]{background-color:rgba(255,255,255,.8);outline:2px solid #3498db;border-radius:3px;padding:2px 4px;margin:-2px -4px .5rem -4px;color:#333}.info-field-container{margin-top:10px}.info-field-container label{font-size:.9rem;font-weight:700;color:#444;display:block;margin-bottom:5px}.info-field{width:calc(100% - 10px);padding:5px;border:1px solid #ccc;border-radius:3px;font-size:.9rem;resize:vertical;font-family:inherit}.task-card .task-buttons{display:flex;justify-content:space-between;margin-top:1rem}.task-card .task-buttons button,.minimize-btn{background:0 0;border:none;cursor:pointer;font-size:1.2rem;color:#333;transition:color .2s}.minimize-btn{font-size:1rem;margin-left:10px;padding:0 5px}.task-card .task-buttons button:hover,.minimize-btn:hover{color:#000}.task-card.minimized .task-body{display:none}.task-card.minimized h4{margin-bottom:0}.content-tags{display:flex;flex-wrap:wrap;align-items:center}
         .content-tags button{padding:5px 10px;border-radius:20px;border:none;cursor:pointer;color:#fff;font-size:.8rem;margin-right:5px;margin-bottom:5px;opacity:.3;transition:opacity .2s,filter .2s;filter:grayscale(60%)}.content-tags button.active{opacity:1;filter:grayscale(0%)}
-        .content-tags .foto{background-color:#ff6347}.content-tags .video{background-color:#4682b4}.content-tags .grafico{background-color:#3cb371}.content-tags .titolo{background-color:#ffa500}.content-tags .cartina{background-color:#a0522d}.project-tag{padding:5px 10px;border-radius:20px;border:1px solid #ccc;cursor:pointer;font-size:.8rem;margin-right:5px;margin-bottom:5px;background-color:#2c3e50;color:#fff}
+        .content-tags .foto{background-color:#ff6347}.content-tags .clip{background-color:#4682b4}.content-tags .copertura{background-color:#8e44ad}.content-tags .grafico{background-color:#3cb371}.content-tags .titolo{background-color:#ffa500}.content-tags .cartina{background-color:#a0522d}.project-tag{padding:5px 10px;border-radius:20px;border:1px solid #ccc;cursor:pointer;font-size:.8rem;margin-right:5px;margin-bottom:5px;background-color:#2c3e50;color:#fff}
         .location-container h5{margin:.8rem 0 .5rem;font-size:1rem;color:#444}.location-buttons{display:flex;gap:10px;margin-bottom:.5rem}.location-btn{padding:5px 10px;font-size:.8rem;border-radius:5px;border:1px solid #aaa;background-color:#eee;cursor:pointer}.location-btn.active{background-color:#3498db;color:#fff;border-color:#3498db}
         .request-status-container{margin-top:15px;border-top:1px solid rgba(0,0,0,.1);padding-top:15px;display:flex;flex-direction:column;gap:15px}
         .request-row{display:block}.request-activation-btn{margin-bottom:8px}
@@ -125,7 +125,6 @@
             });
         }
         
-        // ... (resto del codice è completo e invariato)
         function animateFavicon() {
             const favicon = document.getElementById('favicon');
             if (!favicon) return;
@@ -138,7 +137,12 @@
                 counter++;
             }, 1500);
         }
-        function sanitizeHTML(str) { if (!str) return ''; return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#039;'); }
+
+        function sanitizeHTML(str) {
+            if (!str) return '';
+            return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#039;');
+        }
+
         function exportData() {
             const dateToExp = activeDate;
             if(!dateToExp) { alert("Seleziona un giorno da esportare."); return; }
@@ -152,6 +156,7 @@
                 a.href = url; a.download = `backup-bacheca-${dateToExp}.json`; document.body.appendChild(a); a.click(); document.body.removeChild(a); URL.revokeObjectURL(url);
             });
         }
+
         function importData(event) {
             const file = event.target.files[0];
             if (!file) return;
@@ -171,6 +176,7 @@
             };
             reader.readAsText(file);
         }
+
         function generateDaySelectors(count) {
             const selectorContainer = document.getElementById('day-selector');
             const kanbanContainer = document.getElementById('kanban-container');
@@ -186,7 +192,7 @@
                 const kanbanBoard = document.createElement('div');
                 kanbanBoard.id = `board-${dateString}`; kanbanBoard.className = 'kanban-board'; kanbanBoard.style.display = 'none';
                 kanbanBoard.innerHTML = `
-                    <div class="column" id="comms-column-${dateString}"><h2 class="column-header">Comunicazioni importanti</h2><textarea class="info-field comms-field-1" rows="5" placeholder="Descrizione"></textarea><div class="info-field-container"><label>Requisiti:</label><textarea class="info-field comms-field-2" rows="10" placeholder="Materiale, tecnica, ..."></textarea></div></div>
+                    <div class="column" id="comms-column-${dateString}"><h2 class="column-header">Comunicazioni importanti</h2><textarea class="info-field comms-field-1" rows="25" placeholder="Descrizione"></textarea><div class="info-field-container"><label>Requisiti:</label><textarea class="info-field comms-field-2" rows="10" placeholder="Materiale, tecnica, ..."></textarea></div></div>
                     <div class="column" id="todo-column-${dateString}"><h2 class="column-header">📝 Da fare</h2><div class="add-task"><input type="text" id="todo-input-${dateString}" placeholder="Aggiungi nuovo compito..."><button class="add-btn" data-date="${dateString}">Aggiungi</button></div><div class="task-list" id="todo-list-${dateString}"></div></div>
                     <div class="column" id="in-progress-column-${dateString}"><h2 class="column-header">⏳ In corso</h2><div class="task-list" id="in-progress-list-${dateString}"></div></div>
                     <div class="column done-column" id="done-column-${dateString}"><h2 class="column-header">✅ Pronti</h2><div class="task-list" id="done-list-${dateString}"></div></div>`;
@@ -202,6 +208,7 @@
             document.getElementById('author-input').addEventListener('change', () => saveTasks(activeDate));
             switchDay(new Date().toISOString().split('T')[0]);
         }
+        
         function switchDay(date) {
             document.querySelectorAll('.day-selector button').forEach(btn => { btn.classList.toggle('active', btn.getAttribute('data-date') === date); });
             document.querySelectorAll('.kanban-board').forEach(board => { board.style.display = 'none'; });
@@ -223,6 +230,7 @@
                 }
             });
         }
+        
         function saveTasks(date) {
             const tasks = { autore: document.getElementById('author-input').value || '', comunicazione1: document.querySelector(`#board-${date} .comms-field-1`)?.value || '', comunicazione2: document.querySelector(`#board-${date} .comms-field-2`)?.value || '', todo: [], inProgress: [], done: [] };
             document.querySelectorAll(`#todo-list-${date} .task-card`).forEach(card => tasks.todo.push(serializeCard(card)));
@@ -230,6 +238,7 @@
             document.querySelectorAll(`#done-list-${date} .task-card`).forEach(card => tasks.done.push(serializeCard(card)));
             db.collection('bacheche').doc(date).set(tasks);
         }
+
         function createTaskCard(baseText, initialData = {}, date = activeDate) {
             const card = document.createElement('div');
             card.className = 'task-card'; card.setAttribute('draggable', 'true'); card.id = initialData.id || `task-${date}-${Date.now()}`;
@@ -237,7 +246,15 @@
                 <div class="task-card-header"><h4 data-base-text="${baseText}"></h4><button class="minimize-btn">🔼</button></div>
                 <div class="task-body">
                     <div class="info-field-container"><label>Descrizione:</label><textarea class="info-field descrizione-input" rows="2" placeholder="Descrizione..."></textarea></div>
-                    <div class="content-tags"><button class="foto" data-type="foto">Foto</button><button class="video" data-type="video">Video</button><button class="grafico" data-type="grafico">Grafico</button><button class="titolo" data-type="titolo">Titolo</button><button class="cartina" data-type="cartina">Cartina</button><button class="project-tag">PO</button></div>
+                    <div class="content-tags">
+                        <button class="foto" data-type="foto">Foto</button>
+                        <button class="clip" data-type="clip">Clip</button>
+                        <button class="copertura" data-type="copertura">Copertura</button>
+                        <button class="grafico" data-type="grafico">Grafico</button>
+                        <button class="titolo" data-type="titolo">Titolo</button>
+                        <button class="cartina" data-type="cartina">Cartina</button>
+                        <button class="project-tag">PO</button>
+                    </div>
                     <div class="info-field-container"><label>Materiale:</label><textarea class="info-field materiale-input" rows="10" placeholder="Cosa, quando, ..."></textarea></div>
                     <div class="location-container">
                         <h5>Dove</h5>
@@ -245,13 +262,14 @@
                         <div class="location-text-container hidden"><input type="text" class="info-field location-text" placeholder="X Chi"></div>
                     </div>
                     <div class="request-status-container">
-                        <div class="request-row"><button class="request-activation-btn" data-type="grafica">Richiesto in grafica</button><div class="request-status-indicator hidden"><span>Arrivato:</span><button class="status-toggle-btn" data-type="grafica" data-status="no">❌ No</button><input type="text" class="info-field grafica-contact-input" placeholder="Ev. contatto"></div></div>
+                        <div class="request-row"><button class="request-activation-btn" data-type="grafica">Richiesto in grafica</button><div class="request-status-indicator hidden"><span>Arrivato:</span><button class="status-toggle-btn" data-type="grafica" data-status="no">❌ No</button></div></div>
                         <div class="request-row"><button class="request-activation-btn" data-type="ospite">Richiesto all'ospite</button><div class="request-status-indicator hidden"><span>Arrivato:</span><button class="status-toggle-btn" data-type="ospite" data-status="no">❌ No</button><input type="text" class="info-field ospite-contact-input" placeholder="Ev. contatto"></div></div>
                     </div>
                     <div class="info-field-container"><label>Links:</label><div class="links-container"></div></div>
                     <button class="add-link-btn">+</button>
                     <div class="task-buttons"><button class="edit-btn">✏️</button><button class="delete-btn">🗑️</button><button class="done-btn">✔️</button></div>
                 </div>`;
+            
             const linksContainer = card.querySelector('.links-container');
             const addLinkRow = (linkValue = '') => {
                 const linkRow = document.createElement('div');
@@ -270,12 +288,11 @@
             if (initialData.materiale) card.querySelector('.materiale-input').value = initialData.materiale;
             if (initialData.location) { const locBtn = card.querySelector(`.location-btn[data-location="${initialData.location}"]`); if(locBtn) { locBtn.classList.add('active'); if(initialData.location === 'Hive') card.querySelector('.location-text-container').classList.remove('hidden'); } }
             if (initialData.locationText) card.querySelector('.location-text').value = initialData.locationText;
-            if (initialData.activeTags) { initialData.activeTags.forEach(tagType => { const tagBtn = card.querySelector(`.content-tags button[data-type="${tagType}"]`); if (tagBtn) tagBtn.classList.add('active'); }); }
+            if (initialData.activeContentTag) { const tagBtn = card.querySelector(`.content-tags button[data-type="${initialData.activeContentTag}"]`); if (tagBtn) tagBtn.classList.add('active'); }
             if (initialData.grafica_active) {
                 const activationBtn = card.querySelector('.request-activation-btn[data-type="grafica"]');
                 activationBtn.classList.add('active'); activationBtn.nextElementSibling.classList.remove('hidden');
                 if (initialData.grafica_status === 'yes') { const statusBtn = activationBtn.nextElementSibling.querySelector('.status-toggle-btn'); statusBtn.dataset.status = 'yes'; statusBtn.textContent = '✅ Sì'; }
-                if(initialData.grafica_contatto) card.querySelector('.grafica-contact-input').value = initialData.grafica_contatto;
             }
             if (initialData.ospite_active) {
                 const activationBtn = card.querySelector('.request-activation-btn[data-type="ospite"]');
@@ -283,14 +300,14 @@
                  if (initialData.ospite_status === 'yes') { const statusBtn = activationBtn.nextElementSibling.querySelector('.status-toggle-btn'); statusBtn.dataset.status = 'yes'; statusBtn.textContent = '✅ Sì'; }
                 if(initialData.ospite_contatto) card.querySelector('.ospite-contact-input').value = initialData.ospite_contatto;
             }
-            updateTitleWithPrefix(card);
+            updateTitleWithPrefixAndColor(card); // Modificato qui per includere il colore
             card.querySelector('h4').addEventListener('click', () => editTask(card));
             card.querySelector('.edit-btn').addEventListener('click', () => editTask(card));
             card.querySelector('.delete-btn').addEventListener('click', () => deleteTask(card));
             card.querySelector('.done-btn').addEventListener('click', () => toggleDone(card));
             card.querySelector('.minimize-btn').addEventListener('click', () => toggleMinimize(card));
             card.querySelector('.project-tag').addEventListener('click', () => toggleProjectTag(card.querySelector('.project-tag')));
-            card.querySelectorAll('.content-tags button:not(.project-tag)').forEach(button => button.addEventListener('click', () => toggleTag(button)));
+            card.querySelectorAll('.content-tags button:not(.project-tag)').forEach(button => button.addEventListener('click', () => toggleTag(button, card)));
             card.querySelectorAll('.location-btn').forEach(button => {
                 button.addEventListener('click', () => {
                     const wasActive = button.classList.contains('active');
@@ -301,7 +318,7 @@
                     saveTasks(activeDate);
                 });
             });
-            card.querySelectorAll('.request-activation-btn').forEach(button => {
+             card.querySelectorAll('.request-activation-btn').forEach(button => {
                 button.addEventListener('click', () => { button.classList.toggle('active'); button.nextElementSibling.classList.toggle('hidden'); saveTasks(activeDate); });
             });
             card.querySelectorAll('.status-toggle-btn').forEach(button => {
@@ -343,12 +360,36 @@
                 else return closest;
             }, { offset: Number.NEGATIVE_INFINITY }).element;
         }
-        function updateTitleWithPrefix(card) {
+
+        // Funzione aggiornata per modificare titolo e colore
+        function updateTitleWithPrefixAndColor(card) {
             const titleElement = card.querySelector('h4');
             const baseText = titleElement.dataset.baseText || '';
             const prefix = card.querySelector('.project-tag').textContent;
-            titleElement.textContent = `${prefix}-${sanitizeHTML(baseText)}`;
+            const activeContentTagBtn = card.querySelector('.content-tags button:not(.project-tag).active');
+            let contentTagText = '';
+            let titleColor = '#c0392b'; // Colore predefinito se nessun tag è attivo
+
+            const titleMap = {
+                foto: { text: 'FOTO', color: '#ff6347' },
+                clip: { text: 'CLIP', color: '#4682b4' },
+                copertura: { text: 'COP', color: '#8e44ad' }, // Colore per Copertura
+                grafico: { text: 'GRAFICO', color: '#3cb371' },
+                titolo: { text: 'TITOLO', color: '#ffa500' },
+                cartina: { text: 'CARTINA', color: '#a0522d' }
+            };
+
+            if (activeContentTagBtn) {
+                const type = activeContentTagBtn.dataset.type;
+                if (titleMap[type]) {
+                    contentTagText = `${titleMap[type].text} `;
+                    titleColor = titleMap[type].color;
+                }
+            }
+            titleElement.textContent = `${prefix}-${contentTagText}${sanitizeHTML(baseText)}`;
+            titleElement.style.color = titleColor;
         }
+
         function toggleMinimize(card) {
             const isMinimized = card.classList.toggle('minimized');
             card.querySelector('.minimize-btn').textContent = isMinimized ? '🔽' : '🔼';
@@ -370,7 +411,7 @@
                 card.setAttribute('draggable', 'true');
                 const newBaseText = titleElement.textContent.trim() || 'Nuovo task';
                 titleElement.dataset.baseText = newBaseText;
-                updateTitleWithPrefix(card);
+                updateTitleWithPrefixAndColor(card); // Aggiornato qui
                 titleElement.removeEventListener('blur', finishEditing);
                 titleElement.removeEventListener('keydown', handleKeyDown);
                 saveTasks(activeDate);
@@ -397,15 +438,27 @@
         function toggleProjectTag(tagElement) {
             const card = tagElement.closest('.task-card');
             tagElement.textContent = tagElement.textContent === 'PO' ? 'QUOT' : 'PO';
-            updateTitleWithPrefix(card);
+            updateTitleWithPrefixAndColor(card); // Aggiornato qui
             saveTasks(activeDate);
         }
-        function toggleTag(button) { button.classList.toggle('active'); saveTasks(activeDate); }
+
+        // Funzione aggiornata per gestire l'attivazione dei tag e il colore del titolo
+        function toggleTag(clickedButton, card) {
+            const wasActive = clickedButton.classList.contains('active');
+            card.querySelectorAll('.content-tags button:not(.project-tag)').forEach(btn => { btn.classList.remove('active'); });
+            if (!wasActive) {
+                clickedButton.classList.add('active');
+            }
+            updateTitleWithPrefixAndColor(card); // Aggiornato qui
+            saveTasks(activeDate);
+        }
+
         function serializeCard(card) {
             const graficaBtn = card.querySelector('.request-activation-btn[data-type="grafica"]');
             const ospiteBtn = card.querySelector('.request-activation-btn[data-type="ospite"]');
             const linkInputs = card.querySelectorAll('.links-container .link-input');
             const links = Array.from(linkInputs).map(input => input.value).filter(value => value.trim() !== '');
+            const activeContentTagBtn = card.querySelector('.content-tags button:not(.project-tag).active');
 
             return {
                 id: card.id,
@@ -422,7 +475,7 @@
                 ospite_active: ospiteBtn.classList.contains('active'),
                 ospite_status: ospiteBtn.nextElementSibling.querySelector('.status-toggle-btn').dataset.status,
                 ospite_contatto: card.querySelector('.ospite-contact-input').value,
-                activeTags: Array.from(card.querySelectorAll('.content-tags button:not(.project-tag).active')).map(btn => btn.dataset.type),
+                activeContentTag: activeContentTagBtn ? activeContentTagBtn.dataset.type : '',
                 isDone: card.classList.contains('done'),
                 minimized: card.classList.contains('minimized')
             };
