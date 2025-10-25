@@ -19,7 +19,6 @@
         .fixed-controls{position:fixed;bottom:20px;right:20px;display:flex;gap:10px;z-index:1000}
         .fixed-controls button{padding:8px 15px;border-radius:5px;border:1px solid #fff;background-color:#2c3e50;color:#fff;font-weight:700;cursor:pointer;transition:background-color .2s;box-shadow:0 2px 5px rgba(0,0,0,.2)}.fixed-controls button:hover{background-color:#34495e}
         
-        /* CORREZIONE: Impostato 'none' qui, controllato da JS */
         #app-container { display: none; width: 100%; flex-direction: column; align-items: center; }
         #auth-container { background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.2); padding: 2rem; border-radius: 8px; width: 300px; box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1); color: #eee; margin-top: 10vh; }
         .login-title { font-size: 2.5rem; font-weight: 700; color: #fff; text-align: center; margin: 0; text-shadow: 1px 1px 3px rgba(0,0,0,0.4); }
@@ -49,13 +48,21 @@
         .kanban-board{display:flex;gap:2rem;justify-content:center;width:100%;max-width:1400px}
         .column{background:rgba(255,255,255,.1);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,.2);padding:1.5rem;border-radius:8px;width:300px;min-height:500px;box-shadow:0 4px 30px rgba(0,0,0,.1);display:flex;flex-direction:column}.column.done-column{width:250px}.column-header{font-size:1.5rem;font-weight:700;margin-top:0;margin-bottom:1rem;color:#eee;text-shadow:1px 1px 3px rgba(0,0,0,.4);text-align:center}.add-task{display:flex;margin-bottom:1rem}.add-task input{flex-grow:1;padding:10px;border:1px solid #ccc;border-radius:5px;font-size:.9rem}.add-task button{padding:10px 15px;border:none;background-color:#2c3e50;color:#fff;border-radius:5px;margin-left:5px;cursor:pointer;font-size:.9rem}.task-list{flex-grow:1;overflow-y:auto;position:relative;min-height:100px}.task-card{background:rgba(255,255,255,.2);padding:1rem;border-radius:5px;margin-bottom:1rem;cursor:grab;box-shadow:0 1px 3px rgba(0,0,0,.1);transition:transform .2s ease-in-out,box-shadow .2s ease-in-out;position:relative}.task-card:active{cursor:grabbing}.task-card.dragging{opacity:.5;box-shadow:0 4px 15px rgba(0,0,0,.2);transform:scale(1.05)}
         .task-card.done{background:rgba(46,204,113,.2)}
+        
+        /* CSS MODIFICATO per testo 'Creato da...' */
         .task-meta-info{font-size:0.65rem;color:#f0f0f0;margin-bottom:8px;margin-top:-8px;text-shadow:1px 1px 1px rgba(0,0,0,0.3);}
+        
         .task-card-header{display:flex;justify-content:space-between;align-items:center}.task-card h4{margin:0 0 .5rem;font-size:1.1rem;flex-grow:1;cursor:text;transition:background-color .2s ease-in-out;color:#fff;padding:4px 10px;border-radius:15px;display:inline-block;width:auto}.task-card h4[contenteditable=true]{background-color:rgba(255,255,255,.8) !important;outline:2px solid #3498db;color:#333 !important}.info-field-container{margin-top:10px}.info-field-container label{font-size:.9rem;font-weight:700;color:#444;display:block;margin-bottom:5px}.info-field{width:calc(100% - 10px);padding:5px;border:1px solid #ccc;border-radius:3px;font-size:.9rem;resize:vertical;font-family:inherit}.task-card .task-buttons{display:flex;justify-content:space-between;margin-top:1rem}.task-card .task-buttons button,.minimize-btn{background:0 0;border:none;cursor:pointer;font-size:1.2rem;color:#333;transition:color .2s}.minimize-btn{font-size:1rem;margin-left:10px;padding:0 5px}.task-card .task-buttons button:hover,.minimize-btn:hover{color:#000}
-.task-card.minimized .task-body{display:none}
-.task-card.minimized h4{margin-bottom:0}
-.task-card.minimized .task-meta-info { display: none; }
-.content-tags{display:flex;flex-wrap:wrap;align-items:center}
-        .content-tags button{padding:5px 10px;border-radius:20px;border:none;cursor:pointer;color:#fff;font-size:.8rem;margin-right:5px;margin-bottom:5px;opacity:.3;transition:opacity .2s,filter .2s;filter:grayscale(60%)}.content-tags button.active{opacity:1;filter:grayscale(0%)}
+        
+        /* CSS MODIFICATO per nascondere info quando minimizzato */
+        .task-card.minimized .task-body{display:none}
+        .task-card.minimized h4{margin-bottom:0}
+        .task-card.minimized .task-meta-info { display: none; }
+
+        /* --- CSS MODIFICATO QUI --- */
+        .content-tags button{padding:5px 10px;border-radius:20px;border:none;cursor:pointer;color:#fff;font-size:.8rem;margin-right:5px;margin-bottom:5px;opacity:.6;transition:opacity .2s,filter .2s;filter:grayscale(20%)}.content-tags button.active{opacity:1;filter:grayscale(0%)}
+        /* --- FINE CSS MODIFICATO --- */
+
         .content-tags .foto{background-color:#FF7F50}.content-tags .clip{background-color:#337AB7}.content-tags .copertura{background-color:#6A5ACD}.content-tags .grafico{background-color:#28A745}.content-tags .oggetto{background-color:#FFC107}.content-tags .cartina{background-color:#8B4513}.project-tag{padding:5px 10px;border-radius:20px;border:1px solid #ccc;cursor:pointer;font-size:.8rem;margin-right:5px;margin-bottom:5px;background-color:#2c3e50;color:#fff}
         .location-container h5{margin:.8rem 0 .5rem;font-size:1rem;color:#444}.location-buttons{display:flex;gap:10px;margin-bottom:.5rem}.location-btn{padding:5px 10px;font-size:.8rem;border-radius:5px;border:1px solid #aaa;background-color:#eee;cursor:pointer}.location-btn.active{background-color:#3498db;color:#fff;border-color:#3498db}
         .request-status-container{margin-top:15px;border-top:1px solid rgba(0,0,0,.1);padding-top:15px;display:flex;flex-direction:column;gap:15px}
@@ -191,7 +198,7 @@
         let unsubscribeTasks = null;
         let unsubscribeDailyInfo = null;
         let currentDailyInfoKey = null;
-        let isAppInitialized = false; // <-- CORREZIONE: Flag di inizializzazione
+        let isAppInitialized = false; // Flag di inizializzazione
 
         // --- FUNZIONI DI AUTENTICAZIONE ---
         function setupAuth() {
@@ -203,9 +210,8 @@
                 const exportBtn = document.getElementById('export-btn');
                 const importBtn = document.getElementById('import-btn');
 
-                // CORREZIONE: Aggiunto '!isAppInitialized' per eseguire il setup una sola volta
                 if (user && !isAppInitialized) {
-                    isAppInitialized = true; // <-- CORREZIONE: Imposta il flag
+                    isAppInitialized = true; 
                     
                     authContainer.classList.add('hidden');
                     appContainer.style.display = 'flex';
@@ -217,7 +223,6 @@
                     const daysToDisplay = 8;
                     generateDaySelectors(daysToDisplay);
                     
-                    // CORREZIONE: Attiva il giorno di oggi e i listener DOPO il login
                     switchDay(new Date().toISOString().split('T')[0]);
                     
                     document.querySelectorAll('.daily-info-container input').forEach(input => {
@@ -230,8 +235,8 @@
                     importFileInput.addEventListener('change', importData);
                     animateFavicon();
                     setupPresence();
-                } else if (!user) { // Modificato per gestire solo il caso !user
-                    isAppInitialized = false; // <-- CORREZIONE: Resetta il flag al logout
+                } else if (!user) { 
+                    isAppInitialized = false; 
                     authContainer.classList.remove('hidden');
                     appContainer.style.display = 'none';
                     logoutBtn.classList.add('hidden');
@@ -240,8 +245,10 @@
                     importBtn.classList.add('hidden');
                     if (unsubscribeTasks) unsubscribeTasks();
                     if (unsubscribeDailyInfo) unsubscribeDailyInfo();
-                    if (rtdb) rtdb.ref('/presence').off();
-		    document.getElementById('day-selector').innerHTML = '';
+                    if (rtdb && auth.currentUser) rtdb.ref('/presence/' + auth.currentUser.uid).off();
+
+                    // CORREZIONE LOGOUT: Svuota i contenitori
+                    document.getElementById('day-selector').innerHTML = '';
                     document.getElementById('kanban-container').innerHTML = '';
                 }
             });
@@ -263,6 +270,8 @@
         function showLoginFromReset() {
             toggleAuthForm(false);
         }
+
+        // --- FUNZIONE LOGIN MODIFICATA ---
         function handleLogin(event) {
             event.preventDefault();
             const email = document.getElementById('login-email').value + '@rsi.ch';
@@ -270,12 +279,30 @@
             const errorDiv = document.getElementById('auth-error');
             errorDiv.classList.add('hidden');
             document.getElementById('auth-success').classList.add('hidden');
+            
             auth.signInWithEmailAndPassword(email, password)
+                .then((userCredential) => {
+                    // Utente e password sono corretti, ora controlliamo la verifica
+                    const user = userCredential.user;
+                    if (user.emailVerified) {
+                        // TUTTO OK! L'utente è verificato.
+                        // onAuthStateChanged si occuperà di mostrare la bacheca.
+                    } else {
+                        // Email non verificata!
+                        auth.signOut(); // Disconnettiamo subito l'utente
+                        errorDiv.textContent = "Account non ancora attivo. Controlla la tua email per il link di verifica.";
+                        errorDiv.classList.remove('hidden');
+                    }
+                })
                 .catch(error => {
+                    // Questo 'catch' ora gestisce solo login falliti (es. password errata)
                     errorDiv.textContent = "Utente o password non validi.";
                     errorDiv.classList.remove('hidden');
                 });
         }
+        // --- FINE FUNZIONE LOGIN ---
+
+        // FUNZIONE REGISTRAZIONE CON INVIO VERIFICA
         function handleRegister(event) {
             event.preventDefault();
             const email = document.getElementById('register-email').value + '@rsi.ch';
@@ -284,34 +311,57 @@
             const nome = document.getElementById('register-nome').value;
             const cognome = document.getElementById('register-cognome').value;
             const displayName = `${nome} ${cognome.charAt(0)}.`;
+            
             const errorDiv = document.getElementById('auth-error');
+            const successDiv = document.getElementById('auth-success');
             errorDiv.classList.add('hidden');
-            document.getElementById('auth-success').classList.add('hidden');
+            successDiv.classList.add('hidden');
 
             if (password !== confirmPassword) {
                 errorDiv.textContent = "Le password non coincidono.";
                 errorDiv.classList.remove('hidden');
                 return;
             }
+
+            // Creiamo l'utente
             auth.createUserWithEmailAndPassword(email, password)
                 .then((userCredential) => {
                     const user = userCredential.user;
-                    return user.updateProfile({
-                        displayName: displayName
-                    }).then(() => {
-                        return db.collection('users').doc(user.uid).set({
-                            nome: nome,
-                            cognome: cognome,
-                            displayName: displayName,
-                            email: user.email
+                    
+                    // Inviamo l'email di verifica
+                    return user.sendEmailVerification().then(() => {
+                        // Fatto questo, aggiorniamo il profilo e salviamo in DB
+                        return user.updateProfile({
+                            displayName: displayName
+                        }).then(() => {
+                            return db.collection('users').doc(user.uid).set({
+                                nome: nome,
+                                cognome: cognome,
+                                displayName: displayName,
+                                email: user.email
+                            });
                         });
                     });
                 })
+                .then(() => {
+                    // Mostra un messaggio di successo e torna al login
+                    successDiv.textContent = "Registrazione completata! Controlla la tua email per il link di attivazione e poi accedi.";
+                    successDiv.classList.remove('hidden');
+                    toggleAuthForm(false); // Mostra il modulo di login
+                })
                 .catch(error => {
-                    errorDiv.textContent = error.message;
+                    // Gestisce errori (es. password corta, email già usata)
+                    if (error.code === 'auth/email-already-in-use') {
+                        errorDiv.textContent = "Questa email è già registrata. Prova ad accedere.";
+                    } else if (error.code === 'auth/weak-password') {
+                        errorDiv.textContent = "La password è troppo debole (min. 6 caratteri).";
+                    } else {
+                        errorDiv.textContent = "Errore: " + error.message;
+                    }
                     errorDiv.classList.remove('hidden');
                 });
         }
+
         function handlePasswordReset(event) {
             event.preventDefault();
             const email = document.getElementById('reset-email').value + '@rsi.ch';
@@ -331,8 +381,10 @@
                 });
         }
         function handleLogout() {
-            const myUid = auth.currentUser.uid;
-            rtdb.ref('/presence/' + myUid).remove();
+            if (auth.currentUser) {
+                const myUid = auth.currentUser.uid;
+                rtdb.ref('/presence/' + myUid).remove();
+            }
             auth.signOut();
         }
         // --- FINE FUNZIONI DI AUTENTICAZIONE ---
