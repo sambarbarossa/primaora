@@ -198,7 +198,8 @@
         let unsubscribeTasks = null;
         let unsubscribeDailyInfo = null;
         let currentDailyInfoKey = null;
-        let isAppInitialized = false; // Flag di inizializzazione
+        let isAppInitialized = false; 
+	let isRegistering = false;
 
         // --- FUNZIONI DI AUTENTICAZIONE ---
         function setupAuth() {
@@ -210,7 +211,7 @@
                 const exportBtn = document.getElementById('export-btn');
                 const importBtn = document.getElementById('import-btn');
 
-                if (user && !isAppInitialized) {
+                if (user && !isAppInitialized && !isRegistering) {
                     isAppInitialized = true; 
                     
                     authContainer.classList.add('hidden');
@@ -284,7 +285,7 @@
                 .then((userCredential) => {
                     // Utente e password sono corretti, ora controlliamo la verifica
                     const user = userCredential.user;
-                    if (user.emailVerified) {
+                    if (false) { // <-- MODIFICA TEMPORANEA PER TEST
                         // TUTTO OK! L'utente è verificato.
                         // onAuthStateChanged si occuperà di mostrare la bacheca.
                     } else {
@@ -305,6 +306,7 @@
         // FUNZIONE REGISTRAZIONE CON INVIO VERIFICA
         function handleRegister(event) {
             event.preventDefault();
+	    isRegistering = true;
             const email = document.getElementById('register-email').value + '@rsi.ch';
             const password = document.getElementById('register-password').value;
             const confirmPassword = document.getElementById('register-password-confirm').value;
@@ -345,13 +347,15 @@
                 })
                 .then(() => {
                     auth.signOut();
+		    isRegistering = false;
 		    // Mostra un messaggio di successo e torna al login
                     successDiv.textContent = "Registrazione completata! Controlla la tua email per il link di attivazione e poi accedi.";
                     successDiv.classList.remove('hidden');
                     toggleAuthForm(false); // Mostra il modulo di login
                 })
                 .catch(error => {
-                    // Gestisce errori (es. password corta, email già usata)
+                    isRegistering = false;
+		    // Gestisce errori (es. password corta, email già usata)
                     if (error.code === 'auth/email-already-in-use') {
                         errorDiv.textContent = "Questa email è già registrata. Prova ad accedere.";
                     } else if (error.code === 'auth/weak-password') {
