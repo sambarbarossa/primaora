@@ -10,6 +10,7 @@
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
 
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap');
@@ -17,7 +18,28 @@
         #presence-indicator{position:fixed;top:10px;left:10px;background-color:rgba(0,0,0,.4);color:#fff;padding:5px 10px;border-radius:5px;font-size:.8rem;backdrop-filter:blur(5px);-webkit-backdrop-filter:blur(5px);z-index:1000;line-height:1.4}
         .fixed-controls{position:fixed;bottom:20px;right:20px;display:flex;gap:10px;z-index:1000}
         .fixed-controls button{padding:8px 15px;border-radius:5px;border:1px solid #fff;background-color:#2c3e50;color:#fff;font-weight:700;cursor:pointer;transition:background-color .2s;box-shadow:0 2px 5px rgba(0,0,0,.2)}.fixed-controls button:hover{background-color:#34495e}
-        .header-container{display:flex;justify-content:center;align-items:center;width:100%;max-width:1380px;margin-bottom:1rem;gap:1.5rem}
+        
+        #app-container { display: none; width: 100%; flex-direction: column; align-items: center; }
+        #auth-container { background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.2); padding: 2rem; border-radius: 8px; width: 300px; box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1); color: #eee; margin-top: 10vh; }
+        .login-title { font-size: 2.5rem; font-weight: 700; color: #fff; text-align: center; margin: 0; text-shadow: 1px 1px 3px rgba(0,0,0,0.4); }
+        .login-subtitle { font-size: 1.1rem; color: #eee; text-align: center; margin: 0; line-height: 1.4; }
+        #auth-container h2 { text-align: center; margin-top: 0; }
+        .auth-form { display: flex; flex-direction: column; gap: 1rem; }
+        .auth-form input[type=password],
+        .auth-form input[type=text]:not([id*="-email"]) { padding: 12px; border: 1px solid #ccc; border-radius: 5px; font-size: 1rem; }
+        .email-input-container { display: flex; align-items: center; border: 1px solid #ccc; border-radius: 5px; background-color: white; transition: border-color 0.2s, box-shadow 0.2s; }
+        .email-input-container input[type=text] { border: none; flex-grow: 1; padding: 12px; font-size: 1rem; outline: none; background-color: transparent; min-width: 50px; }
+        .email-suffix { padding: 12px; background-color: #eee; color: #555; font-size: 1rem; white-space: nowrap; border-radius: 0 4px 4px 0; border-left: 1px solid #ccc; }
+        .email-input-container:focus-within { border-color: #3498db; box-shadow: 0 0 3px rgba(52,152,219,0.5); }
+        .auth-form button { padding: 12px; border: none; border-radius: 5px; background-color: #3498db; color: white; font-weight: bold; cursor: pointer; font-size: 1rem; }
+        .auth-form button:hover { background-color: #2980b9; }
+        .auth-toggle { text-align: center; margin-top: 1rem; font-size: 0.9rem; line-height: 1.5; }
+        .auth-toggle a { color: #d93025; cursor: pointer; text-decoration: underline; }
+        #auth-error { color: #e74c3c; text-align: center; margin-top: 1rem; font-weight: bold; }
+        #auth-success { color: #2ecc71; text-align: center; margin-top: 1rem; font-weight: bold; }
+        .rsi-red { color: #d93025; }
+
+        .header-container{display:flex;justify-content:center;align-items:center;width:100%;max-width:1500px;margin-bottom:1rem;gap:1.5rem}
         .day-selector{display:flex;justify-content:center;flex-wrap:wrap;background-color:rgba(255,255,255,.2);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);padding:.5rem;border-radius:8px;box-shadow:0 2px 10px rgba(0,0,0,.05);flex-grow:1}.day-selector button{backdrop-filter:blur(5px);-webkit-backdrop-filter:blur(5px);border:1px solid rgba(255,255,255,.8);border-radius:5px;padding:8px 12px;margin:5px;font-size:.8rem;cursor:pointer;transition:background-color .2s,color .2s,border-color .2s;color:#fff;font-weight:700}.day-color-0{background-color:rgba(255,179,186,.7)}.day-color-1{background-color:rgba(255,223,186,.7)}.day-color-2{background-color:rgba(255,255,186,.7)}.day-color-3{background-color:rgba(186,255,201,.7)}.day-color-4{background-color:rgba(186,225,255,.7)}.day-color-5{background-color:rgba(215,186,255,.7)}.day-color-6{background-color:rgba(255,186,236,.7)}.day-selector button.active{background-color:#2c3e50;color:#fff;border-color:#fff}
         .daily-info-container{display:flex;flex-direction:column;gap:6px;background-color:rgba(0,0,0,.2);padding:8px 12px;border-radius:8px;flex-shrink:0}
         .info-row{display:flex;align-items:center;gap:8px}
@@ -26,9 +48,10 @@
         .kanban-board{display:flex;gap:2rem;justify-content:center;width:100%;max-width:1400px}
         .column{background:rgba(255,255,255,.1);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,.2);padding:1.5rem;border-radius:8px;width:300px;min-height:500px;box-shadow:0 4px 30px rgba(0,0,0,.1);display:flex;flex-direction:column}.column.done-column{width:250px}.column-header{font-size:1.5rem;font-weight:700;margin-top:0;margin-bottom:1rem;color:#eee;text-shadow:1px 1px 3px rgba(0,0,0,.4);text-align:center}.add-task{display:flex;margin-bottom:1rem}.add-task input{flex-grow:1;padding:10px;border:1px solid #ccc;border-radius:5px;font-size:.9rem}.add-task button{padding:10px 15px;border:none;background-color:#2c3e50;color:#fff;border-radius:5px;margin-left:5px;cursor:pointer;font-size:.9rem}.task-list{flex-grow:1;overflow-y:auto;position:relative;min-height:100px}.task-card{background:rgba(255,255,255,.2);padding:1rem;border-radius:5px;margin-bottom:1rem;cursor:grab;box-shadow:0 1px 3px rgba(0,0,0,.1);transition:transform .2s ease-in-out,box-shadow .2s ease-in-out;position:relative}.task-card:active{cursor:grabbing}.task-card.dragging{opacity:.5;box-shadow:0 4px 15px rgba(0,0,0,.2);transform:scale(1.05)}
         .task-card.done{background:rgba(46,204,113,.2)}
+        .task-meta-info{font-size:0.7rem;color:#f0f0f0;margin-bottom:8px;text-shadow:1px 1px 1px rgba(0,0,0,0.3);}
         .task-card-header{display:flex;justify-content:space-between;align-items:center}.task-card h4{margin:0 0 .5rem;font-size:1.1rem;flex-grow:1;cursor:text;transition:background-color .2s ease-in-out;color:#fff;padding:4px 10px;border-radius:15px;display:inline-block;width:auto}.task-card h4[contenteditable=true]{background-color:rgba(255,255,255,.8) !important;outline:2px solid #3498db;color:#333 !important}.info-field-container{margin-top:10px}.info-field-container label{font-size:.9rem;font-weight:700;color:#444;display:block;margin-bottom:5px}.info-field{width:calc(100% - 10px);padding:5px;border:1px solid #ccc;border-radius:3px;font-size:.9rem;resize:vertical;font-family:inherit}.task-card .task-buttons{display:flex;justify-content:space-between;margin-top:1rem}.task-card .task-buttons button,.minimize-btn{background:0 0;border:none;cursor:pointer;font-size:1.2rem;color:#333;transition:color .2s}.minimize-btn{font-size:1rem;margin-left:10px;padding:0 5px}.task-card .task-buttons button:hover,.minimize-btn:hover{color:#000}.task-card.minimized .task-body{display:none}.task-card.minimized h4{margin-bottom:0}.content-tags{display:flex;flex-wrap:wrap;align-items:center}
         .content-tags button{padding:5px 10px;border-radius:20px;border:none;cursor:pointer;color:#fff;font-size:.8rem;margin-right:5px;margin-bottom:5px;opacity:.3;transition:opacity .2s,filter .2s;filter:grayscale(60%)}.content-tags button.active{opacity:1;filter:grayscale(0%)}
-        .content-tags .foto{background-color:#FF7F50}.content-tags .clip{background-color:#337AB7}.content-tags .copertura{background-color:#6A5ACD}.content-tags .grafico{background-color:#28A745}.content-tags .titolo{background-color:#FFC107}.content-tags .cartina{background-color:#8B4513}.project-tag{padding:5px 10px;border-radius:20px;border:1px solid #ccc;cursor:pointer;font-size:.8rem;margin-right:5px;margin-bottom:5px;background-color:#2c3e50;color:#fff}
+        .content-tags .foto{background-color:#FF7F50}.content-tags .clip{background-color:#337AB7}.content-tags .copertura{background-color:#6A5ACD}.content-tags .grafico{background-color:#28A745}.content-tags .oggetto{background-color:#FFC107}.content-tags .cartina{background-color:#8B4513}.project-tag{padding:5px 10px;border-radius:20px;border:1px solid #ccc;cursor:pointer;font-size:.8rem;margin-right:5px;margin-bottom:5px;background-color:#2c3e50;color:#fff}
         .location-container h5{margin:.8rem 0 .5rem;font-size:1rem;color:#444}.location-buttons{display:flex;gap:10px;margin-bottom:.5rem}.location-btn{padding:5px 10px;font-size:.8rem;border-radius:5px;border:1px solid #aaa;background-color:#eee;cursor:pointer}.location-btn.active{background-color:#3498db;color:#fff;border-color:#3498db}
         .request-status-container{margin-top:15px;border-top:1px solid rgba(0,0,0,.1);padding-top:15px;display:flex;flex-direction:column;gap:15px}
         .request-row{display:block}.request-activation-btn{margin-bottom:8px}
@@ -48,43 +71,122 @@
         Il tuo browser non supporta il tag video.
     </video>
     
-    <div id="presence-indicator">Connessione...</div>
+    <div id="presence-indicator" class="hidden">Connessione...</div>
 
     <script>
         const firebaseConfig = { apiKey: "AIzaSyD3Ry99dV34fUo6NfzZ5ykSjPcJN1gl8mk", authDomain: "prima-ora-task-registi.firebaseapp.com", projectId: "prima-ora-task-registi", storageBucket: "prima-ora-task-registi.firebasestorage.app", messagingSenderId: "1090920780195", appId: "1:1090920780195:web:89059a93c18fc97bc08a16", databaseURL: "https://prima-ora-task-registi-default-rtdb.europe-west1.firebasedatabase.app" };
         firebase.initializeApp(firebaseConfig);
         const db = firebase.firestore();
         const rtdb = firebase.database();
+        const auth = firebase.auth();
     </script>
 
-    <div class="header-container">
-        <div class="daily-info-container">
-            <div class="info-row"><label for="author-input">Autore:</label><input type="text" id="author-input" class="daily-input" placeholder="Nome..."></div>
-            <div class="info-row"><label for="ce-input">CE:</label><input type="text" id="ce-input" class="daily-input" placeholder="Nome..."></div>
-            <div class="info-row"><label for="conducono1-input">Conducono:</label><input type="text" id="conducono1-input" class="daily-input" placeholder="Nome..."></div>
-            <div class="info-row"><label for="conducono2-input"></label><input type="text" id="conducono2-input" class="daily-input" placeholder="Nome..."></div>
+    <div id="auth-container">
+        <h1 class="login-title">Prepara<span class="rsi-red">RSI</span></h1>
+        <br>
+        <p class="login-subtitle">Task registi Prima Ora</p>
+        <br>
+        <p class="login-subtitle" style="margin: 0;">Benvenuto!</p>
+        <br>
+        
+        <div id="login-form">
+            <h2>Accedi</h2>
+            <form class="auth-form" onsubmit="handleLogin(event)">
+                <div class="email-input-container">
+                    <input type="text" id="login-email" placeholder="nome.cognome" required>
+                    <span class="email-suffix">@rsi.ch</span>
+                </div>
+                <input type="password" id="login-password" placeholder="Password" required>
+                <button type="submit">Accedi</button>
+            </form>
+            <div class="auth-toggle">
+                Non hai un account? <a onclick="toggleAuthForm(true)">Registrati</a>
+                <br>
+                <a onclick="showPasswordReset()">Password dimenticata?</a>
+            </div>
         </div>
-        <div class="day-selector" id="day-selector"></div>
+
+        <div id="register-form" class="hidden">
+            <h2>Registrati</h2>
+            <form class="auth-form" onsubmit="handleRegister(event)">
+                <input type="text" id="register-nome" placeholder="Nome" required>
+                <input type="text" id="register-cognome" placeholder="Cognome" required>
+                <div class="email-input-container">
+                    <input type="text" id="register-email" placeholder="nome.cognome" required>
+                    <span class="email-suffix">@rsi.ch</span>
+                </div>
+                <input type="password" id="register-password" placeholder="Password (min. 6 caratteri)" required>
+                <input type="password" id="register-password-confirm" placeholder="Conferma Password" required>
+                <button type="submit">Registrati</button>
+            </form>
+            <div class="auth-toggle">
+                Hai già un account? <a onclick="toggleAuthForm(false)">Accedi</a>
+            </div>
+        </div>
+
+        <div id="reset-form" class="hidden">
+            <h2>Recupera Password</h2>
+            <form class="auth-form" onsubmit="handlePasswordReset(event)">
+                <div class="email-input-container">
+                    <input type="text" id="reset-email" placeholder="nome.cognome" required>
+                    <span class="email-suffix">@rsi.ch</span>
+                </div>
+                <button type="submit">Invia link di recupero</button>
+            </form>
+            <div class="auth-toggle">
+                Tornare al <a onclick="showLoginFromReset()">Login</a>
+            </div>
+        </div>
+
+        <div id="auth-error" class="hidden"></div>
+        <div id="auth-success" class="hidden"></div>
+    </div>
+
+    <div id="app-container" class="hidden">
+        <div class="header-container">
+             <div class="daily-info-container">
+                <div class="info-row"><label for="ce-input">CE:</label><input type="text" id="ce-input" class="daily-input" placeholder="Nome..."></div>
+                <div class="info-row"><label for="conducono1-input">Conducono:</label><input type="text" id="conducono1-input" class="daily-input" placeholder="Nome..."></div>
+                <div class="info-row"><label for="conducono2-input"></label><input type="text" id="conducono2-input" class="daily-input" placeholder="Nome..."></div>
+            </div>
+            <div class="day-selector" id="day-selector"></div>
+        </div>
+        <div id="kanban-container"></div>
     </div>
     
-    <div id="kanban-container"></div>
-    
     <div class="fixed-controls">
-        <button id="export-btn">Esporta dati</button>
-        <button id="import-btn">Importa dati</button>
+        <button id="export-btn" class="hidden">Esporta dati</button>
+        <button id="import-btn" class="hidden">Importa dati</button>
         <input type="file" id="import-file-input" accept=".json" style="display: none;">
+        <button id="logout-btn" class="hidden" onclick="handleLogout()">Logout</button>
     </div>
     
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            const daysToDisplay = 8;
-            generateDaySelectors(daysToDisplay);
-            document.getElementById('export-btn').addEventListener('click', exportData);
-            const importFileInput = document.getElementById('import-file-input');
-            document.getElementById('import-btn').addEventListener('click', () => importFileInput.click());
-            importFileInput.addEventListener('change', importData);
-            animateFavicon();
-            setupPresence();
+            setupAuth();
+
+            // Logica per auto-compilare l'email
+            const nomeInput = document.getElementById('register-nome');
+            const cognomeInput = document.getElementById('register-cognome');
+            const emailInput = document.getElementById('register-email');
+
+            function updateEmail() {
+                const nome = nomeInput.value.toLowerCase().trim().replace(/\s+/g, '');
+                const cognome = cognomeInput.value.toLowerCase().trim().replace(/\s+/g, '');
+                
+                let emailBase = '';
+                if (nome && cognome) {
+                    emailBase = `${nome}.${cognome}`;
+                } else if (nome) {
+                    emailBase = nome;
+                } else if (cognome) {
+                    emailBase = cognome;
+                }
+                emailInput.value = emailBase;
+            }
+
+            nomeInput.addEventListener('input', updateEmail);
+            cognomeInput.addEventListener('input', updateEmail);
         });
 
         const dayNames = ['Domenica', 'Lunedì', 'Martedì', 'Mercoledì', 'Giovedì', 'Venerdì', 'Sabato'];
@@ -93,6 +195,147 @@
         let unsubscribeTasks = null;
         let unsubscribeDailyInfo = null;
         let currentDailyInfoKey = null;
+
+        // --- FUNZIONI DI AUTENTICAZIONE ---
+	function setupAuth() {
+    auth.onAuthStateChanged(user => {
+        const authContainer = document.getElementById('auth-container');
+        const appContainer = document.getElementById('app-container');
+        const logoutBtn = document.getElementById('logout-btn');
+        const presenceIndicator = document.getElementById('presence-indicator');
+        const exportBtn = document.getElementById('export-btn');
+        const importBtn = document.getElementById('import-btn');
+
+        if (user) {
+            // Utente loggato
+            authContainer.classList.add('hidden');
+            appContainer.style.display = 'flex';
+            logoutBtn.classList.remove('hidden');
+            presenceIndicator.classList.remove('hidden');
+            exportBtn.classList.remove('hidden');
+            importBtn.classList.remove('hidden');
+
+            const daysToDisplay = 8;
+            generateDaySelectors(daysToDisplay);
+            
+            // --- ECCO LA RIGA MANCANTE ---
+            // Attiva la bacheca del giorno corrente dopo il login
+            switchDay(new Date().toISOString().split('T')[0]);
+            // -----------------------------
+
+            document.getElementById('export-btn').addEventListener('click', exportData);
+            const importFileInput = document.getElementById('import-file-input');
+            document.getElementById('import-btn').addEventListener('click', () => importFileInput.click());
+            importFileInput.addEventListener('change', importData);
+            animateFavicon();
+            setupPresence();
+        } else {
+            // Utente non loggato
+            authContainer.classList.remove('hidden');
+            appContainer.style.display = 'none';
+            logoutBtn.classList.add('hidden');
+            presenceIndicator.classList.add('hidden');
+            exportBtn.classList.add('hidden');
+            importBtn.classList.add('hidden');
+
+            if (unsubscribeTasks) unsubscribeTasks();
+            if (unsubscribeDailyInfo) unsubscribeDailyInfo();
+            if (rtdb) rtdb.ref('/presence').off();
+        }
+    });
+}
+
+
+        function toggleAuthForm(showRegister) {
+            document.getElementById('login-form').classList.toggle('hidden', showRegister);
+            document.getElementById('register-form').classList.toggle('hidden', !showRegister);
+            document.getElementById('reset-form').classList.add('hidden');
+            document.getElementById('auth-error').classList.add('hidden');
+            document.getElementById('auth-success').classList.add('hidden');
+        }
+        function showPasswordReset() {
+            document.getElementById('login-form').classList.add('hidden');
+            document.getElementById('register-form').classList.add('hidden');
+            document.getElementById('reset-form').classList.remove('hidden');
+            document.getElementById('auth-error').classList.add('hidden');
+            document.getElementById('auth-success').classList.add('hidden');
+        }
+        function showLoginFromReset() {
+            toggleAuthForm(false);
+        }
+        function handleLogin(event) {
+            event.preventDefault();
+            const email = document.getElementById('login-email').value + '@rsi.ch';
+            const password = document.getElementById('login-password').value;
+            const errorDiv = document.getElementById('auth-error');
+            errorDiv.classList.add('hidden');
+            document.getElementById('auth-success').classList.add('hidden');
+            auth.signInWithEmailAndPassword(email, password)
+                .catch(error => {
+                    errorDiv.textContent = "Utente o password non validi.";
+                    errorDiv.classList.remove('hidden');
+                });
+        }
+        function handleRegister(event) {
+            event.preventDefault();
+            const email = document.getElementById('register-email').value + '@rsi.ch';
+            const password = document.getElementById('register-password').value;
+            const confirmPassword = document.getElementById('register-password-confirm').value;
+            const nome = document.getElementById('register-nome').value;
+            const cognome = document.getElementById('register-cognome').value;
+            const displayName = `${nome} ${cognome.charAt(0)}.`;
+            const errorDiv = document.getElementById('auth-error');
+            errorDiv.classList.add('hidden');
+            document.getElementById('auth-success').classList.add('hidden');
+
+            if (password !== confirmPassword) {
+                errorDiv.textContent = "Le password non coincidono.";
+                errorDiv.classList.remove('hidden');
+                return;
+            }
+            auth.createUserWithEmailAndPassword(email, password)
+                .then((userCredential) => {
+                    const user = userCredential.user;
+                    return user.updateProfile({
+                        displayName: displayName
+                    }).then(() => {
+                        return db.collection('users').doc(user.uid).set({
+                            nome: nome,
+                            cognome: cognome,
+                            displayName: displayName,
+                            email: user.email
+                        });
+                    });
+                })
+                .catch(error => {
+                    errorDiv.textContent = error.message;
+                    errorDiv.classList.remove('hidden');
+                });
+        }
+        function handlePasswordReset(event) {
+            event.preventDefault();
+            const email = document.getElementById('reset-email').value + '@rsi.ch';
+            const errorDiv = document.getElementById('auth-error');
+            const successDiv = document.getElementById('auth-success');
+            errorDiv.classList.add('hidden');
+            successDiv.classList.add('hidden');
+
+            auth.sendPasswordResetEmail(email)
+                .then(() => {
+                    successDiv.textContent = "Se un account con questa email è registrato, riceverai un link di recupero.";
+                    successDiv.classList.remove('hidden');
+                })
+                .catch((error) => {
+                    successDiv.textContent = "Se un account con questa email è registrato, riceverai un link di recupero.";
+                    successDiv.classList.remove('hidden');
+                });
+        }
+        function handleLogout() {
+            const myUid = auth.currentUser.uid;
+            rtdb.ref('/presence/' + myUid).remove();
+            auth.signOut();
+        }
+        // --- FINE FUNZIONI DI AUTENTICAZIONE ---
 
         function getDailyInfoKey(dateString) {
             const date = new Date(dateString + 'T12:00:00Z');
@@ -106,26 +349,31 @@
         }
         
         function setupPresence() {
-            const presenceRef = rtdb.ref('/presence');
-            const myRef = presenceRef.push();
+            const myUid = auth.currentUser.uid;
+            const myDisplayName = auth.currentUser.displayName || 'Anonimo';
+            const presenceRef = rtdb.ref('/presence/' + myUid);
             const getLocation = async () => {
                 try {
                     const response = await fetch('https://ipapi.co/json/');
                     const data = await response.json();
                     return { city: data.city, country: data.country_code };
                 } catch (error) {
-                    console.error("Errore nel recuperare la geolocalizzazione:", error);
+                    console.error("Errore geo-loc:", error);
                     return { city: 'Sconosciuto', country: 'N/A' };
                 }
             };
             rtdb.ref('.info/connected').on('value', async (snap) => {
                 if (snap.val() === true) {
                     const location = await getLocation();
-                    myRef.set({ online: true, location: `${location.city}, ${location.country}` });
-                    myRef.onDisconnect().remove();
+                    presenceRef.set({ 
+                        online: true, 
+                        location: `${location.city}, ${location.country}`,
+                        name: myDisplayName
+                    });
+                    presenceRef.onDisconnect().remove();
                 }
             });
-            presenceRef.on('value', (snapshot) => {
+            rtdb.ref('/presence').on('value', (snapshot) => {
                 const presenceIndicator = document.getElementById('presence-indicator');
                 const userCount = snapshot.numChildren();
                 const locations = new Set();
@@ -208,7 +456,7 @@
                 const kanbanBoard = document.createElement('div');
                 kanbanBoard.id = `board-${dateString}`; kanbanBoard.className = 'kanban-board'; kanbanBoard.style.display = 'none';
                 kanbanBoard.innerHTML = `
-                    <div class="column" id="comms-column-${dateString}"><h2 class="column-header">Comunicazioni importanti</h2><textarea class="info-field comms-field-1" rows="25" placeholder="Descrizione"></textarea><div class="info-field-container"><label>Requisiti:</label><textarea class="info-field comms-field-2" rows="10" placeholder="Materiale, tecnica, ..."></textarea></div></div>
+                    <div class="column" id="comms-column-${dateString}"><h2 class="column-header">Comunicazioni importanti</h2><textarea class="info-field comms-field-1" rows="25" placeholder="Descrizione"></textarea></div>
                     <div class="column" id="todo-column-${dateString}"><h2 class="column-header">📝 Da fare</h2><div class="add-task"><input type="text" id="todo-input-${dateString}" placeholder="Aggiungi nuovo compito..."><button class="add-btn" data-date="${dateString}">Aggiungi</button></div><div class="task-list" id="todo-list-${dateString}"></div></div>
                     <div class="column" id="in-progress-column-${dateString}"><h2 class="column-header">⏳ In corso</h2><div class="task-list" id="in-progress-list-${dateString}"></div></div>
                     <div class="column done-column" id="done-column-${dateString}"><h2 class="column-header">✅ Pronti</h2><div class="task-list" id="done-list-${dateString}"></div></div>`;
@@ -218,7 +466,6 @@
                     if (input.value.trim() !== '') { createTaskCard(input.value, {}, dateString); input.value = ''; saveTasks(dateString); }
                 });
                 kanbanBoard.querySelector('.comms-field-1').addEventListener('change', () => saveTasks(dateString));
-                kanbanBoard.querySelector('.comms-field-2').addEventListener('change', () => saveTasks(dateString));
                 kanbanBoard.querySelectorAll('.task-list').forEach(list => { list.addEventListener('dragover', dragOver); list.addEventListener('drop', drop); });
             }
             document.querySelectorAll('.daily-info-container input').forEach(input => {
@@ -239,9 +486,7 @@
                 const data = snapshot.data();
                 if (data) {
                     const comms1 = document.querySelector(`#board-${activeDate} .comms-field-1`);
-                    const comms2 = document.querySelector(`#board-${activeDate} .comms-field-2`);
                     if(comms1) comms1.value = data.comunicazione1 || '';
-                    if(comms2) comms2.value = data.comunicazione2 || '';
                     data.todo?.forEach(taskData => createTaskCard(taskData.text, { ...taskData, parentId: `todo-list-${activeDate}` }));
                     data.inProgress?.forEach(taskData => createTaskCard(taskData.text, { ...taskData, parentId: `in-progress-list-${activeDate}` }));
                     data.done?.forEach(taskData => createTaskCard(taskData.text, { ...taskData, parentId: `done-list-${activeDate}` }));
@@ -254,7 +499,6 @@
                 if (unsubscribeDailyInfo) unsubscribeDailyInfo();
                 unsubscribeDailyInfo = db.collection('daily_info').doc(currentDailyInfoKey).onSnapshot(snapshot => {
                     const data = snapshot.data();
-                    document.getElementById('author-input').value = data?.autore || '';
                     document.getElementById('ce-input').value = data?.ce || '';
                     document.getElementById('conducono1-input').value = data?.conducono1 || '';
                     document.getElementById('conducono2-input').value = data?.conducono2 || '';
@@ -266,7 +510,6 @@
             if (!date) return;
             const dailyInfoKey = getDailyInfoKey(date);
             const dailyInfo = { 
-                autore: document.getElementById('author-input').value || '',
                 ce: document.getElementById('ce-input').value || '',
                 conducono1: document.getElementById('conducono1-input').value || '',
                 conducono2: document.getElementById('conducono2-input').value || ''
@@ -274,7 +517,6 @@
             db.collection('daily_info').doc(dailyInfoKey).set(dailyInfo);
             const tasks = { 
                 comunicazione1: document.querySelector(`#board-${date} .comms-field-1`)?.value || '',
-                comunicazione2: document.querySelector(`#board-${date} .comms-field-2`)?.value || '',
                 todo: [], inProgress: [], done: [] 
             };
             document.querySelectorAll(`#todo-list-${date} .task-card`).forEach(card => tasks.todo.push(serializeCard(card)));
@@ -286,11 +528,17 @@
         function createTaskCard(baseText, initialData = {}, date = activeDate) {
             const card = document.createElement('div');
             card.className = 'task-card'; card.setAttribute('draggable', 'true'); card.id = initialData.id || `task-${date}-${Date.now()}`;
+            
+            if (!initialData.createdBy) initialData.createdBy = auth.currentUser.displayName || 'Utente';
+            if (!initialData.lastModifiedBy) initialData.lastModifiedBy = initialData.createdBy;
+            card.dataset.createdBy = initialData.createdBy;
+
             card.innerHTML = `
+                <div class="task-meta-info">Creato da: ${sanitizeHTML(initialData.createdBy)} | Ultima mod.: ${sanitizeHTML(initialData.lastModifiedBy)}</div>
                 <div class="task-card-header"><h4 data-base-text="${baseText}"></h4><button class="minimize-btn">🔼</button></div>
                 <div class="task-body">
                     <div class="info-field-container"><label>Descrizione:</label><textarea class="info-field descrizione-input" rows="2" placeholder="Descrizione..."></textarea></div>
-                    <div class="content-tags"><button class="foto" data-type="foto">Foto</button><button class="clip" data-type="clip">Clip</button><button class="copertura" data-type="copertura">Copertura</button><button class="grafico" data-type="grafico">Grafico</button><button class="titolo" data-type="titolo">Titolo</button><button class="cartina" data-type="cartina">Cartina</button><button class="project-tag">PO</button></div>
+                    <div class="content-tags"><button class="foto" data-type="foto">Foto</button><button class="clip" data-type="clip">Clip</button><button class="copertura" data-type="copertura">Copertura</button><button class="grafico" data-type="grafico">Grafico</button><button class="oggetto" data-type="oggetto">Oggetto</button><button class="cartina" data-type="cartina">Cartina</button><button class="project-tag">PO</button></div>
                     <div class="info-field-container"><label>Materiale:</label><textarea class="info-field materiale-input" rows="10" placeholder="Cosa, quando, ..."></textarea></div>
                     <div class="location-container">
                         <h5>Dove</h5>
@@ -421,7 +669,7 @@
                 clip: { text: 'CLIP', color: '#337AB7' },
                 copertura: { text: 'COP', color: '#6A5ACD' }, 
                 grafico: { text: 'GRAFICO', color: '#28A745' },
-                titolo: { text: 'TITOLO', color: '#FFC107' },
+                oggetto: { text: 'OGGETTO', color: '#FFC107' },
                 cartina: { text: 'CARTINA', color: '#8B4513' }
             };
             if (activeContentTagBtn) {
@@ -503,6 +751,8 @@
             return {
                 id: card.id,
                 text: card.querySelector('h4').dataset.baseText,
+                createdBy: card.dataset.createdBy || 'Sconosciuto',
+                lastModifiedBy: auth.currentUser.displayName || 'Utente',
                 descrizione: card.querySelector('.descrizione-input').value,
                 projectTag: card.querySelector('.project-tag').textContent,
                 materiale: card.querySelector('.materiale-input').value,
