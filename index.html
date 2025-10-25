@@ -207,8 +207,12 @@
                     const daysToDisplay = 8;
                     generateDaySelectors(daysToDisplay);
                     
-                    // CORREZIONE: Attiva il giorno di oggi dopo aver generato i selettori
+                    // CORREZIONE: Attiva il giorno di oggi e i listener DOPO il login
                     switchDay(new Date().toISOString().split('T')[0]);
+                    
+                    document.querySelectorAll('.daily-info-container input').forEach(input => {
+                        input.addEventListener('change', () => saveTasks(activeDate));
+                    });
 
                     document.getElementById('export-btn').addEventListener('click', exportData);
                     const importFileInput = document.getElementById('import-file-input');
@@ -451,7 +455,6 @@
                 kanbanBoard.querySelector('.comms-field-1').addEventListener('change', () => saveTasks(dateString));
                 kanbanBoard.querySelectorAll('.task-list').forEach(list => { list.addEventListener('dragover', dragOver); list.addEventListener('drop', drop); });
             }
-            // CORREZIONE: Listener spostati in setupAuth per essere sicuri che activeDate esista
         }
         
         function switchDay(date) {
