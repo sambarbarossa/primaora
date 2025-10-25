@@ -19,6 +19,7 @@
         .fixed-controls{position:fixed;bottom:20px;right:20px;display:flex;gap:10px;z-index:1000}
         .fixed-controls button{padding:8px 15px;border-radius:5px;border:1px solid #fff;background-color:#2c3e50;color:#fff;font-weight:700;cursor:pointer;transition:background-color .2s;box-shadow:0 2px 5px rgba(0,0,0,.2)}.fixed-controls button:hover{background-color:#34495e}
         
+        /* CORREZIONE: Impostato 'none' qui, controllato da JS */
         #app-container { display: none; width: 100%; flex-direction: column; align-items: center; }
         #auth-container { background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.2); padding: 2rem; border-radius: 8px; width: 300px; box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1); color: #eee; margin-top: 10vh; }
         .login-title { font-size: 2.5rem; font-weight: 700; color: #fff; text-align: center; margin: 0; text-shadow: 1px 1px 3px rgba(0,0,0,0.4); }
@@ -148,8 +149,8 @@
                 <div class="info-row"><label for="ce-input">CE:</label><input type="text" id="ce-input" class="daily-input" placeholder="Nome..."></div>
                 <div class="info-row"><label for="conducono1-input">Conducono:</label><input type="text" id="conducono1-input" class="daily-input" placeholder="Nome..."></div>
                 <div class="info-row"><label for="conducono2-input"></label><input type="text" id="conducono2-input" class="daily-input" placeholder="Nome..."></div>
-            </div>
-            <div class="day-selector" id="day-selector"></div>
+             </div>
+             <div class="day-selector" id="day-selector"></div>
         </div>
         <div id="kanban-container"></div>
     </div>
@@ -186,6 +187,7 @@
         let unsubscribeTasks = null;
         let unsubscribeDailyInfo = null;
         let currentDailyInfoKey = null;
+        let isAppInitialized = false; // <-- CORREZIONE: Flag di inizializzazione
 
         // --- FUNZIONI DI AUTENTICAZIONE ---
         function setupAuth() {
@@ -197,7 +199,10 @@
                 const exportBtn = document.getElementById('export-btn');
                 const importBtn = document.getElementById('import-btn');
 
-                if (user) {
+                // CORREZIONE: Aggiunto '!isAppInitialized' per eseguire il setup una sola volta
+                if (user && !isAppInitialized) {
+                    isAppInitialized = true; // <-- CORREZIONE: Imposta il flag
+                    
                     authContainer.classList.add('hidden');
                     appContainer.style.display = 'flex';
                     logoutBtn.classList.remove('hidden');
@@ -221,7 +226,8 @@
                     importFileInput.addEventListener('change', importData);
                     animateFavicon();
                     setupPresence();
-                } else {
+                } else if (!user) { // Modificato per gestire solo il caso !user
+                    isAppInitialized = false; // <-- CORREZIONE: Resetta il flag al logout
                     authContainer.classList.remove('hidden');
                     appContainer.style.display = 'none';
                     logoutBtn.classList.add('hidden');
@@ -588,14 +594,14 @@
                 });
             });
              card.querySelectorAll('.request-activation-btn').forEach(button => {
-                button.addEventListener('click', () => { button.classList.toggle('active'); button.nextElementSibling.classList.toggle('hidden'); saveTasks(activeDate); });
+                 button.addEventListener('click', () => { button.classList.toggle('active'); button.nextElementSibling.classList.toggle('hidden'); saveTasks(activeDate); });
             });
-            card.querySelectorAll('.status-toggle-btn').forEach(button => {
-                button.addEventListener('click', () => {
-                    const newStatus = button.dataset.status === 'no' ? 'yes' : 'no';
-                    button.dataset.status = newStatus; button.textContent = newStatus === 'yes' ? '✅ Sì' : '❌ No';
-                    saveTasks(activeDate);
-                });
+             card.querySelectorAll('.status-toggle-btn').forEach(button => {
+                 button.addEventListener('click', () => {
+                     const newStatus = button.dataset.status === 'no' ? 'yes' : 'no';
+                     button.dataset.status = newStatus; button.textContent = newStatus === 'yes' ? '✅ Sì' : '❌ No';
+                     saveTasks(activeDate);
+                 });
             });
             card.addEventListener('dragstart', dragStart); card.addEventListener('dragend', dragEnd);
             if (initialData.isDone) document.getElementById(`done-list-${date}`).appendChild(card);
