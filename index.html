@@ -237,6 +237,8 @@
                     if (unsubscribeTasks) unsubscribeTasks();
                     if (unsubscribeDailyInfo) unsubscribeDailyInfo();
                     if (rtdb) rtdb.ref('/presence').off();
+		    document.getElementById('day-selector').innerHTML = '';
+                    document.getElementById('kanban-container').innerHTML = '';
                 }
             });
         }
