@@ -49,20 +49,16 @@
         .column{background:rgba(255,255,255,.1);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,.2);padding:1.5rem;border-radius:8px;width:300px;min-height:500px;box-shadow:0 4px 30px rgba(0,0,0,.1);display:flex;flex-direction:column}.column.done-column{width:250px}.column-header{font-size:1.5rem;font-weight:700;margin-top:0;margin-bottom:1rem;color:#eee;text-shadow:1px 1px 3px rgba(0,0,0,.4);text-align:center}.add-task{display:flex;margin-bottom:1rem}.add-task input{flex-grow:1;padding:10px;border:1px solid #ccc;border-radius:5px;font-size:.9rem}.add-task button{padding:10px 15px;border:none;background-color:#2c3e50;color:#fff;border-radius:5px;margin-left:5px;cursor:pointer;font-size:.9rem}.task-list{flex-grow:1;overflow-y:auto;position:relative;min-height:100px}.task-card{background:rgba(255,255,255,.2);padding:1rem;border-radius:5px;margin-bottom:1rem;cursor:grab;box-shadow:0 1px 3px rgba(0,0,0,.1);transition:transform .2s ease-in-out,box-shadow .2s ease-in-out;position:relative}.task-card:active{cursor:grabbing}.task-card.dragging{opacity:.5;box-shadow:0 4px 15px rgba(0,0,0,.2);transform:scale(1.05)}
         .task-card.done{background:rgba(46,204,113,.2)}
         
-        /* CSS MODIFICATO per testo 'Creato da...' */
         .task-meta-info{font-size:0.65rem;color:#f0f0f0;margin-bottom:8px;margin-top:-8px;text-shadow:1px 1px 1px rgba(0,0,0,0.3);}
         
         .task-card-header{display:flex;justify-content:space-between;align-items:center}.task-card h4{margin:0 0 .5rem;font-size:1.1rem;flex-grow:1;cursor:text;transition:background-color .2s ease-in-out;color:#fff;padding:4px 10px;border-radius:15px;display:inline-block;width:auto}.task-card h4[contenteditable=true]{background-color:rgba(255,255,255,.8) !important;outline:2px solid #3498db;color:#333 !important}.info-field-container{margin-top:10px}.info-field-container label{font-size:.9rem;font-weight:700;color:#444;display:block;margin-bottom:5px}.info-field{width:calc(100% - 10px);padding:5px;border:1px solid #ccc;border-radius:3px;font-size:.9rem;resize:vertical;font-family:inherit}.task-card .task-buttons{display:flex;justify-content:space-between;margin-top:1rem}.task-card .task-buttons button,.minimize-btn{background:0 0;border:none;cursor:pointer;font-size:1.2rem;color:#333;transition:color .2s}.minimize-btn{font-size:1rem;margin-left:10px;padding:0 5px}.task-card .task-buttons button:hover,.minimize-btn:hover{color:#000}
         
-        /* CSS MODIFICATO per nascondere info quando minimizzato */
         .task-card.minimized .task-body{display:none}
         .task-card.minimized h4{margin-bottom:0}
         .task-card.minimized .task-meta-info { display: none; }
 
-        /* --- CSS MODIFICATO QUI --- */
         .content-tags button{padding:5px 10px;border-radius:20px;border:none;cursor:pointer;color:#fff;font-size:.8rem;margin-right:5px;margin-bottom:5px;opacity:.6;transition:opacity .2s,filter .2s;filter:grayscale(20%)}.content-tags button.active{opacity:1;filter:grayscale(0%)}
-        /* --- FINE CSS MODIFICATO --- */
-
+        
         .content-tags .foto{background-color:#FF7F50}.content-tags .clip{background-color:#337AB7}.content-tags .copertura{background-color:#6A5ACD}.content-tags .grafico{background-color:#28A745}.content-tags .oggetto{background-color:#FFC107}.content-tags .cartina{background-color:#8B4513}.project-tag{padding:5px 10px;border-radius:20px;border:1px solid #ccc;cursor:pointer;font-size:.8rem;margin-right:5px;margin-bottom:5px;background-color:#2c3e50;color:#fff}
         .location-container h5{margin:.8rem 0 .5rem;font-size:1rem;color:#444}.location-buttons{display:flex;gap:10px;margin-bottom:.5rem}.location-btn{padding:5px 10px;font-size:.8rem;border-radius:5px;border:1px solid #aaa;background-color:#eee;cursor:pointer}.location-btn.active{background-color:#3498db;color:#fff;border-color:#3498db}
         .request-status-container{margin-top:15px;border-top:1px solid rgba(0,0,0,.1);padding-top:15px;display:flex;flex-direction:column;gap:15px}
@@ -198,10 +194,14 @@
         let unsubscribeTasks = null;
         let unsubscribeDailyInfo = null;
         let currentDailyInfoKey = null;
-        let isAppInitialized = false; 
-	let isRegistering = false;
 
-        // --- FUNZIONI DI AUTENTICAZIONE ---
+        // --- NUOVI FLAG DI CONTROLLO PER IL "FLASH" ---
+        let isAppInitialized = false; 
+        let isRegistering = false;
+        let isLoggingIn = false;
+        // ---------------------------------------------
+
+        // --- FUNZIONE setupAuth MODIFICATA ---
         function setupAuth() {
             auth.onAuthStateChanged(user => {
                 const authContainer = document.getElementById('auth-container');
@@ -211,7 +211,8 @@
                 const exportBtn = document.getElementById('export-btn');
                 const importBtn = document.getElementById('import-btn');
 
-                if (user && !isAppInitialized && !isRegistering) {
+                // Controlla tutti i flag per prevenire il "flash"
+                if (user && !isAppInitialized && !isRegistering && !isLoggingIn) {
                     isAppInitialized = true; 
                     
                     authContainer.classList.add('hidden');
@@ -237,23 +238,29 @@
                     animateFavicon();
                     setupPresence();
                 } else if (!user) { 
+                    // Resetta tutti i flag quando l'utente non c'è
                     isAppInitialized = false; 
+                    isRegistering = false;
+                    isLoggingIn = false;
+                    
                     authContainer.classList.remove('hidden');
                     appContainer.style.display = 'none';
                     logoutBtn.classList.add('hidden');
                     presenceIndicator.classList.add('hidden');
                     exportBtn.classList.add('hidden');
                     importBtn.classList.add('hidden');
+                    
                     if (unsubscribeTasks) unsubscribeTasks();
                     if (unsubscribeDailyInfo) unsubscribeDailyInfo();
-                    if (rtdb && auth.currentUser) rtdb.ref('/presence/' + auth.currentUser.uid).off();
+                    if (rtdb) rtdb.ref('/presence').off(); // Stacca il listener della presence
 
-                    // CORREZIONE LOGOUT: Svuota i contenitori
                     document.getElementById('day-selector').innerHTML = '';
                     document.getElementById('kanban-container').innerHTML = '';
                 }
             });
         }
+        // --- FINE setupAuth ---
+
         function toggleAuthForm(showRegister) {
             document.getElementById('login-form').classList.toggle('hidden', showRegister);
             document.getElementById('register-form').classList.toggle('hidden', !showRegister);
@@ -272,9 +279,11 @@
             toggleAuthForm(false);
         }
 
-        // --- FUNZIONE LOGIN MODIFICATA ---
+        // --- FUNZIONE handleLogin MODIFICATA ---
         function handleLogin(event) {
             event.preventDefault();
+            isLoggingIn = true; // <-- Flag ON
+            
             const email = document.getElementById('login-email').value + '@rsi.ch';
             const password = document.getElementById('login-password').value;
             const errorDiv = document.getElementById('auth-error');
@@ -283,30 +292,33 @@
             
             auth.signInWithEmailAndPassword(email, password)
                 .then((userCredential) => {
-                    // Utente e password sono corretti, ora controlliamo la verifica
                     const user = userCredential.user;
-                    if (false) { // <-- MODIFICA TEMPORANEA PER TEST
-                        // TUTTO OK! L'utente è verificato.
-                        // onAuthStateChanged si occuperà di mostrare la bacheca.
+                    
+                    // Metti il codice di produzione (non il test 'if (false)')
+                    if (user.emailVerified) {
+                        // OK, l'utente è verificato
+                        isLoggingIn = false; // <-- Flag OFF
+                        // setupAuth si attiverà al prossimo "tick" e farà entrare l'utente
                     } else {
                         // Email non verificata!
-                        auth.signOut(); // Disconnettiamo subito l'utente
+                        auth.signOut(); // Disconnette (triggera setupAuth)
                         errorDiv.textContent = "Account non ancora attivo. Controlla la tua email per il link di verifica.";
                         errorDiv.classList.remove('hidden');
                     }
                 })
                 .catch(error => {
-                    // Questo 'catch' ora gestisce solo login falliti (es. password errata)
+                    isLoggingIn = false; // <-- Flag OFF
                     errorDiv.textContent = "Utente o password non validi.";
                     errorDiv.classList.remove('hidden');
                 });
         }
-        // --- FINE FUNZIONE LOGIN ---
+        // --- FINE handleLogin ---
 
-        // FUNZIONE REGISTRAZIONE CON INVIO VERIFICA
+        // --- FUNZIONE handleRegister MODIFICATA ---
         function handleRegister(event) {
             event.preventDefault();
-	    isRegistering = true;
+            isRegistering = true; // <-- Flag ON
+            
             const email = document.getElementById('register-email').value + '@rsi.ch';
             const password = document.getElementById('register-password').value;
             const confirmPassword = document.getElementById('register-password-confirm').value;
@@ -322,17 +334,14 @@
             if (password !== confirmPassword) {
                 errorDiv.textContent = "Le password non coincidono.";
                 errorDiv.classList.remove('hidden');
+                isRegistering = false; // <-- Flag OFF
                 return;
             }
 
-            // Creiamo l'utente
             auth.createUserWithEmailAndPassword(email, password)
                 .then((userCredential) => {
                     const user = userCredential.user;
-                    
-                    // Inviamo l'email di verifica
                     return user.sendEmailVerification().then(() => {
-                        // Fatto questo, aggiorniamo il profilo e salviamo in DB
                         return user.updateProfile({
                             displayName: displayName
                         }).then(() => {
@@ -346,16 +355,16 @@
                     });
                 })
                 .then(() => {
-                    auth.signOut();
-		    isRegistering = false;
-		    // Mostra un messaggio di successo e torna al login
+                    auth.signOut(); // Forza il logout
+                    isRegistering = false; // <-- Flag OFF
+                    
                     successDiv.textContent = "Registrazione completata! Controlla la tua email per il link di attivazione e poi accedi.";
                     successDiv.classList.remove('hidden');
-                    toggleAuthForm(false); // Mostra il modulo di login
+                    toggleAuthForm(false); 
                 })
                 .catch(error => {
-                    isRegistering = false;
-		    // Gestisce errori (es. password corta, email già usata)
+                    isRegistering = false; // <-- Flag OFF
+                    
                     if (error.code === 'auth/email-already-in-use') {
                         errorDiv.textContent = "Questa email è già registrata. Prova ad accedere.";
                     } else if (error.code === 'auth/weak-password') {
@@ -366,6 +375,7 @@
                     errorDiv.classList.remove('hidden');
                 });
         }
+        // --- FINE handleRegister ---
 
         function handlePasswordReset(event) {
             event.preventDefault();
@@ -385,12 +395,13 @@
                     successDiv.classList.remove('hidden');
                 });
         }
+        
         function handleLogout() {
             if (auth.currentUser) {
                 const myUid = auth.currentUser.uid;
                 rtdb.ref('/presence/' + myUid).remove();
             }
-            auth.signOut();
+            auth.signOut(); // Questo triggera onAuthStateChanged, che resetta tutto
         }
         // --- FINE FUNZIONI DI AUTENTICAZIONE ---
 
