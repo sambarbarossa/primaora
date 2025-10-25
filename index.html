@@ -164,27 +164,18 @@
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             setupAuth();
-
-            // Logica per auto-compilare l'email
             const nomeInput = document.getElementById('register-nome');
             const cognomeInput = document.getElementById('register-cognome');
             const emailInput = document.getElementById('register-email');
-
             function updateEmail() {
                 const nome = nomeInput.value.toLowerCase().trim().replace(/\s+/g, '');
                 const cognome = cognomeInput.value.toLowerCase().trim().replace(/\s+/g, '');
-                
                 let emailBase = '';
-                if (nome && cognome) {
-                    emailBase = `${nome}.${cognome}`;
-                } else if (nome) {
-                    emailBase = nome;
-                } else if (cognome) {
-                    emailBase = cognome;
-                }
+                if (nome && cognome) { emailBase = `${nome}.${cognome}`; } 
+                else if (nome) { emailBase = nome; } 
+                else if (cognome) { emailBase = cognome; }
                 emailInput.value = emailBase;
             }
-
             nomeInput.addEventListener('input', updateEmail);
             cognomeInput.addEventListener('input', updateEmail);
         });
@@ -197,55 +188,47 @@
         let currentDailyInfoKey = null;
 
         // --- FUNZIONI DI AUTENTICAZIONE ---
-	function setupAuth() {
-    auth.onAuthStateChanged(user => {
-        const authContainer = document.getElementById('auth-container');
-        const appContainer = document.getElementById('app-container');
-        const logoutBtn = document.getElementById('logout-btn');
-        const presenceIndicator = document.getElementById('presence-indicator');
-        const exportBtn = document.getElementById('export-btn');
-        const importBtn = document.getElementById('import-btn');
+        function setupAuth() {
+            auth.onAuthStateChanged(user => {
+                const authContainer = document.getElementById('auth-container');
+                const appContainer = document.getElementById('app-container');
+                const logoutBtn = document.getElementById('logout-btn');
+                const presenceIndicator = document.getElementById('presence-indicator');
+                const exportBtn = document.getElementById('export-btn');
+                const importBtn = document.getElementById('import-btn');
 
-        if (user) {
-            // Utente loggato
-            authContainer.classList.add('hidden');
-            appContainer.style.display = 'flex';
-            logoutBtn.classList.remove('hidden');
-            presenceIndicator.classList.remove('hidden');
-            exportBtn.classList.remove('hidden');
-            importBtn.classList.remove('hidden');
+                if (user) {
+                    authContainer.classList.add('hidden');
+                    appContainer.style.display = 'flex';
+                    logoutBtn.classList.remove('hidden');
+                    presenceIndicator.classList.remove('hidden');
+                    exportBtn.classList.remove('hidden');
+                    importBtn.classList.remove('hidden');
+                    const daysToDisplay = 8;
+                    generateDaySelectors(daysToDisplay);
+                    
+                    // CORREZIONE: Attiva il giorno di oggi dopo aver generato i selettori
+                    switchDay(new Date().toISOString().split('T')[0]);
 
-            const daysToDisplay = 8;
-            generateDaySelectors(daysToDisplay);
-            
-            // --- ECCO LA RIGA MANCANTE ---
-            // Attiva la bacheca del giorno corrente dopo il login
-            switchDay(new Date().toISOString().split('T')[0]);
-            // -----------------------------
-
-            document.getElementById('export-btn').addEventListener('click', exportData);
-            const importFileInput = document.getElementById('import-file-input');
-            document.getElementById('import-btn').addEventListener('click', () => importFileInput.click());
-            importFileInput.addEventListener('change', importData);
-            animateFavicon();
-            setupPresence();
-        } else {
-            // Utente non loggato
-            authContainer.classList.remove('hidden');
-            appContainer.style.display = 'none';
-            logoutBtn.classList.add('hidden');
-            presenceIndicator.classList.add('hidden');
-            exportBtn.classList.add('hidden');
-            importBtn.classList.add('hidden');
-
-            if (unsubscribeTasks) unsubscribeTasks();
-            if (unsubscribeDailyInfo) unsubscribeDailyInfo();
-            if (rtdb) rtdb.ref('/presence').off();
+                    document.getElementById('export-btn').addEventListener('click', exportData);
+                    const importFileInput = document.getElementById('import-file-input');
+                    document.getElementById('import-btn').addEventListener('click', () => importFileInput.click());
+                    importFileInput.addEventListener('change', importData);
+                    animateFavicon();
+                    setupPresence();
+                } else {
+                    authContainer.classList.remove('hidden');
+                    appContainer.style.display = 'none';
+                    logoutBtn.classList.add('hidden');
+                    presenceIndicator.classList.add('hidden');
+                    exportBtn.classList.add('hidden');
+                    importBtn.classList.add('hidden');
+                    if (unsubscribeTasks) unsubscribeTasks();
+                    if (unsubscribeDailyInfo) unsubscribeDailyInfo();
+                    if (rtdb) rtdb.ref('/presence').off();
+                }
+            });
         }
-    });
-}
-
-
         function toggleAuthForm(showRegister) {
             document.getElementById('login-form').classList.toggle('hidden', showRegister);
             document.getElementById('register-form').classList.toggle('hidden', !showRegister);
@@ -468,10 +451,7 @@
                 kanbanBoard.querySelector('.comms-field-1').addEventListener('change', () => saveTasks(dateString));
                 kanbanBoard.querySelectorAll('.task-list').forEach(list => { list.addEventListener('dragover', dragOver); list.addEventListener('drop', drop); });
             }
-            document.querySelectorAll('.daily-info-container input').forEach(input => {
-                input.addEventListener('change', () => saveTasks(activeDate));
-            });
-            switchDay(new Date().toISOString().split('T')[0]);
+            // CORREZIONE: Listener spostati in setupAuth per essere sicuri che activeDate esista
         }
         
         function switchDay(date) {
