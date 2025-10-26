@@ -764,7 +764,6 @@
         function toggleMinimize(card) {
             const isMinimized = card.classList.toggle('minimized');
             card.querySelector('.minimize-btn').textContent = isMinimized ? '🔽' : '🔼';
-            saveTasks(activeDate);
         }
 
         // --- Funzione editTask modificata per aggiornare meta info ---
