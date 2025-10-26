@@ -337,7 +337,7 @@
                 .then(() => {
                     auth.signOut(); 
                     isRegistering = false; 
-                    
+                    alert("Registrazione completata! Controlla la tua email (anche nella cartella SPAM) per attivare il tuo account.");
                     successDiv.textContent = "Registrazione completata! Controlla la tua email per il link di attivazione e poi accedi.";
                     successDiv.classList.remove('hidden');
                     toggleAuthForm(false); 
