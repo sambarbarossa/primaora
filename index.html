@@ -695,8 +695,6 @@
             else document.getElementById(`todo-list-${date}`).prepend(card);
             card.querySelectorAll('.info-field').forEach(input => { input.addEventListener('mousedown', e => e.stopPropagation()); input.addEventListener('change', () => saveTasks(date)); });
 
-            // Update meta info after adding listeners
-            updateMetaInfo(card);
         }
         function dragStart(e) { e.dataTransfer.setData('text/plain', e.target.id); setTimeout(() => e.target.classList.add('dragging'), 0); }
         function dragEnd(e) { e.target.classList.remove('dragging'); }
