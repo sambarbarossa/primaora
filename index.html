@@ -25,7 +25,6 @@
         .login-subtitle { font-size: 1.1rem; color: #eee; text-align: center; margin: 0; line-height: 1.4; }
         #auth-container h2 { text-align: center; margin-top: 0; }
         .auth-form { display: flex; flex-direction: column; gap: 1rem; }
-        /* Stile ripristinato per input non email */
         .auth-form input[type=password],
         .auth-form input[type=text]:not([id*="-email"]) {
             padding: 12px;
@@ -33,7 +32,6 @@
             border-radius: 5px;
             font-size: 1rem;
         }
-        /* Contenitore email ripristinato */
         .email-input-container { display: flex; align-items: center; border: 1px solid #ccc; border-radius: 5px; background-color: white; transition: border-color 0.2s, box-shadow 0.2s; }
         .email-input-container input[type=text] { border: none; flex-grow: 1; padding: 12px; font-size: 1rem; outline: none; background-color: transparent; min-width: 50px; }
         .email-suffix { padding: 12px; background-color: #eee; color: #555; font-size: 1rem; white-space: nowrap; border-radius: 0 4px 4px 0; border-left: 1px solid #ccc; }
@@ -177,7 +175,6 @@
     </div>
 
     <script>
-        // RIPRISTINATO AGGIORNAMENTO EMAIL DA NOME/COGNOME
         document.addEventListener('DOMContentLoaded', () => {
             setupAuth();
             const nomeInput = document.getElementById('register-nome');
@@ -288,7 +285,7 @@
             event.preventDefault();
             isLoggingIn = true;
 
-            const email = document.getElementById('login-email').value + '@rsi.ch'; // RIPRISTINATO
+            const email = document.getElementById('login-email').value + '@rsi.ch';
             const password = document.getElementById('login-password').value;
             const errorDiv = document.getElementById('auth-error');
             errorDiv.classList.add('hidden');
@@ -304,6 +301,7 @@
                         auth.signOut();
                         errorDiv.textContent = "Account non ancora attivo. Controlla la tua email per il link di verifica.";
                         errorDiv.classList.remove('hidden');
+                        // isLoggingIn sarà resettato da setupAuth dopo il signOut
                     }
                 })
                 .catch(error => {
@@ -319,7 +317,7 @@
             event.preventDefault();
             isRegistering = true;
 
-            const email = document.getElementById('register-email').value + '@rsi.ch'; // RIPRISTINATO
+            const email = document.getElementById('register-email').value + '@rsi.ch';
             const password = document.getElementById('register-password').value;
             const confirmPassword = document.getElementById('register-password-confirm').value;
             const nome = document.getElementById('register-nome').value;
@@ -381,7 +379,7 @@
 
         function handlePasswordReset(event) {
             event.preventDefault();
-            const email = document.getElementById('reset-email').value + '@rsi.ch'; // RIPRISTINATO
+            const email = document.getElementById('reset-email').value + '@rsi.ch';
             const errorDiv = document.getElementById('auth-error');
             const successDiv = document.getElementById('auth-success');
             errorDiv.classList.add('hidden');
@@ -393,7 +391,7 @@
                     successDiv.classList.remove('hidden');
                 })
                 .catch((error) => {
-                    console.error("Error sending password reset:", error); // Aggiunto log errore
+                    console.error("Error sending password reset:", error);
                     successDiv.textContent = "Se un account con questa email è registrato, riceverai un link di recupero.";
                     successDiv.classList.remove('hidden');
                 });
@@ -407,9 +405,6 @@
             auth.signOut();
         }
         // --- FINE FUNZIONI DI AUTENTICAZIONE ---
-
-        // ... (Il resto del codice rimane invariato: getDailyInfoKey, setupPresence, animateFavicon, ecc.) ...
-        // Copia tutto il resto del codice dalla versione precedente qui sotto
 
         function getDailyInfoKey(dateString) {
             const date = new Date(dateString + 'T12:00:00Z');
@@ -539,9 +534,10 @@
                 kanbanContainer.appendChild(kanbanBoard);
                 kanbanBoard.querySelector('.add-btn').addEventListener('click', () => {
                     const input = document.getElementById(`todo-input-${dateString}`);
-                    if (input.value.trim() !== '') { createTaskCard(input.value, {}, dateString); input.value = ''; saveTasks(dateString); }
+                    if (input.value.trim() !== '') { createTaskCard(input.value, {}, dateString); input.value = ''; handleCardModification(null); /* Aggiorna meta info anche se la card non è ancora creata? Meglio gestirlo dopo */ }
                 });
-                kanbanBoard.querySelector('.comms-field-1').addEventListener('change', () => saveTasks(dateString));
+                // CHIAMATA A handleCardModification AGGIUNTA QUI PER CAMPI TESTO GENERALI
+                kanbanBoard.querySelector('.comms-field-1').addEventListener('change', () => handleCardModification(null)); // Passiamo null perché non è una card specifica
                 kanbanBoard.querySelectorAll('.task-list').forEach(list => { list.addEventListener('dragover', dragOver); list.addEventListener('drop', drop); });
             }
         }
@@ -597,16 +593,16 @@
             db.collection('bacheche').doc(date).set(tasks);
         }
 
+        // --- FUNZIONE createTaskCard CON CHIAMATE A handleCardModification ---
         function createTaskCard(baseText, initialData = {}, date = activeDate) {
-            const card = document.createElement('div');
+            const card = document.createElement('div'); // Definisci card qui
             card.className = 'task-card'; card.setAttribute('draggable', 'true'); card.id = initialData.id || `task-${date}-${Date.now()}`;
 
             const currentUserName = auth.currentUser ? auth.currentUser.displayName : 'Utente';
             if (!initialData.createdBy) initialData.createdBy = currentUserName;
-            // Update lastModifiedBy only if saving, not just creating
             initialData.lastModifiedBy = initialData.lastModifiedBy || initialData.createdBy;
             card.dataset.createdBy = initialData.createdBy;
-            card.dataset.lastModifiedBy = initialData.lastModifiedBy; // Store it for serialization
+            card.dataset.lastModifiedBy = initialData.lastModifiedBy;
 
 
             card.innerHTML = `
@@ -631,16 +627,21 @@
                 </div>`;
 
             const linksContainer = card.querySelector('.links-container');
-            const addLinkRow = (linkValue = '') => {
+            // Modifica addLinkRow per accettare 'card'
+            const addLinkRow = (cardElement, linkValue = '') => {
                 const linkRow = document.createElement('div');
                 linkRow.className = 'link-row';
                 linkRow.innerHTML = `<input type="text" class="info-field link-input" placeholder="Link..." value="${sanitizeHTML(linkValue)}"><button class="remove-link-btn">🗑️</button>`;
                 linksContainer.appendChild(linkRow);
-                linkRow.querySelector('.remove-link-btn').addEventListener('click', () => { linkRow.remove(); saveTasks(activeDate); });
-                linkRow.querySelector('.link-input').addEventListener('change', () => saveTasks(activeDate));
+                // Passa cardElement a handleCardModification
+                linkRow.querySelector('.remove-link-btn').addEventListener('click', () => { linkRow.remove(); handleCardModification(cardElement); });
+                linkRow.querySelector('.link-input').addEventListener('change', () => handleCardModification(cardElement));
             };
-            if (initialData.links && initialData.links.length > 0) initialData.links.forEach(link => addLinkRow(link)); else addLinkRow();
-            card.querySelector('.add-link-btn').addEventListener('click', () => addLinkRow());
+            // Passa 'card' quando chiami addLinkRow
+            if (initialData.links && initialData.links.length > 0) initialData.links.forEach(link => addLinkRow(card, link)); else addLinkRow(card);
+            // Passa 'card' qui
+            card.querySelector('.add-link-btn').addEventListener('click', () => { addLinkRow(card); handleCardModification(card); });
+
             if (initialData.isDone) card.classList.add('done');
             if (initialData.minimized) { card.classList.add('minimized'); card.querySelector('.minimize-btn').textContent = '🔽'; }
             if (initialData.projectTag) card.querySelector('.project-tag').textContent = initialData.projectTag;
@@ -676,29 +677,36 @@
                     if (!wasActive) button.classList.add('active');
                     const locationTextContainer = card.querySelector('.location-text-container');
                     if (button.dataset.location === 'Hive' && button.classList.contains('active')) { locationTextContainer.classList.remove('hidden'); } else { locationTextContainer.classList.add('hidden'); }
-                    saveTasks(activeDate);
+                    handleCardModification(card); // Modificato qui
                 });
             });
              card.querySelectorAll('.request-activation-btn').forEach(button => {
-                 button.addEventListener('click', () => { button.classList.toggle('active'); button.nextElementSibling.classList.toggle('hidden'); saveTasks(activeDate); });
+                 button.addEventListener('click', () => { button.classList.toggle('active'); button.nextElementSibling.classList.toggle('hidden'); handleCardModification(card); }); // Modificato qui
             });
              card.querySelectorAll('.status-toggle-btn').forEach(button => {
                  button.addEventListener('click', () => {
                      const newStatus = button.dataset.status === 'no' ? 'yes' : 'no';
                      button.dataset.status = newStatus; button.textContent = newStatus === 'yes' ? '✅ Sì' : '❌ No';
-                     saveTasks(activeDate);
+                     handleCardModification(card); // Modificato qui
                  });
             });
             card.addEventListener('dragstart', dragStart); card.addEventListener('dragend', dragEnd);
             if (initialData.isDone) document.getElementById(`done-list-${date}`).appendChild(card);
             else if (initialData.parentId) document.getElementById(initialData.parentId).appendChild(card);
             else document.getElementById(`todo-list-${date}`).prepend(card);
-            card.querySelectorAll('.info-field').forEach(input => { input.addEventListener('mousedown', e => e.stopPropagation()); input.addEventListener('change', () => saveTasks(date)); });
-
+            // Sostituisci saveTasks con handleCardModification per tutti i campi
+            card.querySelectorAll('.info-field').forEach(input => {
+                 input.addEventListener('mousedown', e => e.stopPropagation());
+                 input.addEventListener('change', () => handleCardModification(card)); // Modificato qui
+            });
         }
+        // --- FINE createTaskCard ---
+
         function dragStart(e) { e.dataTransfer.setData('text/plain', e.target.id); setTimeout(() => e.target.classList.add('dragging'), 0); }
         function dragEnd(e) { e.target.classList.remove('dragging'); }
         function dragOver(e) { e.preventDefault(); }
+
+        // --- FUNZIONE drop MODIFICATA ---
         function drop(e) {
             e.preventDefault();
             const cardId = e.dataTransfer.getData('text/plain');
@@ -723,8 +731,10 @@
                     minimizeBtn.textContent = '🔼';
                 }
             }
-            saveTasks(activeDate); // Save includes updating meta info
+            handleCardModification(draggedCard); // Modificato qui
         }
+        // --- FINE drop ---
+
         function getDragAfterElement(container, y) {
             const draggableElements = [...container.querySelectorAll('.task-card:not(.dragging)')];
             return draggableElements.reduce((closest, child) => {
@@ -762,9 +772,10 @@
         function toggleMinimize(card) {
             const isMinimized = card.classList.toggle('minimized');
             card.querySelector('.minimize-btn').textContent = isMinimized ? '🔽' : '🔼';
+            // Non salvare qui per non aggiornare 'lastModifiedBy'
         }
 
-        // --- Funzione editTask modificata per aggiornare meta info ---
+        // --- FUNZIONE editTask MODIFICATA ---
         function editTask(card) {
             const titleElement = card.querySelector('h4');
             if (titleElement.isContentEditable) return;
@@ -784,27 +795,26 @@
                 updateTitleWithPrefixAndColor(card);
                 titleElement.removeEventListener('blur', finishEditing);
                 titleElement.removeEventListener('keydown', handleKeyDown);
-                // Aggiorna meta info e salva
-                updateMetaInfo(card);
-                saveTasks(activeDate);
+                handleCardModification(card); // Modificato qui
             };
             const handleKeyDown = (e) => {
                 if (e.key === 'Enter') { e.preventDefault(); finishEditing(); }
                 else if (e.key === 'Escape') {
-                     // Restore original text on escape? Optional.
                      titleElement.textContent = titleElement.dataset.baseText;
-                     updateTitleWithPrefixAndColor(card); // Update color/prefix too
-                     finishEditing(); // Still finish editing process
+                     updateTitleWithPrefixAndColor(card);
+                     finishEditing(); // Chiama finishEditing ma handleCardModification è lì
                 }
             };
             titleElement.addEventListener('blur', finishEditing);
             titleElement.addEventListener('keydown', handleKeyDown);
         }
-        // --- Fine editTask ---
+        // --- FINE editTask ---
 
         function deleteTask(card) {
-            if (confirm("Sei sicuro di voler eliminare questo compito?")) { card.remove(); saveTasks(activeDate); }
+            if (confirm("Sei sicuro di voler eliminare questo compito?")) { card.remove(); saveTasks(activeDate); /* Qui saveTasks è corretto perché aggiorna l'intera lista */ }
         }
+
+        // --- FUNZIONE toggleDone MODIFICATA ---
         function toggleDone(card) {
             const isDone = card.classList.toggle('done');
             const targetList = isDone ? 'done-list' : 'todo-list';
@@ -812,16 +822,20 @@
             if (isDone) { card.classList.add('minimized'); minimizeBtn.textContent = '🔽'; }
             else { card.classList.remove('minimized'); minimizeBtn.textContent = '🔼'; }
             document.getElementById(`${targetList}-${activeDate}`).appendChild(card);
-            saveTasks(activeDate); // Save includes updating meta info
+            handleCardModification(card); // Modificato qui
         }
+        // --- FINE toggleDone ---
+
+        // --- FUNZIONE toggleProjectTag MODIFICATA ---
         function toggleProjectTag(tagElement) {
             const card = tagElement.closest('.task-card');
             tagElement.textContent = tagElement.textContent === 'PO' ? 'QUOT' : 'PO';
             updateTitleWithPrefixAndColor(card);
-             // Aggiorna meta info e salva
-            updateMetaInfo(card);
-            saveTasks(activeDate);
+            handleCardModification(card); // Modificato qui
         }
+        // --- FINE toggleProjectTag ---
+
+        // --- FUNZIONE toggleTag MODIFICATA ---
         function toggleTag(clickedButton, card) {
             const wasActive = clickedButton.classList.contains('active');
             card.querySelectorAll('.content-tags button:not(.project-tag)').forEach(btn => { btn.classList.remove('active'); });
@@ -829,36 +843,42 @@
                 clickedButton.classList.add('active');
             }
             updateTitleWithPrefixAndColor(card);
-             // Aggiorna meta info e salva
-            updateMetaInfo(card);
-            saveTasks(activeDate);
+            handleCardModification(card); // Modificato qui
         }
+        // --- FINE toggleTag ---
 
-        // --- Nuova funzione per aggiornare "Ultima mod." ---
         function updateMetaInfo(card) {
              const currentUserName = auth.currentUser ? auth.currentUser.displayName : 'Utente';
-             card.dataset.lastModifiedBy = currentUserName; // Aggiorna il dataset
+             card.dataset.lastModifiedBy = currentUserName;
              const metaInfoElement = card.querySelector('.task-meta-info');
              if (metaInfoElement) {
                   metaInfoElement.textContent = `Creato da: ${sanitizeHTML(card.dataset.createdBy)} | Ultima mod.: ${sanitizeHTML(currentUserName)}`;
              }
         }
-        // --- Fine updateMetaInfo ---
 
-        // --- Funzione serializeCard aggiornata ---
+        // --- NUOVA FUNZIONE HELPER ---
+        function handleCardModification(card) {
+            // Se la modifica non proviene da una card specifica (es. textarea comunicazioni)
+            // aggiorniamo solo i dati generali senza toccare le card.
+            if (card) {
+                 updateMetaInfo(card); // Aggiorna PRIMA il nome "Ultima mod." sulla card specifica
+            }
+            saveTasks(activeDate); // POI salva tutto (che rileggerà i dati aggiornati dalle card)
+        }
+        // --- FINE FUNZIONE HELPER ---
+
         function serializeCard(card) {
             const graficaBtn = card.querySelector('.request-activation-btn[data-type="grafica"]');
             const ospiteBtn = card.querySelector('.request-activation-btn[data-type="ospite"]');
             const linkInputs = card.querySelectorAll('.links-container .link-input');
             const links = Array.from(linkInputs).map(input => input.value).filter(value => value.trim() !== '');
             const activeContentTagBtn = card.querySelector('.content-tags button:not(.project-tag).active');
-            // Legge sempre l'ultimo modificatore dal dataset aggiornato
             const lastModifiedBy = card.dataset.lastModifiedBy || (auth.currentUser ? auth.currentUser.displayName : 'Utente');
             return {
                 id: card.id,
                 text: card.querySelector('h4').dataset.baseText,
                 createdBy: card.dataset.createdBy || 'Sconosciuto',
-                lastModifiedBy: lastModifiedBy, // Usa il valore aggiornato
+                lastModifiedBy: lastModifiedBy,
                 descrizione: card.querySelector('.descrizione-input').value,
                 projectTag: card.querySelector('.project-tag').textContent,
                 materiale: card.querySelector('.materiale-input').value,
@@ -876,7 +896,6 @@
                 minimized: card.classList.contains('minimized')
             };
         }
-        // --- Fine serializeCard ---
 
     </script>
 </body>
