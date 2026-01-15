@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Prima Ora - Bacheca Lavoro</title>
-
+    
     <link id="favicon" rel="icon" href="#">
 
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
@@ -18,7 +18,7 @@
         #presence-indicator{position:fixed;top:10px;left:10px;background-color:rgba(0,0,0,.4);color:#fff;padding:5px 10px;border-radius:5px;font-size:.8rem;backdrop-filter:blur(5px);-webkit-backdrop-filter:blur(5px);z-index:1000;line-height:1.4}
         .fixed-controls{position:fixed;bottom:20px;right:20px;display:flex;gap:10px;z-index:1000}
         .fixed-controls button{padding:8px 15px;border-radius:5px;border:1px solid #fff;background-color:#2c3e50;color:#fff;font-weight:700;cursor:pointer;transition:background-color .2s;box-shadow:0 2px 5px rgba(0,0,0,.2)}.fixed-controls button:hover{background-color:#34495e}
-
+        
         #app-container { display: none; width: 100%; flex-direction: column; align-items: center; }
         #auth-container { background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.2); padding: 2rem; border-radius: 8px; width: 300px; box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1); color: #eee; margin-top: 10vh; }
         .login-title { font-size: 2.5rem; font-weight: 700; color: #fff; text-align: center; margin: 0; text-shadow: 1px 1px 3px rgba(0,0,0,0.4); }
@@ -26,12 +26,7 @@
         #auth-container h2 { text-align: center; margin-top: 0; }
         .auth-form { display: flex; flex-direction: column; gap: 1rem; }
         .auth-form input[type=password],
-        .auth-form input[type=text]:not([id*="-email"]) {
-            padding: 12px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            font-size: 1rem;
-        }
+        .auth-form input[type=text]:not([id*="-email"]) { padding: 12px; border: 1px solid #ccc; border-radius: 5px; font-size: 1rem; }
         .email-input-container { display: flex; align-items: center; border: 1px solid #ccc; border-radius: 5px; background-color: white; transition: border-color 0.2s, box-shadow 0.2s; }
         .email-input-container input[type=text] { border: none; flex-grow: 1; padding: 12px; font-size: 1rem; outline: none; background-color: transparent; min-width: 50px; }
         .email-suffix { padding: 12px; background-color: #eee; color: #555; font-size: 1rem; white-space: nowrap; border-radius: 0 4px 4px 0; border-left: 1px solid #ccc; }
@@ -53,17 +48,9 @@
         .kanban-board{display:flex;gap:2rem;justify-content:center;width:100%;max-width:1400px}
         .column{background:rgba(255,255,255,.1);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,.2);padding:1.5rem;border-radius:8px;width:300px;min-height:500px;box-shadow:0 4px 30px rgba(0,0,0,.1);display:flex;flex-direction:column}.column.done-column{width:250px}.column-header{font-size:1.5rem;font-weight:700;margin-top:0;margin-bottom:1rem;color:#eee;text-shadow:1px 1px 3px rgba(0,0,0,.4);text-align:center}.add-task{display:flex;margin-bottom:1rem}.add-task input{flex-grow:1;padding:10px;border:1px solid #ccc;border-radius:5px;font-size:.9rem}.add-task button{padding:10px 15px;border:none;background-color:#2c3e50;color:#fff;border-radius:5px;margin-left:5px;cursor:pointer;font-size:.9rem}.task-list{flex-grow:1;overflow-y:auto;position:relative;min-height:100px}.task-card{background:rgba(255,255,255,.2);padding:1rem;border-radius:5px;margin-bottom:1rem;cursor:grab;box-shadow:0 1px 3px rgba(0,0,0,.1);transition:transform .2s ease-in-out,box-shadow .2s ease-in-out;position:relative}.task-card:active{cursor:grabbing}.task-card.dragging{opacity:.5;box-shadow:0 4px 15px rgba(0,0,0,.2);transform:scale(1.05)}
         .task-card.done{background:rgba(46,204,113,.2)}
-
         .task-meta-info{font-size:0.65rem;color:#f0f0f0;margin-bottom:8px;margin-top:-8px;text-shadow:1px 1px 1px rgba(0,0,0,0.3);}
-
-        .task-card-header{display:flex;justify-content:space-between;align-items:center}.task-card h4{margin:0 0 .5rem;font-size:1.1rem;flex-grow:1;cursor:text;transition:background-color .2s ease-in-out;color:#fff;padding:4px 10px;border-radius:15px;display:inline-block;width:auto}.task-card h4[contenteditable=true]{background-color:rgba(255,255,255,.8) !important;outline:2px solid #3498db;color:#333 !important}.info-field-container{margin-top:10px}.info-field-container label{font-size:.9rem;font-weight:700;color:#444;display:block;margin-bottom:5px}.info-field{width:calc(100% - 10px);padding:5px;border:1px solid #ccc;border-radius:3px;font-size:.9rem;resize:vertical;font-family:inherit}.task-card .task-buttons{display:flex;justify-content:space-between;margin-top:1rem}.task-card .task-buttons button,.minimize-btn{background:0 0;border:none;cursor:pointer;font-size:1.2rem;color:#333;transition:color .2s}.minimize-btn{font-size:1rem;margin-left:10px;padding:0 5px}.task-card .task-buttons button:hover,.minimize-btn:hover{color:#000}
-
-        .task-card.minimized .task-body{display:none}
-        .task-card.minimized h4{margin-bottom:0}
-        .task-card.minimized .task-meta-info { display: none; }
-
+        .task-card-header{display:flex;justify-content:space-between;align-items:center}.task-card h4{margin:0 0 .5rem;font-size:1.1rem;flex-grow:1;cursor:text;transition:background-color .2s ease-in-out;color:#fff;padding:4px 10px;border-radius:15px;display:inline-block;width:auto}.task-card h4[contenteditable=true]{background-color:rgba(255,255,255,.8) !important;outline:2px solid #3498db;color:#333 !important}.info-field-container{margin-top:10px}.info-field-container label{font-size:.9rem;font-weight:700;color:#444;display:block;margin-bottom:5px}.info-field{width:calc(100% - 10px);padding:5px;border:1px solid #ccc;border-radius:3px;font-size:.9rem;resize:vertical;font-family:inherit}.task-card .task-buttons{display:flex;justify-content:space-between;margin-top:1rem}.task-card .task-buttons button,.minimize-btn{background:0 0;border:none;cursor:pointer;font-size:1.2rem;color:#333;transition:color .2s}.minimize-btn{font-size:1rem;margin-left:10px;padding:0 5px}.task-card .task-buttons button:hover,.minimize-btn:hover{color:#000}.task-card.minimized .task-body{display:none}.task-card.minimized h4{margin-bottom:0}.task-card.minimized .task-meta-info { display: none; }
         .content-tags button{padding:5px 10px;border-radius:20px;border:none;cursor:pointer;color:#fff;font-size:.8rem;margin-right:5px;margin-bottom:5px;opacity:.6;transition:opacity .2s,filter .2s;filter:grayscale(20%)}.content-tags button.active{opacity:1;filter:grayscale(0%)}
-
         .content-tags .foto{background-color:#FF7F50}.content-tags .clip{background-color:#337AB7}.content-tags .copertura{background-color:#6A5ACD}.content-tags .grafico{background-color:#28A745}.content-tags .oggetto{background-color:#FFC107}.content-tags .cartina{background-color:#8B4513}.project-tag{padding:5px 10px;border-radius:20px;border:1px solid #ccc;cursor:pointer;font-size:.8rem;margin-right:5px;margin-bottom:5px;background-color:#2c3e50;color:#fff}
         .location-container h5{margin:.8rem 0 .5rem;font-size:1rem;color:#444}.location-buttons{display:flex;gap:10px;margin-bottom:.5rem}.location-btn{padding:5px 10px;font-size:.8rem;border-radius:5px;border:1px solid #aaa;background-color:#eee;cursor:pointer}.location-btn.active{background-color:#3498db;color:#fff;border-color:#3498db}
         .request-status-container{margin-top:15px;border-top:1px solid rgba(0,0,0,.1);padding-top:15px;display:flex;flex-direction:column;gap:15px}
@@ -83,7 +70,7 @@
         <source src="background.mp4" type="video/mp4">
         Il tuo browser non supporta il tag video.
     </video>
-
+    
     <div id="presence-indicator" class="hidden">Connessione...</div>
 
     <script>
@@ -101,7 +88,7 @@
         <br>
         <p class="login-subtitle" style="margin: 0;">Benvenuto!</p>
         <br>
-
+        
         <div id="login-form">
             <h2>Accedi</h2>
             <form class="auth-form" onsubmit="handleLogin(event)">
@@ -161,19 +148,19 @@
                 <div class="info-row"><label for="ce-input">CE:</label><input type="text" id="ce-input" class="daily-input" placeholder="Nome..."></div>
                 <div class="info-row"><label for="conducono1-input">Conducono:</label><input type="text" id="conducono1-input" class="daily-input" placeholder="Nome..."></div>
                 <div class="info-row"><label for="conducono2-input"></label><input type="text" id="conducono2-input" class="daily-input" placeholder="Nome..."></div>
-             </div>
-             <div class="day-selector" id="day-selector"></div>
+            </div>
+            <div class="day-selector" id="day-selector"></div>
         </div>
         <div id="kanban-container"></div>
     </div>
-
+    
     <div class="fixed-controls">
         <button id="export-btn" class="hidden">Esporta dati</button>
         <button id="import-btn" class="hidden">Importa dati</button>
         <input type="file" id="import-file-input" accept=".json" style="display: none;">
         <button id="logout-btn" class="hidden" onclick="handleLogout()">Logout</button>
     </div>
-
+    
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             setupAuth();
@@ -184,8 +171,8 @@
                 const nome = nomeInput.value.toLowerCase().trim().replace(/\s+/g, '');
                 const cognome = cognomeInput.value.toLowerCase().trim().replace(/\s+/g, '');
                 let emailBase = '';
-                if (nome && cognome) { emailBase = `${nome}.${cognome}`; }
-                else if (nome) { emailBase = nome; }
+                if (nome && cognome) { emailBase = `${nome}.${cognome}`; } 
+                else if (nome) { emailBase = nome; } 
                 else if (cognome) { emailBase = cognome; }
                 emailInput.value = emailBase;
             }
@@ -200,11 +187,6 @@
         let unsubscribeDailyInfo = null;
         let currentDailyInfoKey = null;
 
-        let isAppInitialized = false;
-        let isRegistering = false;
-        let isLoggingIn = false;
-
-        // --- FUNZIONE setupAuth COMPLETA E CORRETTA ---
         function setupAuth() {
             auth.onAuthStateChanged(user => {
                 const authContainer = document.getElementById('auth-container');
@@ -214,21 +196,19 @@
                 const exportBtn = document.getElementById('export-btn');
                 const importBtn = document.getElementById('import-btn');
 
-                if (user && !isAppInitialized && !isRegistering && !isLoggingIn) {
-                    isAppInitialized = true;
-
+                if (user) {
                     authContainer.classList.add('hidden');
                     appContainer.style.display = 'flex';
                     logoutBtn.classList.remove('hidden');
                     presenceIndicator.classList.remove('hidden');
                     exportBtn.classList.remove('hidden');
                     importBtn.classList.remove('hidden');
-
+                    
                     const daysToDisplay = 8;
                     generateDaySelectors(daysToDisplay);
-
+                    
                     switchDay(new Date().toISOString().split('T')[0]);
-
+                    
                     document.querySelectorAll('.daily-info-container input').forEach(input => {
                         input.addEventListener('change', () => saveTasks(activeDate));
                     });
@@ -239,29 +219,19 @@
                     importFileInput.addEventListener('change', importData);
                     animateFavicon();
                     setupPresence();
-                } else if (!user) {
-                    isAppInitialized = false;
-                    isRegistering = false;
-                    isLoggingIn = false;
-
+                } else {
                     authContainer.classList.remove('hidden');
                     appContainer.style.display = 'none';
                     logoutBtn.classList.add('hidden');
                     presenceIndicator.classList.add('hidden');
                     exportBtn.classList.add('hidden');
                     importBtn.classList.add('hidden');
-
                     if (unsubscribeTasks) unsubscribeTasks();
                     if (unsubscribeDailyInfo) unsubscribeDailyInfo();
                     if (rtdb) rtdb.ref('/presence').off();
-
-                    document.getElementById('day-selector').innerHTML = '';
-                    document.getElementById('kanban-container').innerHTML = '';
                 }
             });
         }
-        // --- FINE setupAuth ---
-
         function toggleAuthForm(showRegister) {
             document.getElementById('login-form').classList.toggle('hidden', showRegister);
             document.getElementById('register-form').classList.toggle('hidden', !showRegister);
@@ -276,127 +246,67 @@
             document.getElementById('auth-error').classList.add('hidden');
             document.getElementById('auth-success').classList.add('hidden');
         }
-        function showLoginFromReset() {
-            toggleAuthForm(false);
-        }
-
-        // --- FUNZIONE handleLogin COMPLETA E CORRETTA (con @rsi.ch) ---
+        function showLoginFromReset() { toggleAuthForm(false); }
         function handleLogin(event) {
             event.preventDefault();
-            isLoggingIn = true;
-
             const email = document.getElementById('login-email').value + '@rsi.ch';
             const password = document.getElementById('login-password').value;
             const errorDiv = document.getElementById('auth-error');
             errorDiv.classList.add('hidden');
             document.getElementById('auth-success').classList.add('hidden');
-
             auth.signInWithEmailAndPassword(email, password)
-                .then((userCredential) => {
-                    const user = userCredential.user;
-
-                    if (user.emailVerified) {
-                        isLoggingIn = false;
-                    } else {
-                        auth.signOut();
-                        errorDiv.textContent = "Account non ancora attivo. Controlla la tua email per il link di verifica.";
-                        errorDiv.classList.remove('hidden');
-                        // isLoggingIn sarà resettato da setupAuth dopo il signOut
-                    }
-                })
                 .catch(error => {
-                    isLoggingIn = false;
                     errorDiv.textContent = "Utente o password non validi.";
                     errorDiv.classList.remove('hidden');
                 });
         }
-        // --- FINE handleLogin ---
-
-        // --- FUNZIONE handleRegister COMPLETA E CORRETTA (con @rsi.ch) ---
         function handleRegister(event) {
             event.preventDefault();
-            isRegistering = true;
-
             const email = document.getElementById('register-email').value + '@rsi.ch';
             const password = document.getElementById('register-password').value;
             const confirmPassword = document.getElementById('register-password-confirm').value;
             const nome = document.getElementById('register-nome').value;
             const cognome = document.getElementById('register-cognome').value;
             const displayName = `${nome} ${cognome.charAt(0)}.`;
-
             const errorDiv = document.getElementById('auth-error');
-            const successDiv = document.getElementById('auth-success');
             errorDiv.classList.add('hidden');
-            successDiv.classList.add('hidden');
+            document.getElementById('auth-success').classList.add('hidden');
 
             if (password !== confirmPassword) {
                 errorDiv.textContent = "Le password non coincidono.";
                 errorDiv.classList.remove('hidden');
-                isRegistering = false;
                 return;
             }
-
             auth.createUserWithEmailAndPassword(email, password)
                 .then((userCredential) => {
                     const user = userCredential.user;
-                    return user.sendEmailVerification().then(() => {
-                        return user.updateProfile({
-                            displayName: displayName
-                        }).then(() => {
-                            return db.collection('users').doc(user.uid).set({
-                                nome: nome,
-                                cognome: cognome,
-                                displayName: displayName,
-                                email: user.email
-                            });
+                    return user.updateProfile({ displayName: displayName })
+                    .then(() => {
+                        return db.collection('users').doc(user.uid).set({
+                            nome: nome, cognome: cognome, displayName: displayName, email: user.email
                         });
                     });
                 })
-                .then(() => {
-                    auth.signOut();
-                    isRegistering = false;
-
-                    alert("Registrazione completata! Controlla la tua email (anche nella cartella SPAM) per attivare il tuo account.");
-
-                    successDiv.textContent = "Registrazione completata! Controlla la tua email per il link di attivazione e poi accedi.";
-                    successDiv.classList.remove('hidden');
-                    toggleAuthForm(false);
-                })
                 .catch(error => {
-                    isRegistering = false;
-
-                    if (error.code === 'auth/email-already-in-use') {
-                        errorDiv.textContent = "Questa email è già registrata. Prova ad accedere.";
-                    } else if (error.code === 'auth/weak-password') {
-                        errorDiv.textContent = "La password è troppo debole (min. 6 caratteri).";
-                    } else {
-                        errorDiv.textContent = "Errore: " + error.message;
-                    }
+                    errorDiv.textContent = error.message;
                     errorDiv.classList.remove('hidden');
                 });
         }
-        // --- FINE handleRegister ---
-
         function handlePasswordReset(event) {
             event.preventDefault();
             const email = document.getElementById('reset-email').value + '@rsi.ch';
-            const errorDiv = document.getElementById('auth-error');
             const successDiv = document.getElementById('auth-success');
-            errorDiv.classList.add('hidden');
-            successDiv.classList.add('hidden');
-
+            document.getElementById('auth-error').classList.add('hidden');
             auth.sendPasswordResetEmail(email)
                 .then(() => {
                     successDiv.textContent = "Se un account con questa email è registrato, riceverai un link di recupero.";
                     successDiv.classList.remove('hidden');
                 })
                 .catch((error) => {
-                    console.error("Error sending password reset:", error);
                     successDiv.textContent = "Se un account con questa email è registrato, riceverai un link di recupero.";
                     successDiv.classList.remove('hidden');
                 });
         }
-
         function handleLogout() {
             if (auth.currentUser) {
                 const myUid = auth.currentUser.uid;
@@ -404,7 +314,6 @@
             }
             auth.signOut();
         }
-        // --- FINE FUNZIONI DI AUTENTICAZIONE ---
 
         function getDailyInfoKey(dateString) {
             const date = new Date(dateString + 'T12:00:00Z');
@@ -418,8 +327,6 @@
         }
 
         function setupPresence() {
-            if (!auth.currentUser) return;
-
             const myUid = auth.currentUser.uid;
             const myDisplayName = auth.currentUser.displayName || 'Anonimo';
             const presenceRef = rtdb.ref('/presence/' + myUid);
@@ -428,19 +335,12 @@
                     const response = await fetch('https://ipapi.co/json/');
                     const data = await response.json();
                     return { city: data.city, country: data.country_code };
-                } catch (error) {
-                    console.error("Errore geo-loc:", error);
-                    return { city: 'Sconosciuto', country: 'N/A' };
-                }
+                } catch (error) { return { city: 'Sconosciuto', country: 'N/A' }; }
             };
             rtdb.ref('.info/connected').on('value', async (snap) => {
                 if (snap.val() === true) {
                     const location = await getLocation();
-                    presenceRef.set({
-                        online: true,
-                        location: `${location.city}, ${location.country}`,
-                        name: myDisplayName
-                    });
+                    presenceRef.set({ online: true, location: `${location.city}, ${location.country}`, name: myDisplayName });
                     presenceRef.onDisconnect().remove();
                 }
             });
@@ -453,25 +353,18 @@
                     if (userData.location) locations.add(userData.location);
                 });
                 const locationsArray = [...locations];
-                let locationsHtml;
-                if (locationsArray.length > 1) {
-                    locationsHtml = '<br>' + locationsArray.join('<br>');
-                } else {
-                    locationsHtml = ` (${locationsArray.join(', ') || 'N/A'})`;
-                }
+                let locationsHtml = locationsArray.length > 1 ? '<br>' + locationsArray.join('<br>') : ` (${locationsArray.join(', ') || 'N/A'})`;
                 presenceIndicator.innerHTML = `Utenti connessi: ${userCount}${locationsHtml}`;
             });
         }
 
         function animateFavicon() {
             const favicon = document.getElementById('favicon');
-            if (!favicon) return;
             const icons = ['🕕', '📡'];
             let counter = 0;
             setInterval(() => {
                 const emoji = icons[counter % icons.length];
-                const newHref = `data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>${emoji}</text></svg>`;
-                favicon.setAttribute('href', newHref);
+                favicon.setAttribute('href', `data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>${emoji}</text></svg>`);
                 counter++;
             }, 1500);
         }
@@ -480,15 +373,11 @@
 
         function exportData() {
             const dateToExp = activeDate;
-            if(!dateToExp) { alert("Seleziona un giorno da esportare."); return; }
             db.collection('bacheche').doc(dateToExp).get().then(doc => {
-                if (!doc.exists) { alert("Nessun dato da esportare per questo giorno."); return; }
-                const dataToExport = doc.data();
-                const jsonString = JSON.stringify(dataToExport, null, 2);
-                const blob = new Blob([jsonString], { type: 'application/json' });
+                if (!doc.exists) { alert("Nessun dato da esportare."); return; }
+                const blob = new Blob([JSON.stringify(doc.data(), null, 2)], { type: 'application/json' });
                 const url = URL.createObjectURL(blob);
-                const a = document.createElement('a');
-                a.href = url; a.download = `backup-bacheca-${dateToExp}.json`; document.body.appendChild(a); a.click(); document.body.removeChild(a); URL.revokeObjectURL(url);
+                const a = document.createElement('a'); a.href = url; a.download = `backup-bacheca-${dateToExp}.json`; document.body.appendChild(a); a.click(); document.body.removeChild(a); URL.revokeObjectURL(url);
             });
         }
 
@@ -496,18 +385,13 @@
             const file = event.target.files[0];
             if (!file) return;
             const dateFromFile = file.name.replace('backup-bacheca-', '').replace('.json', '');
-            if (!/^\d{4}-\d{2}-\d{2}$/.test(dateFromFile)) { alert("Nome del file non valido."); return; }
-            if (!confirm(`ATTENZIONE: Stai per sovrascrivere i dati del giorno ${dateFromFile}. Vuoi continuare?`)) { event.target.value = ''; return; }
+            if (!confirm(`Sovrascrivere i dati del giorno ${dateFromFile}?`)) return;
             const reader = new FileReader();
             reader.onload = (e) => {
                 try {
                     const importedData = JSON.parse(e.target.result);
-                    db.collection('bacheche').doc(dateFromFile).set(importedData).then(() => { alert(`Dati per il giorno ${dateFromFile} importati con successo!`); });
-                } catch (error) {
-                    alert('Errore: Il file selezionato non è valido o è corrotto.');
-                } finally {
-                    event.target.value = '';
-                }
+                    db.collection('bacheche').doc(dateFromFile).set(importedData).then(() => { alert("Importazione riuscita!"); });
+                } catch (error) { alert('Errore file!'); }
             };
             reader.readAsText(file);
         }
@@ -515,15 +399,20 @@
         function generateDaySelectors(count) {
             const selectorContainer = document.getElementById('day-selector');
             const kanbanContainer = document.getElementById('kanban-container');
+            selectorContainer.innerHTML = ''; kanbanContainer.innerHTML = '';
             const today = new Date();
-            for (let i = -2; i < count - 2; i++) {
+            // MODIFICA: i parte da -1 (1 giorno passato) e arriva a 6 (6 giorni futuri)
+            for (let i = -1; i < count - 1; i++) {
                 const day = new Date(today);
                 day.setDate(today.getDate() + i);
                 const dateString = day.toISOString().split('T')[0];
-                const buttonText = `${dayNames[day.getDay()]} ${day.getDate()} ${monthNames[day.getMonth()]}`;
                 const button = document.createElement('button');
-                button.textContent = buttonText; button.setAttribute('data-date', dateString); button.classList.add(`day-color-${day.getDay()}`); button.addEventListener('click', () => switchDay(dateString));
+                button.textContent = `${dayNames[day.getDay()]} ${day.getDate()} ${monthNames[day.getMonth()]}`;
+                button.setAttribute('data-date', dateString);
+                button.classList.add(`day-color-${day.getDay()}`);
+                button.addEventListener('click', () => switchDay(dateString));
                 selectorContainer.appendChild(button);
+
                 const kanbanBoard = document.createElement('div');
                 kanbanBoard.id = `board-${dateString}`; kanbanBoard.className = 'kanban-board'; kanbanBoard.style.display = 'none';
                 kanbanBoard.innerHTML = `
@@ -534,20 +423,19 @@
                 kanbanContainer.appendChild(kanbanBoard);
                 kanbanBoard.querySelector('.add-btn').addEventListener('click', () => {
                     const input = document.getElementById(`todo-input-${dateString}`);
-                    if (input.value.trim() !== '') { createTaskCard(input.value, {}, dateString); input.value = ''; handleCardModification(null); /* Aggiorna meta info anche se la card non è ancora creata? Meglio gestirlo dopo */ }
+                    if (input.value.trim() !== '') { createTaskCard(input.value, {}, dateString); input.value = ''; saveTasks(dateString); }
                 });
-                // CHIAMATA A handleCardModification AGGIUNTA QUI PER CAMPI TESTO GENERALI
-                kanbanBoard.querySelector('.comms-field-1').addEventListener('change', () => handleCardModification(null)); // Passiamo null perché non è una card specifica
+                kanbanBoard.querySelector('.comms-field-1').addEventListener('change', () => saveTasks(dateString));
                 kanbanBoard.querySelectorAll('.task-list').forEach(list => { list.addEventListener('dragover', dragOver); list.addEventListener('drop', drop); });
             }
         }
-
+        
         function switchDay(date) {
             document.querySelectorAll('.day-selector button').forEach(btn => { btn.classList.toggle('active', btn.getAttribute('data-date') === date); });
             document.querySelectorAll('.kanban-board').forEach(board => { board.style.display = 'none'; });
-            document.getElementById(`board-${date}`).style.display = 'flex';
+            const currentBoard = document.getElementById(`board-${date}`);
+            if(currentBoard) currentBoard.style.display = 'flex';
             activeDate = date;
-
             if (unsubscribeTasks) unsubscribeTasks();
             unsubscribeTasks = db.collection('bacheche').doc(activeDate).onSnapshot(snapshot => {
                 ['todo', 'in-progress', 'done'].forEach(type => { const list = document.getElementById(`${type}-list-${activeDate}`); if (list) list.innerHTML = ''; });
@@ -560,7 +448,6 @@
                     data.done?.forEach(taskData => createTaskCard(taskData.text, { ...taskData, parentId: `done-list-${activeDate}` }));
                 }
             });
-
             const newDailyInfoKey = getDailyInfoKey(date);
             if (newDailyInfoKey !== currentDailyInfoKey) {
                 currentDailyInfoKey = newDailyInfoKey;
@@ -573,19 +460,18 @@
                 });
             }
         }
-
+        
         function saveTasks(date) {
             if (!date) return;
             const dailyInfoKey = getDailyInfoKey(date);
-            const dailyInfo = {
+            db.collection('daily_info').doc(dailyInfoKey).set({
                 ce: document.getElementById('ce-input').value || '',
                 conducono1: document.getElementById('conducono1-input').value || '',
                 conducono2: document.getElementById('conducono2-input').value || ''
-            };
-            db.collection('daily_info').doc(dailyInfoKey).set(dailyInfo);
-            const tasks = {
+            });
+            const tasks = { 
                 comunicazione1: document.querySelector(`#board-${date} .comms-field-1`)?.value || '',
-                todo: [], inProgress: [], done: []
+                todo: [], inProgress: [], done: [] 
             };
             document.querySelectorAll(`#todo-list-${date} .task-card`).forEach(card => tasks.todo.push(serializeCard(card)));
             document.querySelectorAll(`#in-progress-list-${date} .task-card`).forEach(card => tasks.inProgress.push(serializeCard(card)));
@@ -593,18 +479,12 @@
             db.collection('bacheche').doc(date).set(tasks);
         }
 
-        // --- FUNZIONE createTaskCard CON CHIAMATE A handleCardModification ---
         function createTaskCard(baseText, initialData = {}, date = activeDate) {
-            const card = document.createElement('div'); // Definisci card qui
+            const card = document.createElement('div');
             card.className = 'task-card'; card.setAttribute('draggable', 'true'); card.id = initialData.id || `task-${date}-${Date.now()}`;
-
-            const currentUserName = auth.currentUser ? auth.currentUser.displayName : 'Utente';
-            if (!initialData.createdBy) initialData.createdBy = currentUserName;
-            initialData.lastModifiedBy = initialData.lastModifiedBy || initialData.createdBy;
+            if (!initialData.createdBy) initialData.createdBy = auth.currentUser.displayName || 'Utente';
+            if (!initialData.lastModifiedBy) initialData.lastModifiedBy = initialData.createdBy;
             card.dataset.createdBy = initialData.createdBy;
-            card.dataset.lastModifiedBy = initialData.lastModifiedBy;
-
-
             card.innerHTML = `
                 <div class="task-meta-info">Creato da: ${sanitizeHTML(initialData.createdBy)} | Ultima mod.: ${sanitizeHTML(initialData.lastModifiedBy)}</div>
                 <div class="task-card-header"><h4 data-base-text="${baseText}"></h4><button class="minimize-btn">🔼</button></div>
@@ -617,31 +497,20 @@
                         <div class="location-buttons"><button class="location-btn" data-location="OpenMedia">in OpenMedia</button><button class="location-btn" data-location="Hive">in Hive</button></div>
                         <div class="location-text-container hidden"><input type="text" class="info-field location-text" placeholder="X Chi"></div>
                     </div>
-                    <div class="request-status-container">
-                        <div class="request-row"><button class="request-activation-btn" data-type="grafica">Richiesto in grafica</button><div class="request-status-indicator hidden"><span>Arrivato:</span><button class="status-toggle-btn" data-type="grafica" data-status="no">❌ No</button><input type="text" class="info-field grafica-contact-input" placeholder="Ev. contatto"></div></div>
-                        <div class="request-row"><button class="request-activation-btn" data-type="ospite">Richiesto all'ospite</button><div class="request-status-indicator hidden"><span>Arrivato:</span><button class="status-toggle-btn" data-type="ospite" data-status="no">❌ No</button><input type="text" class="info-field ospite-contact-input" placeholder="Ev. contatto"></div></div>
-                    </div>
                     <div class="info-field-container"><label>Links:</label><div class="links-container"></div></div>
                     <button class="add-link-btn">+</button>
                     <div class="task-buttons"><button class="edit-btn">✏️</button><button class="delete-btn">🗑️</button><button class="done-btn">✔️</button></div>
                 </div>`;
-
             const linksContainer = card.querySelector('.links-container');
-            // Modifica addLinkRow per accettare 'card'
-            const addLinkRow = (cardElement, linkValue = '') => {
-                const linkRow = document.createElement('div');
-                linkRow.className = 'link-row';
+            const addLinkRow = (linkValue = '') => {
+                const linkRow = document.createElement('div'); linkRow.className = 'link-row';
                 linkRow.innerHTML = `<input type="text" class="info-field link-input" placeholder="Link..." value="${sanitizeHTML(linkValue)}"><button class="remove-link-btn">🗑️</button>`;
                 linksContainer.appendChild(linkRow);
-                // Passa cardElement a handleCardModification
-                linkRow.querySelector('.remove-link-btn').addEventListener('click', () => { linkRow.remove(); handleCardModification(cardElement); });
-                linkRow.querySelector('.link-input').addEventListener('change', () => handleCardModification(cardElement));
+                linkRow.querySelector('.remove-link-btn').addEventListener('click', () => { linkRow.remove(); saveTasks(activeDate); });
+                linkRow.querySelector('.link-input').addEventListener('change', () => saveTasks(activeDate));
             };
-            // Passa 'card' quando chiami addLinkRow
-            if (initialData.links && initialData.links.length > 0) initialData.links.forEach(link => addLinkRow(card, link)); else addLinkRow(card);
-            // Passa 'card' qui
-            card.querySelector('.add-link-btn').addEventListener('click', () => { addLinkRow(card); handleCardModification(card); });
-
+            if (initialData.links && initialData.links.length > 0) initialData.links.forEach(link => addLinkRow(link)); else addLinkRow();
+            card.querySelector('.add-link-btn').addEventListener('click', () => addLinkRow());
             if (initialData.isDone) card.classList.add('done');
             if (initialData.minimized) { card.classList.add('minimized'); card.querySelector('.minimize-btn').textContent = '🔽'; }
             if (initialData.projectTag) card.querySelector('.project-tag').textContent = initialData.projectTag;
@@ -650,18 +519,6 @@
             if (initialData.location) { const locBtn = card.querySelector(`.location-btn[data-location="${initialData.location}"]`); if(locBtn) { locBtn.classList.add('active'); if(initialData.location === 'Hive') card.querySelector('.location-text-container').classList.remove('hidden'); } }
             if (initialData.locationText) card.querySelector('.location-text').value = initialData.locationText;
             if (initialData.activeContentTag) { const tagBtn = card.querySelector(`.content-tags button[data-type="${initialData.activeContentTag}"]`); if (tagBtn) tagBtn.classList.add('active'); }
-            if (initialData.grafica_active) {
-                const activationBtn = card.querySelector('.request-activation-btn[data-type="grafica"]');
-                activationBtn.classList.add('active'); activationBtn.nextElementSibling.classList.remove('hidden');
-                if (initialData.grafica_status === 'yes') { const statusBtn = activationBtn.nextElementSibling.querySelector('.status-toggle-btn'); statusBtn.dataset.status = 'yes'; statusBtn.textContent = '✅ Sì'; }
-                if(initialData.grafica_contatto) card.querySelector('.grafica-contact-input').value = initialData.grafica_contatto;
-            }
-            if (initialData.ospite_active) {
-                const activationBtn = card.querySelector('.request-activation-btn[data-type="ospite"]');
-                activationBtn.classList.add('active'); activationBtn.nextElementSibling.classList.remove('hidden');
-                 if (initialData.ospite_status === 'yes') { const statusBtn = activationBtn.nextElementSibling.querySelector('.status-toggle-btn'); statusBtn.dataset.status = 'yes'; statusBtn.textContent = '✅ Sì'; }
-                if(initialData.ospite_contatto) card.querySelector('.ospite-contact-input').value = initialData.ospite_contatto;
-            }
             updateTitleWithPrefixAndColor(card);
             card.querySelector('h4').addEventListener('click', () => editTask(card));
             card.querySelector('.edit-btn').addEventListener('click', () => editTask(card));
@@ -677,36 +534,18 @@
                     if (!wasActive) button.classList.add('active');
                     const locationTextContainer = card.querySelector('.location-text-container');
                     if (button.dataset.location === 'Hive' && button.classList.contains('active')) { locationTextContainer.classList.remove('hidden'); } else { locationTextContainer.classList.add('hidden'); }
-                    handleCardModification(card); // Modificato qui
+                    saveTasks(activeDate);
                 });
-            });
-             card.querySelectorAll('.request-activation-btn').forEach(button => {
-                 button.addEventListener('click', () => { button.classList.toggle('active'); button.nextElementSibling.classList.toggle('hidden'); handleCardModification(card); }); // Modificato qui
-            });
-             card.querySelectorAll('.status-toggle-btn').forEach(button => {
-                 button.addEventListener('click', () => {
-                     const newStatus = button.dataset.status === 'no' ? 'yes' : 'no';
-                     button.dataset.status = newStatus; button.textContent = newStatus === 'yes' ? '✅ Sì' : '❌ No';
-                     handleCardModification(card); // Modificato qui
-                 });
             });
             card.addEventListener('dragstart', dragStart); card.addEventListener('dragend', dragEnd);
             if (initialData.isDone) document.getElementById(`done-list-${date}`).appendChild(card);
             else if (initialData.parentId) document.getElementById(initialData.parentId).appendChild(card);
             else document.getElementById(`todo-list-${date}`).prepend(card);
-            // Sostituisci saveTasks con handleCardModification per tutti i campi
-            card.querySelectorAll('.info-field').forEach(input => {
-                 input.addEventListener('mousedown', e => e.stopPropagation());
-                 input.addEventListener('change', () => handleCardModification(card)); // Modificato qui
-            });
+            card.querySelectorAll('.info-field').forEach(input => { input.addEventListener('mousedown', e => e.stopPropagation()); input.addEventListener('change', () => saveTasks(date)); });
         }
-        // --- FINE createTaskCard ---
-
         function dragStart(e) { e.dataTransfer.setData('text/plain', e.target.id); setTimeout(() => e.target.classList.add('dragging'), 0); }
         function dragEnd(e) { e.target.classList.remove('dragging'); }
         function dragOver(e) { e.preventDefault(); }
-
-        // --- FUNZIONE drop MODIFICATA ---
         function drop(e) {
             e.preventDefault();
             const cardId = e.dataTransfer.getData('text/plain');
@@ -717,24 +556,10 @@
             if (afterElement == null) targetList.appendChild(draggedCard);
             else targetList.insertBefore(draggedCard, afterElement);
             const minimizeBtn = draggedCard.querySelector('.minimize-btn');
-            if (targetList.id.startsWith('done-list')) {
-                draggedCard.classList.add('done');
-                draggedCard.classList.add('minimized');
-                minimizeBtn.textContent = '🔽';
-            } else {
-                draggedCard.classList.remove('done');
-                if (targetList.id.startsWith('in-progress-list')) {
-                    draggedCard.classList.add('minimized');
-                    minimizeBtn.textContent = '🔽';
-                } else {
-                    draggedCard.classList.remove('minimized');
-                    minimizeBtn.textContent = '🔼';
-                }
-            }
-            handleCardModification(draggedCard); // Modificato qui
+            if (targetList.id.startsWith('done-list')) { draggedCard.classList.add('done'); draggedCard.classList.add('minimized'); minimizeBtn.textContent = '🔽'; } 
+            else { draggedCard.classList.remove('done'); if (targetList.id.startsWith('in-progress-list')) { draggedCard.classList.add('minimized'); minimizeBtn.textContent = '🔽'; } else { draggedCard.classList.remove('minimized'); minimizeBtn.textContent = '🔼'; } }
+            saveTasks(activeDate);
         }
-        // --- FINE drop ---
-
         function getDragAfterElement(container, y) {
             const draggableElements = [...container.querySelectorAll('.task-card:not(.dragging)')];
             return draggableElements.reduce((closest, child) => {
@@ -749,154 +574,53 @@
             const baseText = titleElement.dataset.baseText || '';
             const prefix = card.querySelector('.project-tag').textContent;
             const activeContentTagBtn = card.querySelector('.content-tags button:not(.project-tag).active');
-            let contentTagText = '';
-            let titleBackgroundColor = 'transparent';
-            const titleMap = {
-                foto: { text: 'FOTO', color: '#FF7F50' },
-                clip: { text: 'CLIP', color: '#337AB7' },
-                copertura: { text: 'COP', color: '#6A5ACD' },
-                grafico: { text: 'GRAFICO', color: '#28A745' },
-                oggetto: { text: 'OGGETTO', color: '#FFC107' },
-                cartina: { text: 'CARTINA', color: '#8B4513' }
-            };
+            let contentTagText = ''; let titleBackgroundColor = 'transparent';
+            const titleMap = { foto: { text: 'FOTO', color: '#FF7F50' }, clip: { text: 'CLIP', color: '#337AB7' }, copertura: { text: 'COP', color: '#6A5ACD' }, grafico: { text: 'GRAFICO', color: '#28A745' }, oggetto: { text: 'OGGETTO', color: '#FFC107' }, cartina: { text: 'CARTINA', color: '#8B4513' } };
             if (activeContentTagBtn) {
                 const type = activeContentTagBtn.dataset.type;
-                if (titleMap[type]) {
-                    contentTagText = `${titleMap[type].text} `;
-                    titleBackgroundColor = titleMap[type].color;
-                }
+                if (titleMap[type]) { contentTagText = `${titleMap[type].text} `; titleBackgroundColor = titleMap[type].color; }
             }
             titleElement.textContent = `${prefix}-${contentTagText}${sanitizeHTML(baseText)}`;
             titleElement.style.backgroundColor = titleBackgroundColor;
         }
-        function toggleMinimize(card) {
-            const isMinimized = card.classList.toggle('minimized');
-            card.querySelector('.minimize-btn').textContent = isMinimized ? '🔽' : '🔼';
-            // Non salvare qui per non aggiornare 'lastModifiedBy'
-        }
-
-        // --- FUNZIONE editTask MODIFICATA ---
+        function toggleMinimize(card) { const isMinimized = card.classList.toggle('minimized'); card.querySelector('.minimize-btn').textContent = isMinimized ? '🔽' : '🔼'; saveTasks(activeDate); }
         function editTask(card) {
             const titleElement = card.querySelector('h4');
             if (titleElement.isContentEditable) return;
             const taskButtons = card.querySelector('.task-buttons');
             card.setAttribute('draggable', 'false');
-            titleElement.contentEditable = true;
-            titleElement.textContent = titleElement.dataset.baseText;
-            titleElement.focus();
+            titleElement.contentEditable = true; titleElement.textContent = titleElement.dataset.baseText; titleElement.focus();
             taskButtons.style.display = 'none';
             document.getSelection().selectAllChildren(titleElement);
             const finishEditing = () => {
-                titleElement.contentEditable = false;
-                taskButtons.style.display = 'flex';
-                card.setAttribute('draggable', 'true');
-                const newBaseText = titleElement.textContent.trim() || 'Nuovo task';
-                titleElement.dataset.baseText = newBaseText;
-                updateTitleWithPrefixAndColor(card);
-                titleElement.removeEventListener('blur', finishEditing);
-                titleElement.removeEventListener('keydown', handleKeyDown);
-                handleCardModification(card); // Modificato qui
+                titleElement.contentEditable = false; taskButtons.style.display = 'flex'; card.setAttribute('draggable', 'true');
+                const newBaseText = titleElement.textContent.trim() || 'Nuovo task'; titleElement.dataset.baseText = newBaseText;
+                updateTitleWithPrefixAndColor(card); saveTasks(activeDate);
             };
-            const handleKeyDown = (e) => {
-                if (e.key === 'Enter') { e.preventDefault(); finishEditing(); }
-                else if (e.key === 'Escape') {
-                     titleElement.textContent = titleElement.dataset.baseText;
-                     updateTitleWithPrefixAndColor(card);
-                     finishEditing(); // Chiama finishEditing ma handleCardModification è lì
-                }
-            };
-            titleElement.addEventListener('blur', finishEditing);
-            titleElement.addEventListener('keydown', handleKeyDown);
+            titleElement.addEventListener('blur', finishEditing, {once: true});
+            titleElement.addEventListener('keydown', (e) => { if (e.key === 'Enter') { e.preventDefault(); finishEditing(); } else if (e.key === 'Escape') finishEditing(); });
         }
-        // --- FINE editTask ---
-
-        function deleteTask(card) {
-            if (confirm("Sei sicuro di voler eliminare questo compito?")) { card.remove(); saveTasks(activeDate); /* Qui saveTasks è corretto perché aggiorna l'intera lista */ }
-        }
-
-        // --- FUNZIONE toggleDone MODIFICATA ---
+        function deleteTask(card) { if (confirm("Eliminare?")) { card.remove(); saveTasks(activeDate); } }
         function toggleDone(card) {
             const isDone = card.classList.toggle('done');
-            const targetList = isDone ? 'done-list' : 'todo-list';
-            const minimizeBtn = card.querySelector('.minimize-btn');
-            if (isDone) { card.classList.add('minimized'); minimizeBtn.textContent = '🔽'; }
-            else { card.classList.remove('minimized'); minimizeBtn.textContent = '🔼'; }
-            document.getElementById(`${targetList}-${activeDate}`).appendChild(card);
-            handleCardModification(card); // Modificato qui
+            if (isDone) { card.classList.add('minimized'); card.querySelector('.minimize-btn').textContent = '🔽'; } 
+            else { card.classList.remove('minimized'); card.querySelector('.minimize-btn').textContent = '🔼'; }
+            document.getElementById(`${isDone ? 'done-list' : 'todo-list'}-${activeDate}`).appendChild(card);
+            saveTasks(activeDate);
         }
-        // --- FINE toggleDone ---
-
-        // --- FUNZIONE toggleProjectTag MODIFICATA ---
-        function toggleProjectTag(tagElement) {
-            const card = tagElement.closest('.task-card');
-            tagElement.textContent = tagElement.textContent === 'PO' ? 'QUOT' : 'PO';
-            updateTitleWithPrefixAndColor(card);
-            handleCardModification(card); // Modificato qui
-        }
-        // --- FINE toggleProjectTag ---
-
-        // --- FUNZIONE toggleTag MODIFICATA ---
-        function toggleTag(clickedButton, card) {
-            const wasActive = clickedButton.classList.contains('active');
-            card.querySelectorAll('.content-tags button:not(.project-tag)').forEach(btn => { btn.classList.remove('active'); });
-            if (!wasActive) {
-                clickedButton.classList.add('active');
-            }
-            updateTitleWithPrefixAndColor(card);
-            handleCardModification(card); // Modificato qui
-        }
-        // --- FINE toggleTag ---
-
-        function updateMetaInfo(card) {
-             const currentUserName = auth.currentUser ? auth.currentUser.displayName : 'Utente';
-             card.dataset.lastModifiedBy = currentUserName;
-             const metaInfoElement = card.querySelector('.task-meta-info');
-             if (metaInfoElement) {
-                  metaInfoElement.textContent = `Creato da: ${sanitizeHTML(card.dataset.createdBy)} | Ultima mod.: ${sanitizeHTML(currentUserName)}`;
-             }
-        }
-
-        // --- NUOVA FUNZIONE HELPER ---
-        function handleCardModification(card) {
-            // Se la modifica non proviene da una card specifica (es. textarea comunicazioni)
-            // aggiorniamo solo i dati generali senza toccare le card.
-            if (card) {
-                 updateMetaInfo(card); // Aggiorna PRIMA il nome "Ultima mod." sulla card specifica
-            }
-            saveTasks(activeDate); // POI salva tutto (che rileggerà i dati aggiornati dalle card)
-        }
-        // --- FINE FUNZIONE HELPER ---
-
+        function toggleProjectTag(tagElement) { const card = tagElement.closest('.task-card'); tagElement.textContent = tagElement.textContent === 'PO' ? 'QUOT' : 'PO'; updateTitleWithPrefixAndColor(card); saveTasks(activeDate); }
+        function toggleTag(clickedButton, card) { const wasActive = clickedButton.classList.contains('active'); card.querySelectorAll('.content-tags button:not(.project-tag)').forEach(btn => { btn.classList.remove('active'); }); if (!wasActive) clickedButton.classList.add('active'); updateTitleWithPrefixAndColor(card); saveTasks(activeDate); }
         function serializeCard(card) {
-            const graficaBtn = card.querySelector('.request-activation-btn[data-type="grafica"]');
-            const ospiteBtn = card.querySelector('.request-activation-btn[data-type="ospite"]');
-            const linkInputs = card.querySelectorAll('.links-container .link-input');
-            const links = Array.from(linkInputs).map(input => input.value).filter(value => value.trim() !== '');
-            const activeContentTagBtn = card.querySelector('.content-tags button:not(.project-tag).active');
-            const lastModifiedBy = card.dataset.lastModifiedBy || (auth.currentUser ? auth.currentUser.displayName : 'Utente');
+            const lastModifiedBy = auth.currentUser ? auth.currentUser.displayName : 'Utente';
             return {
-                id: card.id,
-                text: card.querySelector('h4').dataset.baseText,
-                createdBy: card.dataset.createdBy || 'Sconosciuto',
-                lastModifiedBy: lastModifiedBy,
-                descrizione: card.querySelector('.descrizione-input').value,
-                projectTag: card.querySelector('.project-tag').textContent,
-                materiale: card.querySelector('.materiale-input').value,
-                links: links,
-                location: card.querySelector('.location-btn.active')?.dataset.location || '',
-                locationText: card.querySelector('.location-text').value,
-                grafica_active: graficaBtn.classList.contains('active'),
-                grafica_status: graficaBtn.nextElementSibling.querySelector('.status-toggle-btn').dataset.status,
-                grafica_contatto: card.querySelector('.grafica-contact-input').value,
-                ospite_active: ospiteBtn.classList.contains('active'),
-                ospite_status: ospiteBtn.nextElementSibling.querySelector('.status-toggle-btn').dataset.status,
-                ospite_contatto: card.querySelector('.ospite-contact-input').value,
-                activeContentTag: activeContentTagBtn ? activeContentTagBtn.dataset.type : '',
-                isDone: card.classList.contains('done'),
-                minimized: card.classList.contains('minimized')
+                id: card.id, text: card.querySelector('h4').dataset.baseText, createdBy: card.dataset.createdBy || 'Sconosciuto', lastModifiedBy: lastModifiedBy,
+                descrizione: card.querySelector('.descrizione-input').value, projectTag: card.querySelector('.project-tag').textContent, materiale: card.querySelector('.materiale-input').value,
+                links: Array.from(card.querySelectorAll('.link-input')).map(input => input.value).filter(v => v.trim() !== ''),
+                location: card.querySelector('.location-btn.active')?.dataset.location || '', locationText: card.querySelector('.location-text').value,
+                activeContentTag: card.querySelector('.content-tags button:not(.project-tag).active')?.dataset.type || '',
+                isDone: card.classList.contains('done'), minimized: card.classList.contains('minimized')
             };
         }
-
     </script>
 </body>
 </html>
